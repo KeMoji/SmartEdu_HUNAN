@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <title>课程学习 - 湘潭市智慧教育平台</title>
+  <script>
+    if (new URLSearchParams(window.location.search).get('type') === 'teacher') {
+      window.location.replace('./course-teaching.html');
+    }
+  </script>
+  <style>
+    @font-face { font-family:element-icons; src:url("./local-assets/hunan.smartedu.cn/_nuxt/fonts/element-icons.313f7da.woff") format("woff"),url("./local-assets/hunan.smartedu.cn/_nuxt/fonts/element-icons.4520188.ttf") format("truetype"); font-weight:400; font-style:normal; }
+    .el-icon-arrow-left::before { content:"\e6de"; }
+    .el-icon-arrow-right::before { content:"\e6e0"; }
+    :root { --blue:#1e62ec; --ink:#333; --page:#f5f7fb; --content-width:1370px; }
+    * { box-sizing:border-box; }
+    html, body { margin:0; min-width:1270px; overflow-x:hidden; }
+    body { background:var(--page); color:var(--ink); font-family:"Microsoft YaHei","微软雅黑",Arial,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    button { font:inherit; }
+    img { display:block; }
+
+    .platform-header { position:relative; z-index:20; width:100vw; height:60px; padding:0 20px; background:#1e62ec; }
+    .platform-header-inner { width:100%; max-width:var(--content-width); height:60px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; position:relative; }
+    .platform-brand { position:relative; display:flex; align-items:center; height:48px; }
+    .platform-logo-link { display:block; width:205px; height:48px; }
+    .platform-logo { width:205px; height:48px; object-fit:contain; }
+    .platform-switcher { position:relative; width:50px; height:48px; padding:0; border:0; background:transparent; cursor:pointer; }
+    .platform-switcher::after { content:""; position:absolute; top:50%; left:11px; width:10px; height:6px; margin-top:-3px; background:#fff; clip-path:polygon(0 0,100% 0,50% 100%); }
+    .platform-switch-panel { position:absolute; top:48px; left:0; z-index:3000; display:none; width:220px; padding:16px; border:1px solid #ebeef5; border-radius:2px; background:#fff; box-shadow:0 2px 12px rgba(0,0,0,.1); }
+    .platform-brand:hover .platform-switch-panel, .platform-switcher:focus + .platform-switch-panel { display:block; }
+    .platform-switch-list { margin:0; padding:0; list-style:none; }
+    .platform-switch-list li { height:40px; color:#666; font-size:16px; line-height:40px; white-space:nowrap; cursor:pointer; }
+    .platform-switch-list li + li { border-top:1px solid #f0f0f0; }
+    .platform-switch-list li:hover, .platform-switch-list li.active { color:var(--blue); font-weight:700; }
+    .brand-divider { width:1px; height:20px; margin-left:4px; background:#fff; }
+    .brand-name { display:flex; align-items:center; height:24px; min-width:180px; margin-left:25px; color:#fff; font-size:18px; font-weight:700; line-height:24px; white-space:nowrap; }
+    .header-links { display:flex; align-items:center; color:#fff; font-size:14px; }
+    .header-links a { display:inline-block; width:58px; height:28px; margin-right:15px; border:1px solid #f5f7fb; border-radius:18px; color:#333; background:#f5f7fb; font-size:14px; line-height:26px; text-align:center; }
+    .header-links a + a { margin-right:0; border-color:#fff; color:#fff; background:transparent; }
+    .header-links a:hover { opacity:.86; }
+    .accessibility-button { display:inline-flex; align-items:center; justify-content:center; width:130px; height:30px; margin-left:20px; border:1px solid #f3f7ff; border-radius:15px; color:#fff; background:transparent; font:14px "Microsoft YaHei","微软雅黑",sans-serif; cursor:pointer; }
+
+    .primary-nav { position:relative; top:0; left:0; z-index:11; width:100vw; height:66px; padding:0 20px; border-bottom:1px solid #f6f6f6; background:#fff; box-shadow:0 6px 25px 1px rgba(0,0,0,.05); }
+    .primary-nav-inner { width:100%; max-width:var(--content-width); height:66px; margin:0 auto; display:flex; align-items:flex-end; justify-content:space-between; }
+    .nav-list { display:flex; flex:1 1 auto; align-items:stretch; height:66px; min-width:0; margin:0; padding:0; list-style:none; overflow:hidden; }
+    .nav-list li { position:relative; flex:0 0 auto; margin-right:24px; }
+    .nav-list a, .nav-list .nav-link-static { display:inline-block; min-width:40px; height:66px; padding:21px 0; color:#333; font-size:16px; line-height:24px; text-align:center; white-space:nowrap; }
+    .nav-list a:hover, .nav-list a.active, .nav-list .nav-link-static.active { color:var(--blue); }
+    .nav-list a.active, .nav-list .nav-link-static.active { font-weight:700; }
+    .nav-list a.active::after, .nav-list .nav-link-static.active::after { content:""; position:absolute; right:0; bottom:0; left:0; height:3px; background:var(--blue); }
+    .ai-search { flex:0 0 128px; width:128px; height:37px; margin:0 0 14px 20px; padding:0; border:0; background:transparent; cursor:pointer; }
+    .ai-search img { display:block; width:128px; height:37px; }
+
+    .root { padding-top:0; background:var(--page); }
+    .course-banner { width:100%; height:268px; background:#f5f7fb url("./xiangtan-channel/_nuxt/img/banner_courseteaching.d50446c.png") center center / cover no-repeat; }
+    .course-main { width:100%; max-width:1920px; margin:0 auto 40px; padding:24px 20px 40px; background:var(--page); }
+    .course-content { width:100%; max-width:1370px; min-height:880px; margin:0 auto; overflow:hidden; border-radius:10px; background:#fff; }
+    .filter-panel { padding:16px 30px 0; border-bottom:1px solid #f0f0f0; }
+    .common-textbooks { padding:0 0 16px; border-bottom:1px solid #f0f0f0; }
+    .common-textbooks-title { height:22px; color:#555; font-size:16px; font-weight:700; line-height:22px; }
+    .common-textbooks-carousel { position:relative; margin-top:16px; }
+    .common-textbooks-list { display:flex; gap:12px; overflow-x:auto; padding:0 20px; scroll-behavior:smooth; scrollbar-width:none; }
+    .common-textbooks-list::-webkit-scrollbar { display:none; }
+    .common-textbooks-list::-webkit-scrollbar { display:none; }
+    .textbook-card { flex:0 0 calc((100% - 60px) / 6); width:calc((100% - 60px) / 6); min-width:0; height:88px; padding:0; display:flex; align-items:stretch; overflow:hidden; border:1px solid #e2e8f2; border-radius:3px; color:#555; background:#f7f9fc; text-align:left; cursor:pointer; transition:border-color .2s,background-color .2s,box-shadow .2s; }
+    .textbook-card:hover { border-color:#8cb3ff; background:#fff; }
+    .textbook-card.selected { border-color:var(--blue); background:#fff; box-shadow:0 2px 8px rgba(30,98,236,.08); }
+    .textbook-cover { flex:0 0 58px; width:58px; height:88px; object-fit:cover; background:#edf2ff; }
+    .textbook-info { min-width:0; padding:12px 8px 0; display:flex; flex-direction:column; justify-content:flex-start; }
+    .textbook-subject { overflow:hidden; color:#555; font-size:14px; font-weight:700; line-height:18px; text-overflow:ellipsis; white-space:nowrap; }
+    .textbook-card.selected .textbook-subject { color:var(--blue); }
+    .textbook-meta { overflow:hidden; margin-top:16px; color:#a0a8b5; font-size:12px; line-height:18px; white-space:nowrap; text-overflow:ellipsis; }
+    .textbook-carousel-button { position:absolute; top:50%; z-index:2; display:flex; align-items:center; justify-content:center; width:30px; height:50px; margin-top:-25px; padding:0; border:0; border-radius:4px; color:#999; background:#f6f6f6; cursor:pointer; transition:transform .3s ease,background-color .3s ease; }
+    .textbook-carousel-button i { display:flex; align-items:center; justify-content:center; width:18px; height:18px; color:inherit; font-family:element-icons!important; font-size:18px; font-style:normal; font-weight:700; line-height:1; transition:color .3s ease; }
+    .textbook-carousel-button:hover { background:#f5f7fb; transform:none; }
+    .textbook-carousel-button:hover i { color:#1e62ec; }
+    .textbook-carousel-button:active { transform:none; }
+    .textbook-carousel-button.prev { left:-16px; }
+    .textbook-carousel-button.next { right:-16px; }
+    .textbook-carousel-button:disabled { opacity:1; pointer-events:auto; }
+    .filter-summary-row { min-height:56px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #f0f0f0; }
+    .filter-summary-content { min-width:0; display:flex; align-items:center; gap:16px; }
+    .filter-summary-text { overflow:hidden; color:var(--blue); font-size:16px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+    .filter-switch-text { display:inline-flex; align-items:center; gap:8px; height:28px; padding:0 12px; border:0; border-radius:14px; color:var(--blue); background:#f0f5ff; font-size:13px; cursor:pointer; white-space:nowrap; }
+    .filter-switch-text svg { flex:0 0 16px; width:16px; height:16px; display:block; }
+    .filter-switch-text svg path { fill:var(--blue); }
+    .filter-switch-text:hover { background:#e4edff; }
+    .filter-controls { position:relative; display:flex; flex-direction:column; gap:16px; padding-bottom:16px; }
+    .filter-controls > .filter-toggle { position:absolute; top:0; right:0; z-index:1; }
+    .filter-row { display:flex; align-items:center; min-height:36px; border-bottom:0; }
+    .filter-controls > .filter-row:nth-of-type(1) { order:1; }
+    .filter-controls > .filter-row:nth-of-type(4) { order:2; }
+    .filter-controls > .filter-row:nth-of-type(2) { order:3; }
+    .filter-controls > .filter-row:nth-of-type(3) { order:4; }
+    .filter-controls > .filter-row:nth-of-type(5) { order:5; }
+    .stage-filter-row { border-bottom:0; }
+    .filter-label { flex:0 0 60px; color:#666; font-size:14px; }
+    .filter-options { display:flex; align-items:center; flex-wrap:wrap; gap:16px; }
+    .filter-option { min-width:64px; height:36px; padding:0 14px; border:0; border-radius:18px; color:#333; background:transparent; font-size:14px; cursor:pointer; white-space:nowrap; }
+    .filter-option:hover, .filter-option.selected { color:var(--blue); background:#f3f7ff; font-weight:700; }
+    .filter-toggle { flex:0 0 auto; display:flex; align-items:center; justify-content:flex-end; height:54px; margin-left:auto; padding:0 0 0 20px; border:0; color:#666; background:transparent; font-size:14px; cursor:pointer; }
+    .filter-toggle-text { line-height:16px; }
+    .filter-toggle-icon { flex:0 0 16px; width:16px; height:16px; margin-left:6px; display:block; fill:#575B66; transition:transform .2s ease; }
+    .filter-panel.collapsed .filter-summary-row { display:flex; }
+    .filter-panel.collapsed .filter-controls { display:none; }
+    .filter-panel:not(.collapsed) .filter-summary-row { display:none; }
+    .filter-panel:not(.collapsed) .common-textbooks { padding-bottom:0; }
+    .filter-panel:not(.collapsed) .filter-controls { display:flex; margin-top:16px; }
+    .filter-panel.collapsed .filter-toggle-icon { transform:rotate(180deg); }
+
+    .course-results { display:flex; min-height:800px; padding-bottom:35px; }
+    .course-sidebar { flex:0 0 320px; width:320px; overflow:hidden; border-right:1px solid #f0f0f0; }
+    .selected-coursebook { width:320px; height:120px; padding:10px 24px; display:flex; align-items:flex-start; background:#eef5ff; border-bottom:1px solid #f0f0f0; }
+    .selected-coursebook-cover { flex:0 0 76px; width:76px; height:100px; border-radius:2px; object-fit:cover; }
+    .selected-coursebook-info { min-width:0; padding-left:24px; }
+    .selected-coursebook-subject { color:#222; font-size:18px; font-weight:700; line-height:26px; }
+    .selected-coursebook-meta { display:flex; align-items:center; gap:16px; margin-top:16px; padding:0; border-radius:0; color:#333; background:transparent; font-size:14px; line-height:20px; white-space:nowrap; }
+    .chapter-tree { padding:8px 0 24px; background:#f4f7fd; }
+    .chapter-group { border-bottom:1px solid #dce5f2; }
+    .chapter-group + .chapter-group { margin-top:8px; }
+    .chapter-toggle { position:relative; display:flex; align-items:center; width:100%; height:48px; min-height:48px; padding:0 20px; border:0; color:#3d4654; background:transparent; font-size:16px; font-weight:700; line-height:48px; text-align:left; cursor:pointer; }
+    .chapter-toggle:hover { color:var(--blue); background:#edf3ff; }
+    .chapter-toggle::before { content:""; flex:0 0 0; width:0; height:0; margin-right:14px; border-top:4px solid transparent; border-bottom:4px solid transparent; border-left:4px solid #6f7b8b; transition:transform .18s ease; }
+    .chapter-toggle[aria-expanded="true"]::before { transform:rotate(90deg); }
+    .chapter-children { display:grid; gap:8px; padding:8px 10px 8px; background:#f4f7fd; }
+    .chapter-group:not(.expanded) .chapter-children { display:none; }
+    .chapter-leaf { display:flex; align-items:center; width:100%; height:36px; min-height:36px; padding:0 10px 0 22px; border:0; border-radius:3px; color:#667387; background:transparent; font-size:16px; line-height:24px; text-align:left; cursor:pointer; }
+    .chapter-leaf:hover, .chapter-leaf.active { color:var(--blue); background:#e5efff; }
+    .chapter-leaf.active { font-weight:700; }
+    .chapter-leaf-index { flex:0 0 18px; color:inherit; }
+    .chapter-leaf-last-seen { margin-left:auto; color:var(--blue); font-size:12px; font-weight:400; white-space:nowrap; }
+    .course-list { flex:1 1 auto; min-width:0; padding:0 30px; }
+    .resource-toolbar { min-height:56px; display:flex; align-items:center; gap:0; border-bottom:1px solid #f0f0f0; }
+    .resource-toolbar .sort-tabs { flex:1 1 auto; min-width:260px; height:56px; padding:0; display:flex; align-items:center; gap:28px; border:0; }
+    .sort-tab { padding:0; border:0; color:#999; background:transparent; font-size:14px; cursor:pointer; white-space:nowrap; }
+    .sort-tab:hover, .sort-tab.selected { color:var(--blue); }
+    .resource-search { display:flex; align-items:center; width:370px; height:40px; overflow:hidden; border-radius:24px; background:#f3f6fb; }
+    .resource-search input { flex:1 1 auto; min-width:0; height:40px; padding:0 18px; border:0; outline:0; color:#555; background:transparent; font:14px "Microsoft YaHei","微软雅黑",sans-serif; }
+    .resource-search input::placeholder { color:#aaa; }
+    .resource-search button { flex:0 0 74px; width:74px; height:34px; margin-right:5px; border:0; border-radius:18px; color:#fff; background:var(--blue); font-size:14px; cursor:pointer; }
+    .resource-search button:hover { background:#1555d5; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .resource-summary { height:48px; display:flex; align-items:center; color:#999; font-size:14px; }
+    .resource-count { margin:0 4px; color:var(--blue); font-weight:700; }
+    .resource-list { margin:0; padding:0; list-style:none; }
+    .resource-card { min-height:188px; padding:20px 0; display:grid; grid-template-columns:264px minmax(0,1fr) auto; column-gap:24px; border-bottom:1px solid #f0f0f0; cursor:pointer; transition:background-color .2s; }
+    .resource-card:hover { background:#fbfcff; }
+    .resource-card[hidden], .resource-empty[hidden] { display:none; }
+    .resource-thumb { width:264px; height:148px; overflow:hidden; border-radius:4px; background:#eaf1fb; }
+    .resource-thumb img { width:100%; height:100%; object-fit:cover; }
+    .resource-body { min-width:0; }
+    .resource-title { overflow:hidden; margin:0 0 32px; color:#222; font-size:18px; font-weight:700; line-height:26px; text-overflow:ellipsis; white-space:nowrap; }
+    .resource-detail { display:flex; flex-wrap:wrap; gap:16px 24px; color:#999; font-size:12px; line-height:20px; }
+    .resource-detail span { white-space:nowrap; }
+    .resource-detail > span:nth-child(3), .resource-detail > span:nth-child(4) { margin-left:24px; }
+    .resource-label { display:inline-flex; align-items:center; height:22px; padding:0 8px; border-radius:2px; color:#1e62ec; background:#f3f7ff; font-size:12px; line-height:22px; }
+    .resource-empty { min-height:280px; padding:48px 0 56px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#999; text-align:center; }
+    .resource-empty-illustration { width:160px; height:112px; margin-bottom:16px; display:block; }
+    .resource-empty-title { color:#666; font-size:15px; line-height:24px; }
+    .resource-empty-tip { margin-top:6px; color:#aaa; font-size:13px; line-height:22px; }
+    .resource-detail-item { display:inline-flex; align-items:center; gap:16px; white-space:nowrap; }
+    .resource-detail-item.resource-collect-item { gap:8px; }
+    .resource-meta-icon { flex:0 0 16px; width:16px; height:16px; display:block; fill:#797979; }
+    .resource-meta-icon.resource-like-icon { fill:#333; }
+    .resource-icon-sprite { position:absolute; width:0; height:0; overflow:hidden; }
+    .resource-user { flex:0 0 100%; display:inline-flex; align-items:center; gap:16px; }
+    .resource-user-icon { flex:0 0 16px; width:16px; height:16px; display:block; fill:#303742; }
+    .resource-rating { align-self:center; min-width:130px; display:flex; align-items:center; justify-content:flex-end; gap:16px; color:#999; font-size:12px; text-align:right; white-space:nowrap; }
+    .resource-stars { display:inline-flex; align-items:center; gap:4px; margin:0; color:#ffc400; font-size:16px; line-height:16px; }
+    .resource-star { display:block; width:16px; height:16px; font-size:16px; line-height:16px; }
+    .empty-result { min-height:570px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#999; font-size:14px; }
+    .empty-result-icon { width:58px; height:58px; margin-bottom:18px; border:2px solid #d9dfe9; border-radius:8px; position:relative; }
+    .empty-result-icon::before, .empty-result-icon::after { content:""; position:absolute; left:12px; right:12px; height:2px; background:#d9dfe9; }
+    .empty-result-icon::before { top:18px; box-shadow:0 9px 0 #d9dfe9; }
+    .empty-result-icon::after { top:36px; right:24px; }
+    .xt-pagination { display:flex; justify-content:center; align-items:center; gap:8px; margin:24px 0 16px; }
+    .xt-page-button { min-width:34px; height:34px; padding:0 10px; border:1px solid #e1e6ef; border-radius:3px; color:#666; background:#fff; font-size:14px; cursor:pointer; }
+    .xt-page-button:hover, .xt-page-button.active { border-color:var(--blue); color:#fff; background:var(--blue); }
+    .xt-page-button[disabled] { color:#c4cad4; background:#f7f8fa; cursor:default; }
+
+    .site-footer { min-width:1270px; padding:30px 0; color:#fff; background:#333; font-size:14px; }
+    .site-footer p { margin:0; line-height:25px; text-align:center; }
+    .site-footer a { color:#fff; }
+    @media (max-width:1100px) { .textbook-card{flex-basis:calc((100% - 24px) / 3);width:calc((100% - 24px) / 3)} }
+    @media (max-width:560px) { .textbook-card{flex-basis:calc((100% - 12px) / 2);width:calc((100% - 12px) / 2)} }
+    @media (max-width:1300px) { html,body{min-width:0}.platform-header-inner,.primary-nav-inner{min-width:0}.course-main{padding-left:14px;padding-right:14px}.course-content{max-width:none}.course-banner{height:268px} }
+    @media (max-width:880px) { .brand-divider,.header-links{display:none}.platform-logo-link,.platform-logo{width:180px}.brand-name{font-size:16px}.nav-list li{margin-right:15px}.nav-list a{font-size:14px}.course-main{padding-left:0;padding-right:0}.course-content{border-radius:0}.course-sidebar{flex-basis:320px}.filter-panel{padding-left:20px;padding-right:20px}.filter-options{gap:8px 15px} }
+  </style>
+
+  <link rel="stylesheet" href="./channel-navigation.css">
+  <script src="./channel-navigation.js" defer></script>
+</head>
+<body>
+  <header class="platform-header"><div class="platform-header-inner"><div class="platform-brand"><a class="platform-logo-link" href="./index.html" target="_blank" rel="noopener" aria-label="湖南智慧教育平台"><img class="platform-logo" src="./xiangtan-channel/_nuxt/img/image-login-new.a21550b.png" alt="湖南智慧教育平台"></a><button class="platform-switcher" type="button" aria-label="切换子平台"></button><div class="platform-switch-panel"><ul class="platform-switch-list"><li>湖南智慧教育平台</li><li class="active">湘潭市智慧教育平台</li><li>湖南职业教育智慧教育平台</li><li>湖南高等教育智慧教育平台</li></ul></div><span class="brand-divider"></span><span class="brand-name">湘潭市智慧教育平台</span></div><div class="header-links"><a href="./index.html" target="_blank" rel="noopener">登录</a><a href="./index.html" target="_blank" rel="noopener">注册</a><button class="accessibility-button" type="button">无障碍浏览</button></div></div></header>
+  <nav class="primary-nav" aria-label="主导航"><div class="primary-nav-inner"><ul class="nav-list"><li><a href="./xiangtan.html">首页</a></li><li><span class="active nav-link-static" aria-current="page" aria-haspopup="true" tabindex="0">课程学习</span></li><li><a href="./five-education.html">五育成长</a></li><li><a href="./xiangtan.html#教师发展">教师发展</a></li><li><a href="./textbook-resources.html">教材资源</a></li><li><a href="./xiangtan.html#人工智能">人工智能</a></li><li><a href="./xiangtan.html#应用服务">应用服务</a></li><li><a href="./xiangtan.html#特色专题">特色专题</a></li><li><a href="./xiangtan.html#市域服务">市域服务</a></li></ul><button class="ai-search" type="button" aria-label="AI 搜索"><img src="./xiangtan-channel/_nuxt/img/ai-search-button.b0a1e04.svg" alt="AI 搜索"></button></div></nav>
+
+  <div class="root">
+    <section class="course-banner" aria-label="课程教学"></section>
+    <main class="course-main">
+      <div class="course-content">
+        <section class="filter-panel collapsed" aria-label="课程筛选">
+          <div class="common-textbooks">
+            <div class="common-textbooks-title">常用教材</div>
+            <div class="common-textbooks-carousel">
+              <button class="textbook-carousel-button prev" type="button" aria-label="上一组教材"><i class="el-icon-arrow-left" aria-hidden="true"></i></button>
+              <div class="common-textbooks-list">
+              <button class="textbook-card selected" type="button"><img class="textbook-cover" src="./xiangtan-channel/_nuxt/img/textbook-national.png" alt="语文教材封面"><span class="textbook-info"><span class="textbook-subject">语文</span><span class="textbook-meta">七年级·统编版·上册</span></span></button>
+              <button class="textbook-card" type="button"><img class="textbook-cover" src="./xiangtan-channel/_nuxt/img/textbook-province.png" alt="数学教材封面"><span class="textbook-info"><span class="textbook-subject">数学</span><span class="textbook-meta">八年级·人教版·下册</span></span></button>
+              <button class="textbook-card" type="button"><img class="textbook-cover" src="./xiangtan-channel/_nuxt/img/textbook-city.png" alt="语文教材封面"><span class="textbook-info"><span class="textbook-subject">语文</span><span class="textbook-meta">一年级·统编版·上册</span></span></button>
+              <button class="textbook-card" type="button"><img class="textbook-cover" src="./xiangtan-channel/_nuxt/img/text-book.bddbe0a.png" alt="语文教材封面"><span class="textbook-info"><span class="textbook-subject">语文</span><span class="textbook-meta">统编版·必修上册</span></span></button>
+              <button class="textbook-card" type="button"><img class="textbook-cover" src="./xiangtan-channel/_nuxt/img/textbook-national.png" alt="数学教材封面"><span class="textbook-info"><span class="textbook-subject">数学</span><span class="textbook-meta">八年级·人教版·上册</span></span></button>
+              <button class="textbook-card" type="button"><img class="textbook-cover" src="./xiangtan-channel/_nuxt/img/textbook-province.png" alt="语文教材封面"><span class="textbook-info"><span class="textbook-subject">语文</span><span class="textbook-meta">三年级·统编版·上册</span></span></button>
+              </div>
+              <button class="textbook-carousel-button next" type="button" aria-label="下一组教材"><i class="el-icon-arrow-right" aria-hidden="true"></i></button>
+            </div>
+          </div>
+          <div class="filter-summary-row"><div class="filter-summary-content"><span class="filter-summary-text" id="filter-summary-text">小学 · 语文 · 统编版 · 一年级 · 上册</span><button class="filter-switch-text" id="textbook-switch" type="button">↔&nbsp;切换教材</button></div><button class="filter-toggle" type="button"><span class="filter-toggle-text">展开</span><svg class="filter-toggle-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M887.328477 617.152318 533.951458 267.007553c-0.512619-0.672598-0.159978-0.319957-0.287273-0.447252-12.576374-12.416396-32.831716-12.352748-45.280796 0.192662L136.511544 618.944765c-12.447359 12.576374-12.352748 32.800753 0.192662 45.248112 6.239161 6.175514 14.399785 9.280473 22.527725 9.280473 8.224271 0 16.479505-3.168606 22.720387-9.471415L509.792985 333.185325l332.480043 329.407768c6.239161 6.175514 14.368821 9.280473 22.527725 9.280473 8.255235 0 16.479505-3.168606 22.720387-9.471415C899.968499 649.85674 899.872168 629.599677 887.328477 617.152318z"></path></svg></button></div>
+          <div class="filter-controls"><button class="filter-toggle" type="button"><span class="filter-toggle-text">收起</span><svg class="filter-toggle-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M887.328477 617.152318 533.951458 267.007553c-0.512619-0.512619-1.216181-0.672598-1.759763-1.152533-0.127295-0.127295-0.159978-0.319957-0.287273-0.447252-12.576374-12.416396-32.831716-12.352748-45.280796 0.192662L136.511544 618.944765c-12.447359 12.576374-12.352748 32.800753 0.192662 45.248112 6.239161 6.175514 14.399785 9.280473 22.527725 9.280473 8.224271 0 16.479505-3.168606 22.720387-9.471415L509.792985 333.185325l332.480043 329.407768c6.239161 6.175514 14.368821 9.280473 22.527725 9.280473 8.255235 0 16.479505-3.168606 22.720387-9.471415C899.968499 649.85674 899.872168 629.599677 887.328477 617.152318z"></path></svg></button><div class="filter-row stage-filter-row"><span class="filter-label">学段</span><div class="filter-options"><button class="filter-option selected" type="button" data-group="stage">小学</button><button class="filter-option" type="button" data-group="stage">初中</button><button class="filter-option" type="button" data-group="stage">小学（五四学制）</button><button class="filter-option" type="button" data-group="stage">初中（五四学制）</button><button class="filter-option" type="button" data-group="stage">高中</button></div></div>
+          <div class="filter-row"><span class="filter-label">学科</span><div class="filter-options"><button class="filter-option selected" type="button" data-group="subject">语文</button><button class="filter-option" type="button" data-group="subject">数学</button><button class="filter-option" type="button" data-group="subject">英语</button><button class="filter-option" type="button" data-group="subject">道德与法治</button><button class="filter-option" type="button" data-group="subject">科学</button><button class="filter-option" type="button" data-group="subject">艺术·音乐</button><button class="filter-option" type="button" data-group="subject">艺术·美术</button><button class="filter-option" type="button" data-group="subject">体育与健康</button><button class="filter-option" type="button" data-group="subject">艺术·舞蹈/影视/戏剧</button><button class="filter-option" type="button" data-group="subject">语文·书法练习指导</button><button class="filter-option" type="button" data-group="subject">劳动与技术</button></div></div>
+          <div class="filter-row"><span class="filter-label">版本</span><div class="filter-options"><button class="filter-option selected" type="button" data-group="version">统编版</button></div></div>
+          <div class="filter-row"><span class="filter-label">年级</span><div class="filter-options"><button class="filter-option selected" type="button" data-group="grade">一年级</button><button class="filter-option" type="button" data-group="grade">二年级</button><button class="filter-option" type="button" data-group="grade">三年级</button><button class="filter-option" type="button" data-group="grade">四年级</button><button class="filter-option" type="button" data-group="grade">五年级</button><button class="filter-option" type="button" data-group="grade">六年级</button></div></div>
+          <div class="filter-row"><span class="filter-label">册次</span><div class="filter-options"><button class="filter-option selected" type="button" data-group="volume">上册</button><button class="filter-option" type="button" data-group="volume">下册</button></div></div></div>
+        </section>
+        <section class="course-results" aria-label="课程列表">
+          <aside class="course-sidebar" aria-label="教材目录">
+            <div class="selected-coursebook"><img class="selected-coursebook-cover" src="./xiangtan-channel/_nuxt/img/textbook-national.png" alt="语文教材封面"><div class="selected-coursebook-info"><div class="selected-coursebook-subject">语文</div><span class="selected-coursebook-meta">一年级·统编版·上册</span></div></div>
+            <div class="chapter-tree">
+              <button class="chapter-item chapter-item-with-icon active" type="button"><svg class="chapter-item-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M887.328477 617.152318 533.951458 267.007553c-0.512619-0.512619-1.216181-0.672598-1.759763-1.152533-0.127295-0.127295-0.159978-0.319957-0.287273-0.447252-12.576374-12.416396-32.831716-12.352748-45.280796 0.192662L136.511544 618.944765c-12.447359 12.576374-12.352748 32.800753 0.192662 45.248112 6.239161 6.175514 14.399785 9.280473 22.527725 9.280473 8.224271 0 16.479505-3.168606 22.720387-9.471415L509.792985 333.185325l332.480043 329.407768c6.239161 6.175514 14.368821 9.280473 22.527725 9.280473 8.255235 0 16.479505-3.168606 22.720387-9.471415C899.968499 649.85674 899.872168 629.599677 887.328477 617.152318z"></path></svg><span>我上学了</span></button>
+              <button class="chapter-item chapter-item-with-icon" type="button"><svg class="chapter-item-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M887.328477 617.152318 533.951458 267.007553c-0.512619-0.512619-1.216181-0.672598-1.759763-1.152533-0.127295-0.127295-0.159978-0.319957-0.287273-0.447252-12.576374-12.416396-32.831716-12.352748-45.280796 0.192662L136.511544 618.944765c-12.447359 12.576374-12.352748 32.800753 0.192662 45.248112 6.239161 6.175514 14.399785 9.280473 22.527725 9.280473 8.224271 0 16.479505-3.168606 22.720387-9.471415L509.792985 333.185325l332.480043 329.407768c6.239161 6.175514 14.368821 9.280473 22.527725 9.280473 8.255235 0 16.479505-3.168606 22.720387-9.471415C899.968499 649.85674 899.872168 629.599677 887.328477 617.152318z"></path></svg><span>识字</span></button>
+              <button class="chapter-item chapter-item-with-icon" type="button"><svg class="chapter-item-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M887.328477 617.152318 533.951458 267.007553c-0.512619-0.512619-1.216181-0.672598-1.759763-1.152533-0.127295-0.127295-0.159978-0.319957-0.287273-0.447252-12.576374-12.416396-32.831716-12.352748-45.280796 0.192662L136.511544 618.944765c-12.447359 12.576374-12.352748 32.800753 0.192662 45.248112 6.239161 6.175514 14.399785 9.280473 22.527725 9.280473 8.224271 0 16.479505-3.168606 22.720387-9.471415L509.792985 333.185325l332.480043 329.407768c6.239161 6.175514 14.368821 9.280473 22.527725 9.280473 8.255235 0 16.479505-3.168606 22.720387-9.471415C899.968499 649.85674 899.872168 629.599677 887.328477 617.152318z"></path></svg><span>汉语拼音</span></button>
+              <button class="chapter-item chapter-item-with-icon" type="button"><svg class="chapter-item-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M887.328477 617.152318 533.951458 267.007553c-0.512619-0.512619-1.216181-0.672598-1.759763-1.152533-0.127295-0.127295-0.159978-0.319957-0.287273-0.447252-12.576374-12.416396-32.831716-12.352748-45.280796 0.192662L136.511544 618.944765c-12.447359 12.576374-12.352748 32.800753 0.192662 45.248112 6.239161 6.175514 14.399785 9.280473 22.527725 9.280473 8.224271 0 16.479505-3.168606 22.720387-9.471415L509.792985 333.185325l332.480043 329.407768c6.239161 6.175514 14.368821 9.280473 22.527725 9.280473 8.255235 0 16.479505-3.168606 22.720387-9.471415C899.968499 649.85674 899.872168 629.599677 887.328477 617.152318z"></path></svg><span>课文</span></button>
+              <button class="chapter-item chapter-item-with-icon" type="button"><svg class="chapter-item-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M887.328477 617.152318 533.951458 267.007553c-0.512619-0.512619-1.216181-0.672598-1.759763-1.152533-0.127295-0.127295-0.159978-0.319957-0.287273-0.447252-12.576374-12.416396-32.831716-12.352748-45.280796 0.192662L136.511544 618.944765c-12.447359 12.576374-12.352748 32.800753 0.192662 45.248112 6.239161 6.175514 14.399785 9.280473 22.527725 9.280473 8.224271 0 16.479505-3.168606 22.720387-9.471415L509.792985 333.185325l332.480043 329.407768c6.239161 6.175514 14.368821 9.280473 22.527725 9.280473 8.255235 0 16.479505-3.168606 22.720387-9.471415C899.968499 649.85674 899.872168 629.599677 887.328477 617.152318z"></path></svg><span>识字</span></button>
+              <button class="chapter-item chapter-item-with-icon" type="button"><svg class="chapter-item-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M887.328477 617.152318 533.951458 267.007553c-0.512619-0.512619-1.216181-0.672598-1.759763-1.152533-0.127295-0.127295-0.159978-0.319957-0.287273-0.447252-12.576374-12.416396-32.831716-12.352748-45.280796 0.192662L136.511544 618.944765c-12.447359 12.576374-12.352748 32.800753 0.192662 45.248112 6.239161 6.175514 14.399785 9.280473 22.527725 9.280473 8.224271 0 16.479505-3.168606 22.720387-9.471415L509.792985 333.185325l332.480043 329.407768c6.239161 6.175514 14.368821 9.280473 22.527725 9.280473 8.255235 0 16.479505-3.168606 22.720387-9.471415C899.968499 649.85674 899.872168 629.599677 887.328477 617.152318z"></path></svg><span>课文</span></button>
+              <button class="chapter-item leaf" type="button">识字表</button>
+              <button class="chapter-item leaf" type="button">写字表</button>
+              <button class="chapter-item leaf muted" type="button">常用笔画名称表</button>
+              <button class="chapter-item leaf muted" type="button">常用偏旁名称表</button>
+            </div>
+          </aside>
+          <div class="course-list">
+            <svg class="resource-icon-sprite" aria-hidden="true" width="0" height="0">
+              <symbol id="resource-institution-icon" viewBox="0 0 1059 1024"><path d="M900.464646 896v-64h-64V384h192L516.464646 0 4.464646 384H196.464646v448H132.464646v64c-70.625 0-128 57.25-128 128h1024c0-70.75-57.25-128-128-128zM772.464646 384v448h-64V384h64z m-192 0v448H452.464646V384h128z m-320 0H324.464646v448h-64V384z m0 0"></path></symbol>
+              <symbol id="resource-like-icon" viewBox="0 0 1024 1024"><path d="M933.248 335.104c-40-10.496-134.048-10.368-271.616-14.016 6.496-30.016 8-57.088 8-105.152C669.632 101.12 585.984 0 512 0c-52.256 0-95.328 42.72-96 95.264-0.704 64.448-20.64 175.744-128 232.192-7.872 4.16-30.4 15.264-33.696 16.704L256 345.6c-16.8-14.496-40.096-25.6-64-25.6H96c-52.928 0-96 43.072-96 96v512c0 52.928 43.072 96 96 96h96c38.08 0 69.952-23.008 85.376-55.264 0.384 0.128 1.056 0.32 1.504 0.384l7.648 1.984 1.472 0.384c18.432 4.576 53.92 13.056 129.76 30.496 16.256 3.712 102.144 22.016 191.104 22.016h174.944c53.312 0 91.744-20.512 114.624-61.696 0.32-0.64 7.68-15.008 13.696-34.432a106.56 106.56 0 0 0 0.736-56.32c34.368-23.616 45.44-59.328 52.64-82.56 12.064-38.112 8.448-66.752 0.064-87.264 19.328-18.24 35.808-46.048 42.752-88.512a120.224 120.224 0 0 0-12.448-75.904c18.112-20.352 26.368-45.952 27.328-69.632l0.384-6.688c0.224-4.192 0.416-6.784 0.416-16 0-40.416-28-91.968-90.752-109.888zM224 928a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V416a32 32 0 0 1 32-32h96a32 32 0 0 1 32 32v512z m735.264-462.88C958.624 480.928 952 512 896 512h-64a16 16 0 1 0 0 32h62.016c48 0 54.304 39.808 51.2 59.008-3.968 23.872-15.168 68.992-69.216 68.992H800a15.968 15.968 0 1 0 0 32h63.008c54.016 0 49.248 41.184 41.504 65.76-10.208 32.288-16.448 62.24-84.512 62.24h-52.192a15.968 15.968 0 1 0 0 32h50.176c35.008 0 36.64 33.12 32.992 44.992-4 12.992-8.736 22.624-8.928 23.072-9.664 17.44-25.248 27.936-58.24 27.936h-174.944c-87.872 0-175.04-19.936-177.28-20.448-132.928-30.624-139.936-32.992-148.288-35.36 0 0-27.072-4.576-27.072-28.192L256 434.016c0-15.008 9.568-28.576 25.408-33.344 1.984-0.768 4.672-1.6 6.592-2.4 146.176-60.544 190.688-193.28 192-302.272 0.192-15.328 12-32 32-32 33.824 0 93.632 67.904 93.632 151.936 0 75.872-3.072 88.992-29.632 168.064 320 0 317.76 4.608 345.984 12 35.008 10.016 38.016 39.008 38.016 48.992 0 10.976-0.32 9.376-0.736 20.128z"></path><path d="M144 832a48 48 0 1 0 0.032 96.032A48 48 0 0 0 144 832z m0 64c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16z"></path></symbol>
+              <symbol id="resource-view-icon" viewBox="0 0 1024 1024"><path d="M989.789091 482.466909a45.381818 45.381818 0 0 1 0 59.066182C924.904727 617.634909 735.511273 814.545455 512 814.545455S99.048727 617.634909 34.210909 541.533091a45.381818 45.381818 0 0 1 0-59.066182C99.048727 406.365091 288.465455 209.454545 512 209.454545s412.904727 196.910545 477.789091 273.012364zM512 744.727273c182.248727 0 347.415273-161.885091 410.856727-232.727273C859.415273 441.157818 694.248727 279.272727 512 279.272727c-182.248727 0-347.392 161.885091-410.856727 232.727273C164.584727 582.842182 329.728 744.727273 512 744.727273z m0-151.272728c-44.916364 0-81.454545-36.538182-81.454545-81.454545s36.538182-81.454545 81.454545-81.454545 81.454545 36.538182 81.454545 81.454545-36.538182 81.454545-81.454545 81.454545z m0-232.727272a151.458909 151.458909 0 0 0-151.272727 151.272727c0 83.409455 67.863273 151.272727 151.272727 151.272727s151.272727-67.863273 151.272727-151.272727-67.863273-151.272727-151.272727-151.272727"></path></symbol>
+              <symbol id="resource-collect-icon" viewBox="0 0 1024 1024"><path d="M803.626667 106.666667H220.373333a64 64 0 0 0-64 65.493333v697.386667A47.146667 47.146667 0 0 0 203.733333 917.333333a44.8 44.8 0 0 0 22.613334-5.973333L512 750.08l285.44 160.426667a46.933333 46.933333 0 0 0 69.76-40.96V173.013333A64 64 0 0 0 803.626667 106.666667zM832 869.546667a10.453333 10.453333 0 0 1-5.333333 9.173333 10.026667 10.026667 0 0 1-10.666667 0L512 708.693333l-303.36 170.666667a10.026667 10.026667 0 0 1-10.666667 0 10.453333 10.453333 0 0 1-5.973333-9.813333V173.013333a28.373333 28.373333 0 0 1 27.52-29.226666h584.106667A28.586667 28.586667 0 0 1 832 173.013333z"></path><path d="M746.666667 395.093333a26.666667 26.666667 0 0 0-21.333334-17.92l-130.986666-18.986666-58.88-118.4a26.24 26.24 0 0 0-46.933334 0l-58.453333 118.4-131.413333 18.986666a26.453333 26.453333 0 0 0-21.333334 17.92 27.093333 27.093333 0 0 0 6.4 26.88l94.933334 92.373334-22.4 130.133333a26.24 26.24 0 0 0 38.186666 27.733333L512 610.773333l116.906667 61.44a24.746667 24.746667 0 0 0 12.16 3.2 26.24 26.24 0 0 0 15.573333-5.12 26.666667 26.666667 0 0 0 10.453333-25.6l-22.4-130.346666 94.72-92.373334a27.093333 27.093333 0 0 0 7.253334-26.88z m-130.56 96.853334a26.24 26.24 0 0 0-7.253334 23.253333l19.84 115.626667-104.533333-54.826667a25.813333 25.813333 0 0 0-24.32 0l-103.893333 54.4 19.84-115.413333a26.666667 26.666667 0 0 0-7.466667-23.466667l-84.053333-81.28 116.266666-16.853333a26.453333 26.453333 0 0 0 19.626667-14.506667L512 273.706667l51.84 105.173333a26.24 26.24 0 0 0 19.626667 14.506667l116.266666 16.853333z"></path></symbol>
+            </svg>
+          <div class="resource-toolbar">
+            <div class="sort-tabs"><button class="sort-tab selected" type="button">综合排序</button><button class="sort-tab" type="button">最近更新</button><button class="sort-tab" type="button">学习最多</button><button class="sort-tab" type="button">评分最高</button></div>
+            <label class="resource-search"><span class="sr-only">搜索资源</span><input id="resource-search-input" type="search" placeholder="请输入关键词" autocomplete="off"><button id="resource-search-button" type="button" aria-label="搜索">搜索</button></label>
+          </div>
+            <div class="resource-summary">当前共<span class="resource-count">5</span>个资源</div>
+            <ul class="resource-list">
+              <li class="resource-card" data-source="国家资源" data-resource-type="同步微课"><div class="resource-thumb"><img src="./xiangtan-channel/_nuxt/img/beautiful-china.ca0ec8b.png" alt="《我是中国人》同步微课封面"></div><div class="resource-body"><h3 class="resource-title">《我是中国人》同步微课</h3><div class="resource-detail"><span class="resource-user"><svg class="resource-user-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M509.44 1018.368c-141.312 0-277.504-59.904-372.736-164.352l-19.968-21.504 19.968-21.504c95.744-104.448 231.424-164.352 372.736-164.352 141.312 0 277.504 59.904 372.736 164.352l19.968 21.504-19.968 21.504c-95.232 104.448-231.424 164.352-372.736 164.352zM204.8 832.512c81.92 77.824 190.976 121.856 304.64 121.856 113.664 0 222.72-44.032 304.64-121.856-81.92-77.824-190.976-121.856-304.64-121.856-113.664 0-222.72 44.032-304.64 121.856zM509.952 600.576c-89.088 0-161.792-72.704-161.792-161.792 0-89.088 72.704-161.792 161.792-161.792s161.792 72.704 161.792 161.792c0 89.088-72.192 161.792-161.792 161.792z m0-259.584c-53.76 0-97.792 44.032-97.792 97.792s44.032 97.792 97.792 97.792 97.792-44.032 97.792-97.792-43.52-97.792-97.792-97.792z"></path><path d="M119.296 719.36c-33.792-63.488-51.2-134.144-51.2-206.848 0-243.712 198.144-441.344 441.344-441.344s441.344 198.144 441.344 441.344c0 72.192-17.92 143.36-51.2 206.336 16.384 15.36 31.744 31.744 46.08 49.152 45.568-77.312 69.12-165.376 69.12-255.488 0-279.04-226.816-505.856-505.856-505.856C230.4 7.168 4.096 233.984 4.096 512.512c0 90.112 24.064 178.688 69.632 255.488 13.824-16.896 29.184-33.28 45.568-48.64z"></path></svg><span>黎丽娜</span></span><span>♜ 国家中小学智慧教育平台</span><span>♧ 90815点赞</span><span>◉ 4335331浏览</span><span class="resource-label">国家资源 · 同步微课</span></div></div><div class="resource-rating"><span class="resource-stars">★★★★★</span>4.7 星</div></li>
+              <li class="resource-card" data-source="省级资源" data-resource-type="同步微课"><div class="resource-thumb"><img src="./xiangtan-channel/_nuxt/img/good-handwriting.f899f09.png" alt="《ɑ o e》发音跟读微课封面"></div><div class="resource-body"><h3 class="resource-title">《ɑ o e》发音跟读微课</h3><div class="resource-detail"><span class="resource-user"><svg class="resource-user-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M509.44 1018.368c-141.312 0-277.504-59.904-372.736-164.352l-19.968-21.504 19.968-21.504c95.744-104.448 231.424-164.352 372.736-164.352 141.312 0 277.504 59.904 372.736 164.352l19.968 21.504-19.968 21.504c-95.232 104.448-231.424 164.352-372.736 164.352zM204.8 832.512c81.92 77.824 190.976 121.856 304.64 121.856 113.664 0 222.72-44.032 304.64-121.856-81.92-77.824-190.976-121.856-304.64-121.856-113.664 0-222.72 44.032-304.64 121.856zM509.952 600.576c-89.088 0-161.792-72.704-161.792-161.792 0-89.088 72.704-161.792 161.792-161.792s161.792 72.704 161.792 161.792c0 89.088-72.192 161.792-161.792 161.792z m0-259.584c-53.76 0-97.792 44.032-97.792 97.792s44.032 97.792 97.792 97.792 97.792-44.032 97.792-97.792-43.52-97.792-97.792-97.792z"></path><path d="M119.296 719.36c-33.792-63.488-51.2-134.144-51.2-206.848 0-243.712 198.144-441.344 441.344-441.344s441.344 198.144 441.344 441.344c0 72.192-17.92 143.36-51.2 206.336 16.384 15.36 31.744 31.744 46.08 49.152 45.568-77.312 69.12-165.376 69.12-255.488 0-279.04-226.816-505.856-505.856-505.856C230.4 7.168 4.096 233.984 4.096 512.512c0 90.112 24.064 178.688 69.632 255.488 13.824-16.896 29.184-33.28 45.568-48.64z"></path></svg><span>贾淑萍</span></span><span>♜ 湖南省教育资源中心</span><span>♧ 47156点赞</span><span>◉ 2796815浏览</span><span class="resource-label">省级资源 · 同步微课</span></div></div><div class="resource-rating"><span class="resource-stars">★★★★★</span>4.8 星</div></li>
+              <li class="resource-card" data-source="湘潭资源" data-resource-type="习题练习"><div class="resource-thumb"><img src="./xiangtan-channel/_nuxt/img/master-teacher-studio.c3f2cbd.png" alt="《天地人》随堂练习封面"></div><div class="resource-body"><h3 class="resource-title">《天地人》随堂练习</h3><div class="resource-detail"><span class="resource-user"><svg class="resource-user-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M509.44 1018.368c-141.312 0-277.504-59.904-372.736-164.352l-19.968-21.504 19.968-21.504c95.744-104.448 231.424-164.352 372.736-164.352 141.312 0 277.504 59.904 372.736 164.352l19.968 21.504-19.968 21.504c-95.232 104.448-231.424 164.352-372.736 164.352zM204.8 832.512c81.92 77.824 190.976 121.856 304.64 121.856 113.664 0 222.72-44.032 304.64-121.856-81.92-77.824-190.976-121.856-304.64-121.856-113.664 0-222.72 44.032-304.64 121.856zM509.952 600.576c-89.088 0-161.792-72.704-161.792-161.792 0-89.088 72.704-161.792 161.792-161.792s161.792 72.704 161.792 161.792c0 89.088-72.192 161.792-161.792 161.792z m0-259.584c-53.76 0-97.792 44.032-97.792 97.792s44.032 97.792 97.792 97.792 97.792-44.032 97.792-97.792-43.52-97.792-97.792-97.792z"></path><path d="M119.296 719.36c-33.792-63.488-51.2-134.144-51.2-206.848 0-243.712 198.144-441.344 441.344-441.344s441.344 198.144 441.344 441.344c0 72.192-17.92 143.36-51.2 206.336 16.384 15.36 31.744 31.744 46.08 49.152 45.568-77.312 69.12-165.376 69.12-255.488 0-279.04-226.816-505.856-505.856-505.856C230.4 7.168 4.096 233.984 4.096 512.512c0 90.112 24.064 178.688 69.632 255.488 13.824-16.896 29.184-33.28 45.568-48.64z"></path></svg><span>黄莹芳</span></span><span>♜ 湘潭市教育科学研究院</span><span>♧ 37183点赞</span><span>◉ 2444835浏览</span><span class="resource-label">湘潭资源 · 习题练习</span></div></div><div class="resource-rating"><span class="resource-stars">★★★★★</span>4.8 星</div></li>
+              <li class="resource-card" data-source="湘潭资源" data-resource-type="实验资源"><div class="resource-thumb"><img src="./xiangtan-channel/_nuxt/img/resource-course-cover-04.png" alt="《影子的变化》探究实验封面"></div><div class="resource-body"><h3 class="resource-title">《影子的变化》探究实验</h3><div class="resource-detail"><span class="resource-user"><svg class="resource-user-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M509.44 1018.368c-141.312 0-277.504-59.904-372.736-164.352l-19.968-21.504 19.968-21.504c95.744-104.448 231.424-164.352 372.736-164.352 141.312 0 277.504 59.904 372.736 164.352l19.968 21.504-19.968 21.504c-95.232 104.448-231.424 164.352-372.736 164.352zM204.8 832.512c81.92 77.824 190.976 121.856 304.64 121.856 113.664 0 222.72-44.032 304.64-121.856-81.92-77.824-190.976-121.856-304.64-121.856-113.664 0-222.72 44.032-304.64 121.856zM509.952 600.576c-89.088 0-161.792-72.704-161.792-161.792 0-89.088 72.704-161.792 161.792-161.792s161.792 72.704 161.792 161.792c0 89.088-72.192 161.792-161.792 161.792z m0-259.584c-53.76 0-97.792 44.032-97.792 97.792s44.032 97.792 97.792 97.792 97.792-44.032 97.792-97.792-43.52-97.792-97.792-97.792z"></path><path d="M119.296 719.36c-33.792-63.488-51.2-134.144-51.2-206.848 0-243.712 198.144-441.344 441.344-441.344s441.344 198.144 441.344 441.344c0 72.192-17.92 143.36-51.2 206.336 16.384 15.36 31.744 31.744 46.08 49.152 45.568-77.312 69.12-165.376 69.12-255.488 0-279.04-226.816-505.856-505.856-505.856C230.4 7.168 4.096 233.984 4.096 512.512c0 90.112 24.064 178.688 69.632 255.488 13.824-16.896 29.184-33.28 45.568-48.64z"></path></svg><span>李芳</span></span><span>♜ 湘潭市岳塘区育才学校</span><span>♧ 986点赞</span><span>◉ 17260浏览</span><span class="resource-label">湘潭资源 · 实验资源</span></div></div><div class="resource-rating"><span class="resource-stars">★★★★★</span>4.8 星</div></li>
+              <li class="resource-card" data-source="省级资源" data-resource-type="精品课程"><div class="resource-thumb"><img src="./xiangtan-channel/_nuxt/img/resource-course-cover-05.png" alt="湖湘文化主题精品课程封面"></div><div class="resource-body"><h3 class="resource-title">湖湘文化主题精品课程</h3><div class="resource-detail"><span class="resource-user"><svg class="resource-user-icon" viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M509.44 1018.368c-141.312 0-277.504-59.904-372.736-164.352l-19.968-21.504 19.968-21.504c95.744-104.448 231.424-164.352 372.736-164.352 141.312 0 277.504 59.904 372.736 164.352l19.968 21.504-19.968 21.504c-95.232 104.448-231.424 164.352-372.736 164.352zM204.8 832.512c81.92 77.824 190.976 121.856 304.64 121.856 113.664 0 222.72-44.032 304.64-121.856-81.92-77.824-190.976-121.856-304.64-121.856-113.664 0-222.72 44.032-304.64 121.856zM509.952 600.576c-89.088 0-161.792-72.704-161.792-161.792 0-89.088 72.704-161.792 161.792-161.792s161.792 72.704 161.792 161.792c0 89.088-72.192 161.792-161.792 161.792z m0-259.584c-53.76 0-97.792 44.032-97.792 97.792s44.032 97.792 97.792 97.792 97.792-44.032 97.792-97.792-43.52-97.792-97.792-97.792z"></path><path d="M119.296 719.36c-33.792-63.488-51.2-134.144-51.2-206.848 0-243.712 198.144-441.344 441.344-441.344s441.344 198.144 441.344 441.344c0 72.192-17.92 143.36-51.2 206.336 16.384 15.36 31.744 31.744 46.08 49.152 45.568-77.312 69.12-165.376 69.12-255.488 0-279.04-226.816-505.856-505.856-505.856C230.4 7.168 4.096 233.984 4.096 512.512c0 90.112 24.064 178.688 69.632 255.488 13.824-16.896 29.184-33.28 45.568-48.64z"></path></svg><span>王婷</span></span><span>♜ 湖南省教育资源中心</span><span>♧ 1220点赞</span><span>◉ 19635浏览</span><span class="resource-label">省级资源 · 精品课程</span></div></div><div class="resource-rating"><span class="resource-stars">★★★★★</span>4.8 星</div></li>
+              <li class="resource-empty" hidden>
+                <svg class="resource-empty-illustration" viewBox="0 0 160 112" role="img" aria-label="暂无资源插画">
+                  <ellipse cx="80" cy="101" rx="52" ry="7" fill="#eef3fb"></ellipse>
+                  <path d="M35 31h31l8 9h51a7 7 0 0 1 7 7v42a7 7 0 0 1-7 7H35a7 7 0 0 1-7-7V38a7 7 0 0 1 7-7z" fill="#dce9ff"></path>
+                  <path d="M28 51h104v38a7 7 0 0 1-7 7H35a7 7 0 0 1-7-7V51z" fill="#f3f7ff" stroke="#b7cff8" stroke-width="2"></path>
+                  <rect x="52" y="18" width="58" height="53" rx="5" fill="#fff" stroke="#a9c5f6" stroke-width="2"></rect>
+                  <path d="M65 32h32M65 42h25M65 52h18" stroke="#c1d5f8" stroke-width="3" stroke-linecap="round"></path>
+                  <circle cx="111" cy="72" r="16" fill="#fff" stroke="#4f8df7" stroke-width="3"></circle>
+                  <path d="m123 84 10 10" stroke="#4f8df7" stroke-width="4" stroke-linecap="round"></path>
+                  <path d="M105 72h12" stroke="#b7cff8" stroke-width="3" stroke-linecap="round"></path>
+                </svg>
+                <div class="resource-empty-title">暂无符合条件的资源</div>
+                <div class="resource-empty-tip">请调整搜索关键词</div>
+              </li>
+            </ul>
+            <div class="xt-pagination" aria-label="课程资源分页"><button class="xt-page-button" type="button" disabled aria-label="上一页">‹</button><button class="xt-page-button active" type="button">1</button><button class="xt-page-button" type="button">2</button><button class="xt-page-button" type="button">3</button><button class="xt-page-button" type="button">4</button><button class="xt-page-button" type="button" aria-label="下一页">›</button></div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <footer class="site-footer"><p><a href="#">湘ICP备12010102号-4</a>&nbsp;&nbsp;&nbsp;&nbsp;指导单位：湖南省教育厅</p><p>本网站由湖南省教育厅信息中心承办 | 联系电话：0731-85357667</p><p>技术服务（湖南教育音像电子出版社）电话：0731-84390585、84390675、84390175 | 咨询时间：工作日8:30至17:30</p></footer>
+  <script>
+    function renderChapterAccordion() {
+      var tree = document.querySelector('.chapter-tree');
+      if (!tree || tree.dataset.accordionReady === 'true') return;
+      tree.dataset.accordionReady = 'true';
+      var chapters = [
+        { title: '第一单元·识字', items: [{ title: '春夏秋冬', lastSeen: true }, { title: '姓氏歌' }, { title: '小青蛙' }, { title: '猜字谜' }, { title: '语文园地一' }, { title: '快乐读书吧 读读童谣和儿歌' }] },
+        { title: '第二单元·阅读', items: [{ title: '吃水不忘挖井人' }, { title: '我多想去看看' }, { title: '一个接一个' }, { title: '四个太阳' }, { title: '语文园地二' }] },
+        { title: '第三单元·阅读', items: [{ title: '小公鸡和小鸭子' }, { title: '树和喜鹊' }, { title: '怎么都快乐' }, { title: '语文园地三' }] },
+        { title: '第四单元·阅读', items: [{ title: '静夜思' }, { title: '夜色' }, { title: '端午粽' }, { title: '彩虹' }, { title: '语文园地四' }] },
+        { title: '第五单元·识字', items: [{ title: '动物儿歌' }, { title: '古对今' }, { title: '操场上' }, { title: '人之初' }, { title: '语文园地五' }] },
+        { title: '第六单元·阅读', items: [{ title: '古诗二首' }, { title: '荷叶圆圆' }, { title: '要下雨了' }, { title: '语文园地六' }] }
+      ];
+      tree.innerHTML = '';
+      chapters.forEach(function (chapter, chapterIndex) {
+        var group = document.createElement('section');
+        group.className = 'chapter-group' + (chapterIndex === 0 ? ' expanded' : '');
+        var toggle = document.createElement('button');
+        toggle.className = 'chapter-toggle';
+        toggle.type = 'button';
+        toggle.textContent = chapter.title;
+        toggle.setAttribute('aria-expanded', chapterIndex === 0 ? 'true' : 'false');
+        toggle.setAttribute('aria-controls', 'chapter-items-' + chapterIndex);
+        var children = document.createElement('div');
+        children.className = 'chapter-children';
+        children.id = 'chapter-items-' + chapterIndex;
+        chapter.items.forEach(function (item, itemIndex) {
+          var leaf = document.createElement('button');
+          leaf.className = 'chapter-leaf' + (chapterIndex === 0 && itemIndex === 0 ? ' active' : '');
+          leaf.type = 'button';
+          leaf.innerHTML = '<span class="chapter-leaf-index">' + (itemIndex + 1) + '</span><span>' + item.title + '</span>' +
+            (item.lastSeen ? '<span class="chapter-leaf-last-seen">上次看到</span>' : '');
+          children.appendChild(leaf);
+        });
+        group.appendChild(toggle);
+        group.appendChild(children);
+        tree.appendChild(group);
+      });
+      tree.querySelectorAll('.chapter-toggle').forEach(function (toggle) {
+        toggle.addEventListener('click', function () {
+          var group = toggle.parentElement;
+          var expand = !group.classList.contains('expanded');
+          tree.querySelectorAll('.chapter-group').forEach(function (item) {
+            var selected = item === group && expand;
+            item.classList.toggle('expanded', selected);
+            item.querySelector('.chapter-toggle').setAttribute('aria-expanded', selected ? 'true' : 'false');
+          });
+        });
+      });
+      tree.querySelectorAll('.chapter-leaf').forEach(function (leaf) {
+        leaf.addEventListener('click', function () {
+          tree.querySelectorAll('.chapter-leaf').forEach(function (item) { item.classList.remove('active'); });
+          leaf.classList.add('active');
+        });
+      });
+    }
+    function configureTextbookSwitch() {
+      var button = document.getElementById('textbook-switch');
+      if (button) button.innerHTML = '<svg viewBox="0 0 1024 1024" version="1.1" aria-hidden="true" focusable="false"><path d="M575.914667 725.333333a21.397333 21.397333 0 0 1-21.248-21.162666V319.829333A21.184 21.184 0 0 1 576 298.666667c11.776 0 21.333333 9.706667 21.333333 21.162666v333.909334l85.568-85.568a21.226667 21.226667 0 0 1 30.101334 0.064c8.32 8.32 8.213333 21.973333 0.085333 30.101333l-120.832 120.810667a21.141333 21.141333 0 0 1-16.341333 6.186666z m-152.789334-426.325333a21.418667 21.418667 0 0 1 24.896 20.864V704.213333a21.205333 21.205333 0 0 1-21.333333 21.162667c-11.797333 0-21.354667-9.706667-21.354667-21.162667V364.266667l-91.669333 91.605333a21.248 21.248 0 0 1-30.122667-0.064 21.418667 21.418667 0 0 1-0.064-30.101333l120.896-120.810667a21.184 21.184 0 0 1 18.752-5.888z m252.202667-181.290667A425.429333 425.429333 0 0 0 512 85.333333C276.352 85.333333 85.333333 276.352 85.333333 512s191.018667 426.666667 426.666667 426.666667 426.666667-191.018667 426.666667-426.666667c0-56.746667-11.093333-112-32.384-163.328a21.333333 21.333333 0 0 0-39.402667 16.341333A382.762667 382.762667 0 0 1 896 512c0 212.074667-171.925333 384-384 384S128 724.074667 128 512 299.925333 128 512 128c51.114667 0 100.8 9.984 146.986667 29.12a21.333333 21.333333 0 0 0 16.341333-39.402667z" fill="#3D3D3D"></path></svg><span>切换教材</span>';
+    }
+    var filterSummaryState = {};
+    function updateFilterSummary() {
+      var groups = ['stage', 'grade', 'subject', 'version', 'volume'];
+      var values = groups.map(function (group) {
+        var selected = document.querySelector('.filter-option[data-group="' + group + '"].selected');
+        if (selected) filterSummaryState[group] = selected.textContent.trim();
+        return filterSummaryState[group] || '';
+      }).filter(Boolean);
+      var summary = document.getElementById('filter-summary-text');
+      if (summary) summary.textContent = values.join(' · ');
+    }
+    document.querySelectorAll('.filter-option').forEach(function (option) {
+      option.addEventListener('click', function () {
+        var group = option.getAttribute('data-group');
+        document.querySelectorAll('.filter-option[data-group="' + group + '"]').forEach(function (item) { item.classList.remove('selected'); });
+        option.classList.add('selected');
+        updateFilterSummary();
+      });
+    });
+    document.querySelectorAll('.textbook-card').forEach(function (card) {
+      card.addEventListener('click', function () {
+        document.querySelectorAll('.textbook-card').forEach(function (item) { item.classList.remove('selected'); });
+        card.classList.add('selected');
+      });
+    });
+    document.querySelectorAll('.resource-card').forEach(function (card) {
+      var oldLabel = card.querySelector('.resource-label');
+      if (oldLabel) oldLabel.remove();
+    });
+    function updateResourceResults() {
+      var queryInput = document.getElementById('resource-search-input');
+      var query = queryInput ? queryInput.value.trim().toLowerCase() : '';
+      var visibleCount = 0;
+      document.querySelectorAll('.resource-card').forEach(function (card) {
+        var textMatched = !query || card.textContent.toLowerCase().indexOf(query) !== -1;
+        card.hidden = !textMatched;
+        if (!card.hidden) visibleCount += 1;
+      });
+      var empty = document.querySelector('.resource-empty');
+      if (empty) empty.hidden = visibleCount !== 0;
+      var count = document.querySelector('.resource-count');
+      if (count) count.textContent = visibleCount;
+    }
+    var resourceSearchInput = document.getElementById('resource-search-input');
+    var resourceSearchButton = document.getElementById('resource-search-button');
+    if (resourceSearchInput) resourceSearchInput.addEventListener('input', updateResourceResults);
+    if (resourceSearchButton) resourceSearchButton.addEventListener('click', updateResourceResults);
+    updateResourceResults();
+    document.querySelectorAll('.sort-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.sort-tab').forEach(function (item) { item.classList.remove('selected'); });
+        tab.classList.add('selected');
+      });
+    });
+    updateFilterSummary();
+    configureTextbookSwitch();
+    renderChapterAccordion();
+    document.querySelectorAll('.filter-toggle').forEach(function (toggle) {
+      toggle.addEventListener('click', function () {
+        var panel = document.querySelector('.filter-panel');
+        var collapsed = panel.classList.toggle('collapsed');
+        document.querySelectorAll('.filter-toggle-text').forEach(function (text) { text.textContent = collapsed ? '展开' : '收起'; });
+      });
+    });
+    var textbookSwitch = document.getElementById('textbook-switch');
+    if (textbookSwitch) textbookSwitch.addEventListener('click', function () {
+      var panel = document.querySelector('.filter-panel');
+      if (!panel) return;
+      panel.classList.remove('collapsed');
+      document.querySelectorAll('.filter-toggle-text').forEach(function (text) { text.textContent = '收起'; });
+    });
+    updateFilterSummary();
+    var courseCovers = [
+      './xiangtan-channel/_nuxt/img/course-cover-teaching-01.png',
+      './xiangtan-channel/_nuxt/img/course-cover-teaching-02.png',
+      './xiangtan-channel/_nuxt/img/course-cover-teaching-03.png'
+    ];
+    document.querySelectorAll('.resource-thumb img').forEach(function (image,index) {
+      image.src = courseCovers[index % courseCovers.length];
+    });
+    document.querySelectorAll('.resource-detail > span').forEach(function (item) {
+      var text = item.textContent.trim();
+      var iconMap = text.indexOf('♜') === 0
+        ? { id: 'resource-institution-icon', label: text.slice(1).trim(), viewBox: '0 0 1059 1024' }
+        : text.indexOf('♧') === 0
+          ? { id: 'resource-like-icon', label: text.slice(1).trim(), viewBox: '0 0 1024 1024' }
+          : text.indexOf('◉') === 0
+            ? { id: 'resource-view-icon', label: text.slice(1).trim(), viewBox: '0 0 1024 1024' }
+            : text.indexOf('收藏') !== -1
+              ? { id: 'resource-collect-icon', label: text, viewBox: '0 0 1024 1024', collect: true }
+              : null;
+      if (!iconMap) return;
+      item.classList.add('resource-detail-item');
+      if (iconMap.collect) item.classList.add('resource-collect-item');
+      item.textContent = '';
+      var icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      icon.setAttribute('class', 'resource-meta-icon ' + iconMap.id);
+      icon.setAttribute('viewBox', iconMap.viewBox);
+      icon.setAttribute('aria-hidden', 'true');
+      icon.setAttribute('focusable', 'false');
+      var use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+      use.setAttribute('href', '#' + iconMap.id);
+      icon.appendChild(use);
+      item.appendChild(icon);
+      item.appendChild(document.createTextNode(iconMap.label));
+    });
+    document.querySelectorAll('.resource-stars').forEach(function (stars) {
+      var count = stars.textContent.trim().length;
+      stars.textContent = '';
+      for (var index = 0; index < count; index += 1) {
+        var star = document.createElement('span');
+        star.className = 'resource-star';
+        star.textContent = '★';
+        stars.appendChild(star);
+      }
+    });
+    var selectedCoursebookCover = document.querySelector('.selected-coursebook-cover');
+    if (selectedCoursebookCover) {
+      selectedCoursebookCover.src = './xiangtan-channel/_nuxt/img/textbook-chinese-grade1.png';
+      selectedCoursebookCover.alt = '语文一年级上册教材封面';
+    }
+    var selectedCoursebookMeta = document.querySelector('.selected-coursebook-meta');
+    if (selectedCoursebookMeta) {
+      var metaParts = selectedCoursebookMeta.textContent.split('·');
+      selectedCoursebookMeta.textContent = '';
+      metaParts.forEach(function (part) {
+        var metaItem = document.createElement('span');
+        metaItem.textContent = part.trim();
+        selectedCoursebookMeta.appendChild(metaItem);
+      });
+    }
+    var commonTextbookCovers = {
+      '语文': './xiangtan-channel/_nuxt/img/textbook-chinese-grade1.png',
+      '数学': './xiangtan-channel/_nuxt/img/textbook-math-grade1.png'
+    };
+    document.querySelectorAll('.textbook-card .textbook-cover').forEach(function (cover) {
+      var subject = cover.closest('.textbook-card').querySelector('.textbook-subject').textContent.trim();
+      if (commonTextbookCovers[subject]) cover.src = commonTextbookCovers[subject];
+      cover.alt = subject + '教材封面';
+    });
+    document.querySelectorAll('.textbook-card').forEach(function (card) {
+      var meta = card.querySelector('.textbook-meta');
+      if (!meta) return;
+      var metaText = meta.textContent.trim();
+      card.dataset.meta = metaText;
+      var parts = metaText.split('·').map(function (part) { return part.trim(); });
+      var grade = parts.find(function (part) { return part.indexOf('年级') !== -1; }) || '';
+      var volume = parts.find(function (part) { return part.indexOf('册') !== -1; }) || '';
+      var edition = parts.find(function (part) { return part !== grade && part !== volume; }) || '';
+      meta.textContent = '';
+      meta.textContent = [grade, edition, volume].filter(Boolean).join(' · ');
+      card.setAttribute('aria-pressed', card.classList.contains('selected') ? 'true' : 'false');
+      card.addEventListener('click', function () {
+        document.querySelectorAll('.textbook-card').forEach(function (item) { item.setAttribute('aria-pressed', item === card ? 'true' : 'false'); });
+        var selectedCover = document.querySelector('.selected-coursebook-cover');
+        var selectedSubject = document.querySelector('.selected-coursebook-subject');
+        var selectedMeta = document.querySelector('.selected-coursebook-meta');
+        if (selectedCover) { selectedCover.src = card.querySelector('.textbook-cover').src; selectedCover.alt = card.querySelector('.textbook-cover').alt; }
+        if (selectedSubject) selectedSubject.textContent = card.querySelector('.textbook-subject').textContent.trim();
+        if (selectedMeta) {
+          selectedMeta.textContent = '';
+          parts.forEach(function (part) { var item = document.createElement('span'); item.textContent = part; selectedMeta.appendChild(item); });
+        }
+        filterSummaryState.subject = card.querySelector('.textbook-subject').textContent.trim();
+        if (grade) filterSummaryState.grade = grade;
+        if (grade) filterSummaryState.stage = /七年级|八年级|九年级/.test(grade) ? '初中' : '小学';
+        else if (parts.some(function (part) { return part.indexOf('必修') !== -1; })) filterSummaryState.stage = '高中';
+        if (edition) filterSummaryState.version = edition;
+        if (volume) filterSummaryState.volume = volume;
+        updateFilterSummary();
+        card.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'nearest' });
+      });
+    });
+    var textbookList = document.querySelector('.common-textbooks-list');
+    var textbookPrev = document.querySelector('.textbook-carousel-button.prev');
+    var textbookNext = document.querySelector('.textbook-carousel-button.next');
+    function updateTextbookCarousel() {
+      if (!textbookList || !textbookPrev || !textbookNext) return;
+      textbookPrev.disabled = textbookList.scrollLeft <= 1;
+      textbookNext.disabled = textbookList.scrollLeft + textbookList.clientWidth >= textbookList.scrollWidth - 1;
+    }
+    if (textbookList && textbookPrev && textbookNext) {
+      textbookPrev.addEventListener('click', function () { textbookList.scrollBy({ left:-textbookList.clientWidth, behavior:'smooth' }); });
+      textbookNext.addEventListener('click', function () { textbookList.scrollBy({ left:textbookList.clientWidth, behavior:'smooth' }); });
+      textbookList.addEventListener('scroll', updateTextbookCarousel, { passive:true });
+      window.addEventListener('resize', updateTextbookCarousel);
+      updateTextbookCarousel();
+    }
+    document.querySelectorAll('.resource-card').forEach(function (card) {
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'link');
+      function openPackageDetail() {
+        var titleNode = card.querySelector('.resource-title');
+        var coverNode = card.querySelector('.resource-thumb img');
+        var detailItems = card.querySelectorAll('.resource-detail > span');
+        var params = new URLSearchParams({
+          title: titleNode ? titleNode.textContent.trim() : '课程包详情',
+          cover: coverNode ? coverNode.getAttribute('src') : '',
+          type: card.getAttribute('data-resource-type') || '课程包',
+          author: detailItems[0] ? detailItems[0].textContent.trim() : '',
+          institution: detailItems[1] ? detailItems[1].textContent.trim() : '',
+          from: 'learning'
+        });
+        window.location.href = './course-package-detail.html?' + params.toString();
+      }
+      card.addEventListener('click', openPackageDetail);
+      card.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openPackageDetail(); }
+      });
+    });
+    document.querySelectorAll('.xt-page-button:not([disabled])').forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (!/^\d+$/.test(button.textContent)) return;
+        document.querySelectorAll('.xt-page-button').forEach(function (item) { item.classList.toggle('active', item === button); });
+      });
+    });
+  </script>
+<script>
+  document.querySelectorAll('.nav-list a').forEach(function (link) {
+    if (link.textContent.trim() === '应用服务') link.href = './application-services.html';
+  });
+</script>
+<script>
+  document.querySelectorAll('.nav-list a').forEach(function (link) {
+    if (link.textContent.trim() === '人工智能') link.href = './ai-education.html';
+  });
+</script>
+  <script>document.querySelectorAll('.nav-list a').forEach(function(link){if(link.textContent.trim()==='市域服务')link.href='./city-services.html'});</script>
+</body>
+</html>

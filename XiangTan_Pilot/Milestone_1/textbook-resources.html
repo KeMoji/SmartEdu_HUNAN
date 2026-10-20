@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <title>教材资源 - 湘潭市智慧教育平台</title>
+  <style>
+    :root { --blue:#1e62ec; --blue-soft:#eef4ff; --ink:#222; --muted:#7b8493; --line:#e8edf5; --page:#f5f7fb; --content-width:1370px; }
+    * { box-sizing:border-box; }
+    html, body { margin:0; min-width:1270px; overflow-x:hidden; }
+    body { color:var(--ink); background:var(--page); font-family:"Microsoft YaHei","微软雅黑",Arial,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    button, input { font:inherit; }
+    button { cursor:pointer; }
+    img { display:block; }
+
+    .platform-header { position:relative; z-index:20; width:100vw; height:60px; padding:0 20px; background:#1e62ec; }
+    .platform-header-inner { position:relative; width:100%; max-width:var(--content-width); height:60px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+    .platform-brand { position:relative; display:flex; align-items:center; height:48px; }
+    .platform-logo-link { display:block; width:205px; height:48px; }
+    .platform-logo { width:205px; height:48px; object-fit:contain; }
+    .platform-switcher { position:relative; width:50px; height:48px; padding:0; border:0; background:transparent; }
+    .platform-switcher::after { content:""; position:absolute; top:50%; left:11px; width:10px; height:6px; margin-top:-3px; background:#fff; clip-path:polygon(0 0,100% 0,50% 100%); }
+    .platform-switch-panel { position:absolute; top:48px; left:0; z-index:3000; display:none; width:220px; padding:16px; border:1px solid #ebeef5; border-radius:2px; background:#fff; box-shadow:0 2px 12px rgba(0,0,0,.1); }
+    .platform-brand:hover .platform-switch-panel, .platform-switcher:focus + .platform-switch-panel { display:block; }
+    .platform-switch-list { margin:0; padding:0; list-style:none; }
+    .platform-switch-list li { height:40px; color:#666; font-size:16px; line-height:40px; white-space:nowrap; }
+    .platform-switch-list li + li { border-top:1px solid #f0f0f0; }
+    .platform-switch-list li:hover, .platform-switch-list li.active { color:var(--blue); font-weight:700; }
+    .brand-divider { width:1px; height:20px; margin-left:4px; background:#fff; }
+    .brand-name { display:flex; align-items:center; height:24px; min-width:180px; margin-left:25px; color:#fff; font-size:18px; font-weight:700; line-height:24px; white-space:nowrap; }
+    .header-links { display:flex; align-items:center; color:#fff; font-size:14px; }
+    .header-links a { display:inline-block; width:58px; height:28px; margin-right:15px; border:1px solid #f5f7fb; border-radius:18px; color:#333; background:#f5f7fb; line-height:26px; text-align:center; }
+    .header-links a + a { margin-right:0; border-color:#fff; color:#fff; background:transparent; }
+    .header-links a:hover { opacity:.86; }
+    .accessibility-button { display:inline-flex; align-items:center; justify-content:center; width:130px; height:30px; margin-left:20px; border:1px solid #f3f7ff; border-radius:15px; color:#fff; background:transparent; font-size:14px; }
+
+    .primary-nav { position:relative; z-index:11; width:100vw; height:66px; padding:0 20px; border-bottom:1px solid #f6f6f6; background:#fff; box-shadow:0 6px 25px 1px rgba(0,0,0,.05); }
+    .primary-nav-inner { width:100%; max-width:var(--content-width); height:66px; margin:0 auto; display:flex; align-items:flex-end; justify-content:space-between; }
+    .nav-list { display:flex; flex:1 1 auto; align-items:stretch; height:66px; min-width:0; margin:0; padding:0; list-style:none; overflow:hidden; }
+    .nav-list li { position:relative; flex:0 0 auto; margin-right:24px; }
+    .nav-list a { display:inline-block; min-width:40px; height:66px; padding:21px 0; color:#333; font-size:16px; line-height:24px; text-align:center; white-space:nowrap; }
+    .nav-list a:hover, .nav-list a.active { color:var(--blue); }
+    .nav-list a.active { font-weight:700; }
+    .nav-list a.active::after { content:""; position:absolute; right:0; bottom:0; left:0; height:3px; background:var(--blue); }
+    .ai-search { flex:0 0 128px; width:128px; height:37px; margin:0 0 14px 20px; padding:0; border:0; background:transparent; }
+    .ai-search img { width:128px; height:37px; }
+
+    .textbook-page { min-height:690px; padding:16px 20px 40px; }
+    .textbook-shell { width:100%; max-width:var(--content-width); min-height:650px; margin:0 auto; display:grid; grid-template-columns:188px minmax(0,1fr); overflow:hidden; border:1px solid #edf0f5; border-radius:16px; background:#fff; }
+    .textbook-sidebar { padding:16px; border-right:1px solid var(--line); border-radius:0; background:#fff; }
+    .sidebar-title { height:46px; padding:0; display:flex; align-items:center; gap:12px; border-bottom:1px solid var(--line); font-size:16px; font-weight:700; line-height:24px; }
+    .sidebar-title-mark { display:none; position:relative; width:34px; height:34px; border-radius:6px; background:var(--blue-soft); }
+    .sidebar-title-mark::before, .sidebar-title-mark::after { content:""; position:absolute; left:9px; width:16px; height:3px; border-radius:2px; background:var(--blue); }
+    .sidebar-title-mark::before { top:10px; box-shadow:0 6px 0 var(--blue); }
+    .sidebar-title-mark::after { top:22px; width:11px; }
+    .stage-list { margin:0; padding:14px 0 0; list-style:none; }
+    .stage-list li + li { margin-top:8px; }
+    .stage-button { position:relative; width:100%; height:36px; padding:0 8px; border:0; border-radius:6px; color:#333; background:transparent; font-size:14px; text-align:center; }
+    .stage-button:hover { color:var(--blue); background:#f3f7ff; }
+    .stage-button.active { color:var(--blue); background:#eaf1ff; font-weight:400; }
+    .stage-button.active::before { display:none; }
+
+    .textbook-workspace { min-width:0; padding:16px; border-radius:0 8px 8px 0; background:#fff; }
+    .workspace-heading { display:none; height:80px; min-height:80px; padding:0 28px; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); }
+    .workspace-title { height:38px; margin:0; display:flex; align-items:center; color:#222; font-size:20px; line-height:38px; }
+    .filter-panel { padding:0 0 16px; border-bottom:1px solid var(--line); }
+    .filter-row { min-height:36px; display:flex; align-items:center; }
+    .filter-row + .filter-row { margin-top:16px; border-top:0; }
+    .filter-row:last-child { min-height:36px; border-top:0; }
+    .filter-label { flex:0 0 60px; color:#666; font-size:14px; }
+    .filter-options { display:flex; flex-wrap:wrap; align-items:center; gap:16px; }
+    .filter-chip { min-width:64px; height:36px; padding:0 14px; border:0; border-radius:18px; color:#333; background:transparent; font-size:14px; white-space:nowrap; }
+    .filter-chip:hover, .filter-chip.active { color:var(--blue); background:#f3f7ff; }
+    .filter-chip.active { font-weight:700; }
+
+    .resource-service-panel { display:none; padding:18px 28px 20px; border-bottom:1px solid var(--line); background:#fbfcff; }
+    .resource-service-heading { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:12px; }
+    .resource-service-title { margin:0; color:#222; font-size:16px; font-weight:700; line-height:24px; }
+    .resource-service-note { color:#9aa3b1; font-size:12px; line-height:20px; }
+    .resource-service-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; }
+    .resource-service-card { min-width:0; min-height:102px; padding:13px 14px 12px; display:flex; flex-direction:column; align-items:flex-start; border:1px solid #e5ebf5; border-radius:6px; color:#333; background:#fff; text-align:left; transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease; }
+    .resource-service-card:hover, .resource-service-card.active { border-color:#9dbcf7; box-shadow:0 4px 12px rgba(30,98,236,.1); transform:translateY(-1px); }
+    .service-card-icon { width:30px; height:30px; margin-bottom:8px; display:inline-flex; align-items:center; justify-content:center; border-radius:7px; color:#fff; font-size:15px; font-weight:700; line-height:30px; }
+    .service-card-icon.national { background:#3478ee; }
+    .service-card-icon.province { background:#f09a44; }
+    .service-card-icon.related { background:#55a977; }
+    .service-card-icon.digital { background:#8a68dd; }
+    .service-card-icon.case { background:#e36a72; }
+    .service-card-name { overflow:hidden; width:100%; color:#2d3542; font-size:14px; font-weight:700; line-height:20px; text-overflow:ellipsis; white-space:nowrap; }
+    .service-card-desc { overflow:hidden; width:100%; margin-top:3px; color:#8b95a4; font-size:12px; line-height:18px; text-overflow:ellipsis; white-space:nowrap; }
+
+    .result-toolbar { display:flex; height:68px; padding:0; align-items:center; justify-content:space-between; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .result-summary { height:20px; margin:16px 0 0; display:flex; align-items:center; color:#999; font-size:14px; line-height:20px; }
+    .result-count { margin:0 4px; color:var(--blue); font-weight:700; }
+    .sort-options { display:flex; align-items:center; gap:24px; }
+    .sort-button { padding:0; border:0; color:#999; background:transparent; font:14px "Microsoft YaHei","微软雅黑",Arial,sans-serif; line-height:normal; cursor:pointer; white-space:nowrap; }
+    .sort-button:hover, .sort-button.active { color:var(--blue); }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .resource-search { display:flex; align-items:center; width:370px; height:40px; overflow:hidden; border-radius:24px; background:#f3f6fb; }
+    .resource-search input { flex:1 1 auto; min-width:0; height:40px; padding:0 18px; border:0; outline:0; color:#555; background:transparent; font:14px "Microsoft YaHei","微软雅黑",sans-serif; }
+    .resource-search input::placeholder { color:#aaa; }
+    .resource-search button { flex:0 0 74px; width:74px; height:34px; margin-right:5px; border:0; border-radius:18px; color:#fff; background:var(--blue); font-size:14px; cursor:pointer; }
+    .resource-search button:hover { background:#1555d5; }
+    .book-list { margin:0; padding:0 0 24px; list-style:none; }
+    .book-card { height:180px; display:grid; grid-template-columns:120px minmax(0,1fr); gap:0; align-items:center; border-bottom:1px solid #dce4f0; }
+    .book-card.last-visible { border-bottom:0; }
+    .book-card[hidden] { display:none; }
+    .book-cover-wrap { align-self:start; width:104px; height:148px; margin:16px 0 0 16px; display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:1px; background:#eef2f7; box-shadow:0 2px 7px rgba(36,55,87,.14); }
+    .book-cover { width:100%; height:100%; object-fit:cover; }
+    .book-content { min-width:0; height:148px; padding-left:24px; display:flex; flex-direction:column; }
+    .book-source { display:none; align-self:flex-start; align-items:center; height:24px; margin-bottom:9px; padding:0 9px; border-radius:3px; color:var(--blue); background:var(--blue-soft); font-size:12px; line-height:24px; }
+    .book-title { overflow:hidden; margin:0; color:#222; font-size:16px; font-weight:400; line-height:24px; text-overflow:ellipsis; white-space:nowrap; }
+    .book-title:hover { color:var(--blue); }
+    .book-meta { display:flex; flex-wrap:wrap; align-items:center; gap:10px 48px; margin-top:24px; color:#a4aab4; font-size:14px; line-height:20px; }
+    .book-meta span { display:inline-flex; align-items:center; gap:7px; white-space:nowrap; }
+    .book-meta svg { flex:0 0 16px; width:16px; height:16px; fill:#c2c6cc; }
+    .book-actions { display:none; align-items:flex-end; justify-content:center; flex-direction:column; }
+    .book-open { width:96px; height:34px; border:1px solid var(--blue); border-radius:4px; color:var(--blue); background:#fff; font-size:14px; }
+    .book-open:hover { color:#fff; background:var(--blue); }
+    .empty-state { display:none; min-height:330px; align-items:center; justify-content:center; flex-direction:column; color:#99a1ae; font-size:14px; }
+    .empty-state.show { display:flex; }
+    .book-pagination { display:flex; justify-content:center; align-items:center; gap:8px; margin:24px 0 16px; }
+    .book-page-button { min-width:34px; height:34px; padding:0 10px; border:1px solid #e1e6ef; border-radius:3px; color:#666; background:#fff; font-size:14px; cursor:pointer; }
+    .book-page-button:hover, .book-page-button.active { border-color:var(--blue); color:#fff; background:var(--blue); }
+    .book-page-button[disabled] { color:#c4cad4; background:#f7f8fa; cursor:default; }
+    .empty-icon { position:relative; width:52px; height:58px; margin-bottom:16px; border:2px solid #d8dee8; border-radius:4px; }
+    .empty-icon::before { content:""; position:absolute; top:16px; right:10px; left:10px; height:2px; background:#d8dee8; box-shadow:0 10px 0 #d8dee8,0 20px 0 #d8dee8; }
+
+    .book-dialog { position:fixed; z-index:5000; inset:0; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(24,35,54,.46); }
+    .book-dialog.open { display:flex; }
+    .book-dialog-panel { position:relative; width:640px; min-height:360px; padding:30px; display:grid; grid-template-columns:180px minmax(0,1fr); gap:30px; border-radius:8px; background:#fff; box-shadow:0 18px 55px rgba(8,27,59,.24); }
+    .dialog-close { position:absolute; top:16px; right:16px; width:32px; height:32px; padding:0; border:0; border-radius:4px; color:#666; background:#f3f5f8; font-size:22px; line-height:32px; }
+    .dialog-close:hover { color:var(--blue); background:var(--blue-soft); }
+    .dialog-cover { width:180px; height:254px; object-fit:cover; border-radius:4px; box-shadow:0 5px 16px rgba(31,55,91,.18); }
+    .dialog-content { padding-top:18px; }
+    .dialog-tag { display:inline-block; height:26px; padding:0 10px; border-radius:3px; color:var(--blue); background:var(--blue-soft); font-size:12px; line-height:26px; }
+    .dialog-title { margin:16px 38px 22px 0; font-size:21px; line-height:32px; }
+    .dialog-info { margin:0; display:grid; grid-template-columns:72px 1fr; row-gap:13px; color:#666; font-size:14px; line-height:22px; }
+    .dialog-info dt, .dialog-info dd { margin:0; }
+    .dialog-info dt { color:#999; }
+    .dialog-actions { margin-top:28px; display:flex; gap:12px; }
+    .dialog-primary, .dialog-secondary { min-width:104px; height:38px; border-radius:4px; font-size:14px; }
+    .dialog-primary { border:1px solid var(--blue); color:#fff; background:var(--blue); }
+    .dialog-secondary { border:1px solid #dfe5ef; color:#555; background:#fff; }
+
+    .site-footer { min-width:1270px; padding:30px 0; color:#fff; background:#333; font-size:14px; }
+    .site-footer p { margin:0; line-height:25px; text-align:center; }
+    .site-footer a { color:#fff; }
+    .textbook-banner { width:100%; height:268px; overflow:hidden; background:#dceeff; }
+    .textbook-banner img { display:block; width:100%; height:100%; object-fit:cover; object-position:center center; }
+    @media (max-width:1300px) { html,body{min-width:0}.platform-header-inner,.primary-nav-inner{min-width:0}.textbook-page{padding-right:14px;padding-left:14px}.textbook-shell{max-width:none} }
+    @media (max-width:900px) { .brand-divider,.header-links{display:none}.platform-logo-link,.platform-logo{width:180px}.brand-name{font-size:16px}.nav-list li{margin-right:15px}.nav-list a{font-size:14px}.textbook-page{padding-right:0;padding-left:0}.textbook-shell{grid-template-columns:170px 1fr;border-radius:0}.workspace-heading{padding:14px 20px;align-items:flex-start;flex-direction:column;gap:10px}.filter-panel,.result-toolbar,.book-list{padding-right:20px;padding-left:20px}.book-card{grid-template-columns:82px minmax(0,1fr)}.book-actions{display:none} }
+    @media (max-width:900px) { .workspace-heading{height:auto;min-height:108px} .resource-service-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.resource-service-heading{align-items:flex-start;flex-direction:column;gap:3px} }
+  </style>
+
+  <link rel="stylesheet" href="./channel-navigation.css">
+  <script src="./channel-navigation.js" defer></script>
+</head>
+<body>
+  <svg aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden">
+    <symbol id="textbook-icon-institution" viewBox="0 0 1059 1024"><path d="M900.464646 896v-64h-64V384h192L516.464646 0 4.464646 384H196.464646v448H132.464646v64c-70.625 0-128 57.25-128 128h1024c0-70.75-57.25-128-128-128zM772.464646 384v448h-64V384h64z m-192 0v448H452.464646V384h128z m-320 0H324.464646v448h-64V384z m0 0"/></symbol>
+    <symbol id="textbook-icon-like" viewBox="0 0 1024 1024"><path d="M933.248 335.104c-40-10.496-134.048-10.368-271.616-14.016 6.496-30.016 8-57.088 8-105.152C669.632 101.12 585.984 0 512 0c-52.256 0-95.328 42.72-96 95.264-0.704 64.448-20.64 175.744-128 232.192-7.872 4.16-30.4 15.264-33.696 16.704L256 345.6c-16.8-14.496-40.096-25.6-64-25.6H96c-52.928 0-96 43.072-96 96v512c0 52.928 43.072 96 96 96h96c38.08 0 69.952-23.008 85.376-55.264 0.384 0.128 1.056 0.32 1.504 0.384l7.648 1.984 1.472 0.384c18.432 4.576 53.92 13.056 129.76 30.496 16.256 3.712 102.144 22.016 191.104 22.016h174.944c53.312 0 91.744-20.512 114.624-61.696 0.32-0.64 7.68-15.008 13.696-34.432a106.56 106.56 0 0 0 0.736-56.32c34.368-23.616 45.44-59.328 52.64-82.56 12.064-38.112 8.448-66.752 0.064-87.264 19.328-18.24 35.808-46.048 42.752-88.512a120.224 120.224 0 0 0-12.448-75.904c18.112-20.352 26.368-45.952 27.328-69.632l0.384-6.688c0.224-4.192 0.416-6.784 0.416-16 0-40.416-28-91.968-90.752-109.888zM224 928a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V416a32 32 0 0 1 32-32h96a32 32 0 0 1 32 32v512z m735.264-462.88C958.624 480.928 952 512 896 512h-64a16 16 0 1 0 0 32h62.016c48 0 54.304 39.808 51.2 59.008-3.968 23.872-15.168 68.992-69.216 68.992H800a15.968 15.968 0 1 0 0 32h63.008c54.016 0 49.248 41.184 41.504 65.76-10.208 32.288-16.448 62.24-84.512 62.24h-52.192a15.968 15.968 0 1 0 0 32h50.176c35.008 0 36.64 33.12 32.992 44.992-4 12.992-8.736 22.624-8.928 23.072-9.664 17.44-25.248 27.936-58.24 27.936h-174.944c-87.872 0-175.04-19.936-177.28-20.448-132.928-30.624-139.936-32.992-148.288-35.36 0 0-27.072-4.576-27.072-28.192L256 434.016c0-15.008 9.568-28.576 25.408-33.344 1.984-0.768 4.672-1.6 6.592-2.4 146.176-60.544 190.688-193.28 192-302.272 0.192-15.328 12-32 32-32 33.824 0 93.632 67.904 93.632 151.936 0 75.872-3.072 88.992-29.632 168.064 320 0 317.76 4.608 345.984 12 35.008 10.016 38.016 39.008 38.016 48.992 0 10.976-0.32 9.376-0.736 20.128z m-815.264 462.88a48 48 0 1 0 0.032 96.032A48 48 0 0 0 144 832z m0 64c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16z"/></symbol>
+    <symbol id="textbook-icon-view" viewBox="0 0 1024 1024"><path d="M989.789091 482.466909a45.381818 45.381818 0 0 1 0 59.066182C924.904727 617.634909 735.511273 814.545455 512 814.545455S99.048727 617.634909 34.210909 541.533091a45.381818 45.381818 0 0 1 0-59.066182C99.048727 406.365091 288.465455 209.454545 512 209.454545s412.904727 196.910545 477.789091 273.012364zM512 744.727273c182.248727 0 347.415273-161.885091 410.856727-232.727273C859.415273 441.157818 694.248727 279.272727 512 279.272727c-182.248727 0-347.392 161.885091-410.856727 232.727273C164.584727 582.842182 329.728 744.727273 512 744.727273z m0-151.272728c-44.916364 0-81.454545-36.538182-81.454545-81.454545s36.538182-81.454545 81.454545-81.454545 81.454545 36.538182 81.454545 81.454545-36.538182 81.454545-81.454545 81.454545z m0-232.727272a151.458909 151.458909 0 0 0-151.272727 151.272727c0 83.409455 67.863273 151.272727 151.272727 151.272727s151.272727-67.863273 151.272727-151.272727-67.863273-151.272727-151.272727-151.272727"/></symbol>
+  </svg>
+  <header class="platform-header"><div class="platform-header-inner"><div class="platform-brand"><a class="platform-logo-link" href="./index.html" target="_blank" rel="noopener" aria-label="湖南智慧教育平台"><img class="platform-logo" src="./xiangtan-channel/_nuxt/img/image-login-new.a21550b.png" alt="湖南智慧教育平台"></a><button class="platform-switcher" type="button" aria-label="切换子平台"></button><div class="platform-switch-panel"><ul class="platform-switch-list"><li>湖南智慧教育平台</li><li class="active">湘潭市智慧教育平台</li><li>湖南职业教育智慧教育平台</li><li>湖南高等教育智慧教育平台</li></ul></div><span class="brand-divider"></span><span class="brand-name">湘潭市智慧教育平台</span></div><div class="header-links"><a href="./index.html" target="_blank" rel="noopener">登录</a><a href="./index.html" target="_blank" rel="noopener">注册</a><button class="accessibility-button" type="button">无障碍浏览</button></div></div></header>
+  <nav class="primary-nav" aria-label="主导航"><div class="primary-nav-inner"><ul class="nav-list"><li><a href="./xiangtan.html">首页</a></li><li><a href="./course-learning.html">课程学习</a></li><li><a href="./five-education.html">五育成长</a></li><li><a href="./xiangtan.html#教师发展">教师发展</a></li><li><a class="active" href="./textbook-resources.html" aria-current="page">教材资源</a></li><li><a href="./ai-education.html">人工智能</a></li><li><a href="./application-services.html">应用服务</a></li><li><a href="./xiangtan.html#特色专题">特色专题</a></li><li><a href="./city-services.html">市域服务</a></li></ul><button class="ai-search" type="button" aria-label="AI 搜索"><img src="./xiangtan-channel/_nuxt/img/ai-search-button.b0a1e04.svg" alt="AI 搜索"></button></div></nav>
+
+  <section class="textbook-banner" aria-label="教材资源"><img src="./xiangtan-channel/_nuxt/img/textbook-resources-banner.png" alt="教材"></section>
+
+  <main class="textbook-page">
+    <div class="textbook-shell">
+      <aside class="textbook-sidebar" aria-label="教材学段分类">
+        <div class="sidebar-title"><span class="sidebar-title-mark" aria-hidden="true"></span><span>电子教材</span></div>
+        <ul class="stage-list">
+          <li><button class="stage-button active" type="button" data-stage="小学">小学</button></li>
+          <li><button class="stage-button" type="button" data-stage="初中">初中</button></li>
+          <li><button class="stage-button" type="button" data-stage="小学（五·四学制）">小学（五·四学制）</button></li>
+          <li><button class="stage-button" type="button" data-stage="初中（五·四学制）">初中（五·四学制）</button></li>
+          <li><button class="stage-button" type="button" data-stage="高中">高中</button></li>
+          <li><button class="stage-button" type="button" data-stage="特殊教育">特殊教育</button></li>
+        </ul>
+      </aside>
+
+      <section class="textbook-workspace" aria-labelledby="textbook-title">
+        <header class="workspace-heading">
+          <h1 class="workspace-title" id="textbook-title">教材资源</h1>
+        </header>
+
+        <section class="filter-panel" aria-label="教材筛选">
+          <div class="filter-row"><span class="filter-label">学科</span><div class="filter-options" data-filter-group="subject"><button class="filter-chip active" type="button" data-value="道德与法治">道德与法治</button><button class="filter-chip" type="button" data-value="语文">语文</button><button class="filter-chip" type="button" data-value="数学">数学</button><button class="filter-chip" type="button" data-value="英语">英语</button><button class="filter-chip" type="button" data-value="艺术·音乐">艺术·音乐</button><button class="filter-chip" type="button" data-value="艺术·美术">艺术·美术</button><button class="filter-chip" type="button" data-value="科学">科学</button><button class="filter-chip" type="button" data-value="语文·书法习字指导">语文·书法习字指导</button><button class="filter-chip" type="button" data-value="体育与健康">体育与健康</button><button class="filter-chip" type="button" data-value="信息科技">信息科技</button></div></div>
+          <div class="filter-row"><span class="filter-label">版本</span><div class="filter-options" data-filter-group="edition"><button class="filter-chip active" type="button" data-value="统编版">统编版</button></div></div>
+          <div class="filter-row"><span class="filter-label">年级</span><div class="filter-options" id="grade-options" data-filter-group="grade"></div></div>
+        </section>
+
+        <section class="resource-service-panel" aria-labelledby="resource-service-title">
+          <div class="resource-service-heading"><h2 class="resource-service-title" id="resource-service-title">教材资源服务</h2><span class="resource-service-note">统一访问教材资源，关联课堂应用与数字教材服务</span></div>
+          <div class="resource-service-grid">
+            <button class="resource-service-card" type="button" data-service="national"><span class="service-card-icon national" aria-hidden="true">国</span><span class="service-card-name">国家平台教材资源</span><span class="service-card-desc">国家智慧教育平台教材</span></button>
+            <button class="resource-service-card" type="button" data-service="province"><span class="service-card-icon province" aria-hidden="true">省</span><span class="service-card-name">省级教材资源</span><span class="service-card-desc">湘版教材与配套推荐</span></button>
+            <button class="resource-service-card" type="button" data-service="related"><span class="service-card-icon related" aria-hidden="true">配</span><span class="service-card-name">教材配套资源</span><span class="service-card-desc">课程、课件、微课与实验</span></button>
+            <button class="resource-service-card" type="button" data-service="digital"><span class="service-card-icon digital" aria-hidden="true">数</span><span class="service-card-name">数字教材服务</span><span class="service-card-desc">试点教材与数字化应用</span></button>
+            <button class="resource-service-card" type="button" data-service="case"><span class="service-card-icon case" aria-hidden="true">案</span><span class="service-card-name">教材应用案例</span><span class="service-card-desc">湘潭学校实践与推广</span></button>
+          </div>
+        </section>
+
+        <div class="result-toolbar"><div class="sort-options" aria-label="教材排序"><button class="sort-button active" type="button" data-sort="default">综合排序</button><button class="sort-button" type="button" data-sort="views">体验最多</button><button class="sort-button" type="button" data-sort="likes">点赞最多</button></div><label class="resource-search"><span class="sr-only">搜索资源</span><input id="resource-search-input" type="search" placeholder="请输入关键词" autocomplete="off"><button id="resource-search-button" type="button" aria-label="搜索">搜索</button></label></div>
+
+        <div class="result-summary">当前共<span class="result-count" id="result-count">0</span>个资源</div>
+
+        <ul class="book-list" id="book-list">
+          <li class="book-card" data-stage="小学" data-subject="道德与法治" data-edition="统编版" data-grade="一年级" data-source="国家资源" data-views="100000" data-order="10" data-publisher="人民教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/textbook-moral-grade1.png" alt="道德与法治一年级上册封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">（根据2022年版课程标准修订）义务教育教科书·道德与法治一年级上册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>人民教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>100万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>15万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="小学" data-subject="道德与法治" data-edition="统编版" data-grade="一年级" data-source="国家资源" data-views="59000" data-order="9" data-publisher="人民教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/textbook-moral-grade1.png" alt="道德与法治一年级下册封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">（根据2022年版课程标准修订）义务教育教科书·道德与法治一年级下册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>人民教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>1.6万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>59.9万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="小学" data-subject="道德与法治" data-edition="统编版" data-grade="一年级" data-source="国家资源" data-views="52600" data-order="8" data-publisher="人民教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/textbook-moral-grade1.png" alt="道德与法治一年级教师教学用书封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">义务教育教科书·道德与法治一年级教师教学用书</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>人民教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>6.42万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>12.6万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="小学" data-subject="道德与法治" data-edition="统编版" data-grade="一年级" data-source="国家资源" data-views="48800" data-order="7" data-publisher="人民教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/common-textbook-4.png" alt="道德与法治一年级配套练习册封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">道德与法治一年级配套练习册·上册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>人民教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>5.88万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>10.9万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="小学" data-subject="道德与法治" data-edition="统编版" data-grade="一年级" data-source="国家资源" data-views="43100" data-order="6" data-publisher="人民教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/common-textbook-5.png" alt="道德与法治一年级数字教材封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">道德与法治一年级数字教材·全册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>人民教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>4.75万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>8.6万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="小学" data-subject="语文" data-edition="统编版" data-grade="二年级" data-source="国家资源" data-views="98600" data-order="7" data-publisher="人民教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/common-textbook-1.png" alt="语文二年级上册封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">义务教育教科书·语文二年级上册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>人民教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>9.86万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>18.2万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="小学" data-subject="语文" data-edition="统编版" data-grade="二年级" data-source="国家资源" data-views="87200" data-order="6" data-publisher="人民教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/common-textbook-2.png" alt="语文二年级下册封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">义务教育教科书·语文二年级下册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>人民教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>8.72万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>15.6万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="初中" data-subject="语文" data-edition="统编版" data-grade="七年级" data-source="国家资源" data-views="76400" data-order="5" data-publisher="人民教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/common-textbook-3.png" alt="语文七年级上册封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">义务教育教科书·语文七年级上册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>人民教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>7.64万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>13.8万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="初中" data-subject="数学" data-edition="人教版" data-grade="八年级" data-source="国家资源" data-views="69300" data-order="4" data-publisher="人民教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/common-textbook-4.png" alt="数学八年级下册封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">义务教育教科书·数学八年级下册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>人民教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>6.93万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>11.4万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="高中" data-subject="语文" data-edition="统编版" data-grade="高一" data-source="国家资源" data-views="58200" data-order="3" data-publisher="人民教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/common-textbook-5.png" alt="高中语文必修上册封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">普通高中教科书·语文必修上册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>人民教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>5.82万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>9.7万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="小学" data-subject="英语" data-edition="统编版" data-grade="一年级" data-source="国家资源" data-views="67800" data-order="11" data-publisher="北京师范大学出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/textbook-english.png" alt="小学英语一年级上册封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">义务教育教科书·英语一年级上册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>北京师范大学出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>6.78万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>12.4万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="初中" data-subject="英语" data-edition="统编版" data-grade="七年级" data-source="国家资源" data-views="73400" data-order="12" data-publisher="北京师范大学出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/textbook-english.png" alt="初中英语七年级上册封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">义务教育教科书·英语七年级上册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>北京师范大学出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>7.34万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>13.8万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="高中" data-subject="英语" data-edition="统编版" data-grade="高一" data-source="国家资源" data-views="52100" data-order="13" data-publisher="北京师范大学出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/textbook-english.png" alt="高中英语选择性必修一封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">普通高中教科书·英语选择性必修一</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>北京师范大学出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>5.21万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>9.3万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="地方教材" data-subject="道德与法治" data-edition="地方版" data-grade="小学" data-source="省级资源" data-views="42600" data-order="8" data-publisher="湖南教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/textbook-province.png" alt="湖湘文化读本封面"></div><div class="book-content"><span class="book-source">省级资源</span><h2 class="book-title">湖湘文化教育读本·小学版</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>湖南教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>4.26万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>7.8万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="地方教材" data-subject="道德与法治" data-edition="地方版" data-grade="小学" data-source="湘潭推荐" data-views="31800" data-order="9" data-publisher="湘潭市教育科学研究院"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/textbook-city.png" alt="莲城研学实践手册封面"></div><div class="book-content"><span class="book-source">湘潭推荐</span><h2 class="book-title">莲城研学实践手册·小学版</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>湘潭市教育科学研究院</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>3.18万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>5.2万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="小学" data-subject="语文" data-edition="统编版" data-grade="一年级" data-source="国家资源" data-views="154000" data-order="14" data-publisher="人民教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/textbook-chinese-grade1.png" alt="语文一年级上册封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">义务教育教科书·语文一年级上册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>人民教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>8.24万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>15.4万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+          <li class="book-card" data-stage="小学" data-subject="数学" data-edition="人教版" data-grade="一年级" data-source="国家资源" data-views="138000" data-order="15" data-publisher="人民教育出版社"><div class="book-cover-wrap"><img class="book-cover" src="./xiangtan-channel/_nuxt/img/textbook-math-grade1.png" alt="数学一年级上册封面"></div><div class="book-content"><span class="book-source">国家资源</span><h2 class="book-title">义务教育教科书·数学一年级上册</h2><div class="book-meta"><span><svg viewBox="0 0 1059 1024" aria-hidden="true"><use href="#textbook-icon-institution"></use></svg>人民教育出版社</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-like"></use></svg>7.61万+</span><span><svg viewBox="0 0 1024 1024" aria-hidden="true"><use href="#textbook-icon-view"></use></svg>13.8万次</span></div></div><div class="book-actions"><button class="book-open" type="button">查看教材</button></div></li>
+        </ul>
+        <div class="empty-state" id="empty-state"><span class="empty-icon" aria-hidden="true"></span><span>暂无符合条件的教材资源</span></div>
+        <div class="book-pagination" aria-label="教材资源分页"><button class="book-page-button" type="button" disabled aria-label="上一页">‹</button><button class="book-page-button active" type="button">1</button><button class="book-page-button" type="button">2</button><button class="book-page-button" type="button">3</button><button class="book-page-button" type="button">4</button><button class="book-page-button" type="button" aria-label="下一页">›</button></div>
+      </section>
+    </div>
+  </main>
+
+  <div class="book-dialog" id="book-dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+    <div class="book-dialog-panel"><button class="dialog-close" type="button" aria-label="关闭">×</button><img class="dialog-cover" id="dialog-cover" src="" alt=""><div class="dialog-content"><span class="dialog-tag" id="dialog-tag"></span><h2 class="dialog-title" id="dialog-title"></h2><dl class="dialog-info"><dt>适用学段</dt><dd id="dialog-stage"></dd><dt>教材版本</dt><dd id="dialog-edition"></dd><dt>出版单位</dt><dd id="dialog-publisher"></dd><dt>配套资源</dt><dd id="dialog-related">课程、课件、教学设计、微课、实验</dd><dt>资源状态</dt><dd>已接入湘潭市智慧教育平台</dd></dl><div class="dialog-actions"><button class="dialog-primary" type="button">在线阅读</button><button class="dialog-secondary" type="button">配套资源</button></div></div></div>
+  </div>
+
+  <footer class="site-footer"><p><a href="#">湘ICP备12010102号-4</a>&nbsp;&nbsp;&nbsp;&nbsp;指导单位：湖南省教育厅</p><p>本网站由湖南省教育厅信息中心承办 | 联系电话：0731-85357667</p><p>技术服务（湖南教育音像电子出版社）电话：0731-84390585、84390675、84390175 | 咨询时间：工作日8:30至17:30</p></footer>
+
+  <script>
+    (function () {
+      var state = { stage:'小学', source:'全部资源', subject:'道德与法治', edition:'统编版', grade:'一年级', sort:'default', query:'' };
+      var gradeMaps = {
+        '小学':['一年级','二年级','三年级','四年级','五年级','六年级','学生读本'],
+        '初中':['七年级','八年级','九年级'],
+        '小学（五·四学制）':['一年级','二年级','三年级','四年级','五年级','六年级','学生读本'],
+        '初中（五·四学制）':['七年级','八年级','九年级'],
+        '高中':['高一','高二','高三'],
+        '特殊教育':['小学','初中','高中']
+      };
+      var list = document.getElementById('book-list');
+      var cards = Array.prototype.slice.call(list.querySelectorAll('.book-card'));
+      var resultCount = document.getElementById('result-count');
+      var emptyState = document.getElementById('empty-state');
+      var gradeOptions = document.getElementById('grade-options');
+      var searchInput = document.getElementById('resource-search-input');
+
+      function renderGradeOptions() {
+        gradeOptions.innerHTML = '';
+        gradeMaps[state.stage].forEach(function (grade) {
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'filter-chip' + (grade === state.grade ? ' active' : '');
+          button.dataset.value = grade;
+          button.textContent = grade;
+          gradeOptions.appendChild(button);
+        });
+      }
+
+      function matches(card) {
+        var stage = state.stage.replace('（五·四学制）', '');
+        var matchesFilters = card.dataset.stage === stage &&
+          (state.source === '全部资源' || card.dataset.source === state.source) &&
+          (state.subject === '全部' || card.dataset.subject === state.subject) &&
+          (state.edition === '全部' || card.dataset.edition === state.edition) &&
+          (state.grade === '全部' || card.dataset.grade === state.grade);
+        if (!matchesFilters) return false;
+        var query = state.query.trim().toLowerCase();
+        if (!query) return true;
+        var searchableText = [
+          card.querySelector('.book-title').textContent,
+          card.dataset.publisher,
+          card.dataset.source,
+          card.dataset.subject,
+          card.dataset.edition,
+          card.dataset.grade
+        ].join(' ').toLowerCase();
+        return searchableText.indexOf(query) !== -1;
+      }
+
+      function metricValue(card, index) {
+        var metric = card.querySelectorAll('.book-meta > span')[index];
+        if (!metric) return 0;
+        var text = metric.textContent.replace(/[^0-9.万亿]/g, '');
+        var value = parseFloat(text) || 0;
+        if (text.indexOf('亿') !== -1) value *= 100000000;
+        else if (text.indexOf('万') !== -1) value *= 10000;
+        return value;
+      }
+
+      function renderBooks() {
+        var visible = cards.filter(matches);
+        visible.sort(function (a, b) {
+          if (state.sort === 'views') return Number(b.dataset.views) - Number(a.dataset.views);
+          if (state.sort === 'likes') return metricValue(b, 1) - metricValue(a, 1);
+          return cards.indexOf(a) - cards.indexOf(b);
+        });
+        cards.forEach(function (card) { card.classList.remove('last-visible'); });
+        if (visible.length) visible[visible.length - 1].classList.add('last-visible');
+        visible.forEach(function (card) { list.appendChild(card); });
+        cards.forEach(function (card) { card.hidden = visible.indexOf(card) === -1; });
+        resultCount.textContent = visible.length;
+        emptyState.classList.toggle('show', visible.length === 0);
+      }
+
+      document.querySelectorAll('.stage-button').forEach(function (button) {
+        button.addEventListener('click', function () {
+          document.querySelectorAll('.stage-button').forEach(function (item) { item.classList.remove('active'); });
+          button.classList.add('active');
+          state.stage = button.dataset.stage;
+          state.grade = gradeMaps[state.stage][0];
+          renderGradeOptions();
+          renderBooks();
+        });
+      });
+
+      var serviceNote = document.querySelector('.resource-service-note');
+      var serviceNotes = {
+        national:'统一访问国家智慧教育平台上线教材资源',
+        province:'重点推荐湘版教材及省级配套内容',
+        related:'可按教材章节关联课程、课件、微课、实验等资源',
+        digital:'预留数字教材试点教材、配套资源和服务入口',
+        case:'汇聚湘潭学校教材应用、试用与纸数融合实践'
+      };
+      document.querySelectorAll('.resource-service-card').forEach(function (card) {
+        card.addEventListener('click', function () {
+          document.querySelectorAll('.resource-service-card').forEach(function (item) { item.classList.remove('active'); });
+          card.classList.add('active');
+          if (serviceNote) serviceNote.textContent = serviceNotes[card.dataset.service] || serviceNote.textContent;
+          if (card.dataset.service === 'related') {
+            document.getElementById('book-list').scrollIntoView({ behavior:'smooth', block:'start' });
+          }
+        });
+      });
+
+      document.querySelectorAll('[data-filter-group]').forEach(function (group) {
+        group.addEventListener('click', function (event) {
+          var button = event.target.closest('.filter-chip');
+          if (!button) return;
+          group.querySelectorAll('.filter-chip').forEach(function (item) { item.classList.remove('active'); });
+          button.classList.add('active');
+          state[group.dataset.filterGroup] = button.dataset.value;
+          renderBooks();
+        });
+      });
+
+      document.querySelectorAll('.sort-button').forEach(function (button) {
+        button.addEventListener('click', function () {
+          document.querySelectorAll('.sort-button').forEach(function (item) { item.classList.remove('active'); });
+          button.classList.add('active');
+          state.sort = button.dataset.sort;
+          renderBooks();
+        });
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          state.query = searchInput.value;
+          renderBooks();
+        });
+      }
+
+      document.querySelectorAll('.book-page-button:not([disabled])').forEach(function (button) {
+        button.addEventListener('click', function () {
+          if (!/^\d+$/.test(button.textContent)) return;
+          document.querySelectorAll('.book-page-button').forEach(function (item) { item.classList.toggle('active', item === button); });
+        });
+      });
+
+      var dialog = document.getElementById('book-dialog');
+      var dialogClose = dialog.querySelector('.dialog-close');
+      var lastTrigger = null;
+      function openDialog(card, trigger) {
+        var params = new URLSearchParams({
+          title: card.querySelector('.book-title').textContent,
+          subject: card.dataset.subject || '',
+          publisher: card.dataset.publisher || '',
+          cover: card.querySelector('.book-cover').getAttribute('src') || ''
+        });
+        var detailPage = card.dataset.subject === '英语' ? './english-textbook-resource-detail.html' : './textbook-resource-detail.html';
+        window.location.href = detailPage + '?' + params.toString();
+      }
+      function closeDialog() {
+        dialog.classList.remove('open');
+        if (lastTrigger) lastTrigger.focus();
+      }
+      cards.forEach(function (card) {
+        card.querySelectorAll('.book-open').forEach(function (button) {
+          button.addEventListener('click', function () { openDialog(card, button); });
+        });
+        card.querySelector('.book-title').addEventListener('click', function () { openDialog(card, card.querySelector('.book-open')); });
+      });
+      dialogClose.addEventListener('click', closeDialog);
+      dialog.addEventListener('click', function (event) { if (event.target === dialog) closeDialog(); });
+      document.addEventListener('keydown', function (event) { if (event.key === 'Escape' && dialog.classList.contains('open')) closeDialog(); });
+
+      renderGradeOptions();
+      renderBooks();
+    }());
+  </script>
+</body>
+</html>

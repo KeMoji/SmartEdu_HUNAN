@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>活动竞赛专区 - 湘潭市智慧教育平台</title>
+  <link rel="stylesheet" href="./channel-navigation.css">
+  <script src="./channel-navigation.js" defer></script>
+  <style>
+    :root { --blue:#1e62ec; --ink:#333; --muted:#718096; --page:#f3f6fc; --line:#e5ebf2; --content-width:1370px; }
+    * { box-sizing:border-box; }
+    html,body { margin:0; min-width:1270px; background:var(--page); color:var(--ink); font-family:"Microsoft YaHei","微软雅黑",Arial,sans-serif; }
+    body { overflow-x:hidden; }
+    a { color:inherit; text-decoration:none; }
+    button,input,select { font:inherit; }
+    img { display:block; }
+    .legacy-header { height:126px; background:#1e62ec; }
+    .legacy-header .platform-header { height:60px; padding:0 20px; }
+    .legacy-header .platform-header-inner { width:100%; max-width:1370px; height:60px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+    .legacy-header .platform-brand { display:flex; align-items:center; height:48px; }
+    .legacy-header .platform-logo-link,.legacy-header .platform-logo { display:block; width:205px; height:48px; object-fit:contain; }
+    .legacy-header .platform-switcher { width:50px; height:48px; border:0; background:transparent; }
+    .legacy-header .brand-divider { width:1px; height:20px; background:#fff; }
+    .legacy-header .brand-name { margin-left:25px; color:#fff; font-size:18px; font-weight:700; }
+    .legacy-header .header-links { display:flex; align-items:center; gap:15px; color:#fff; font-size:14px; }
+    .legacy-header .header-links a { min-width:58px; padding:5px 10px; border:1px solid #fff; border-radius:18px; text-align:center; }
+    .legacy-header .primary-nav { height:66px; padding:0 20px; background:#fff; }
+    .legacy-header .primary-nav-inner { display:flex; align-items:center; justify-content:space-between; max-width:1370px; height:66px; margin:0 auto; }
+    .legacy-header .nav-list { display:flex; align-items:center; gap:24px; margin:0; padding:0; list-style:none; }
+    .legacy-header .nav-list a { color:#333; font-size:16px; line-height:24px; }
+    .legacy-header .nav-list a.active { color:var(--blue); font-weight:700; }
+    .legacy-header .ai-search img { width:128px; height:37px; }
+    .page-shell { width:calc(100% - 60px); max-width:1370px; margin:24px auto 48px; }
+    .breadcrumb { display:flex; align-items:center; gap:9px; min-height:20px; margin-bottom:16px; color:#8a96a8; font-size:13px; line-height:20px; }
+    .breadcrumb a { color:#66758b; }
+    .breadcrumb a:hover { color:var(--blue); }
+    .crumb-arrow { width:16px; height:16px; color:#9aa6b6; }
+    .campaign-panel { overflow:hidden; padding:8px; border:1px solid #e6ebf2; border-radius:12px; background:#fff; box-shadow:0 3px 12px rgba(30,62,120,.06); }
+    .campaign-hero { position:relative; display:flex; align-items:center; min-height:420px; overflow:hidden; padding:48px 54px; border-radius:8px; background:#2d79ee url("./xiangtan-channel/_nuxt/img/featured-topics-banner.png") center/cover no-repeat; isolation:isolate; }
+    .campaign-hero::before { position:absolute; z-index:-1; inset:0; content:""; background:linear-gradient(90deg,rgba(30,98,220,.9) 0%,rgba(42,117,224,.75) 43%,rgba(48,130,230,.08) 100%); }
+    .campaign-copy { max-width:690px; color:#fff; }
+    .campaign-eyebrow { margin:0 0 8px; color:#d9e8ff; font-size:18px; font-weight:600; line-height:26px; }
+    .campaign-title { margin:0; font-size:34px; font-weight:700; line-height:48px; }
+    .campaign-theme { display:inline-flex; align-items:center; min-height:34px; margin-top:16px; padding:4px 14px; border:1px solid rgba(255,255,255,.58); border-radius:18px; color:#fff; font-size:16px; line-height:24px; }
+    .campaign-summary { max-width:640px; margin:16px 0 0; color:rgba(255,255,255,.9); font-size:14px; line-height:24px; }
+    .campaign-cta { display:inline-flex; align-items:center; justify-content:center; min-width:120px; height:38px; margin-top:24px; padding:0 20px; border:0; border-radius:19px; color:#fff; background:#f2a43b; font-size:14px; cursor:pointer; transition:background .2s ease,transform .2s ease; }
+    .campaign-cta:hover { background:#e8911e; transform:translateY(-1px); }
+    .campaign-caption { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; padding:14px 10px 2px; }
+    .campaign-caption h2 { margin:0; color:#26364a; font-size:22px; font-weight:700; line-height:32px; }
+    .campaign-caption p { max-width:1000px; margin:16px 0 0; color:#718096; font-size:14px; line-height:22px; }
+    .hero-controls { display:flex; flex:0 0 auto; align-items:center; gap:8px; margin:4px 8px 0 0; }
+    .hero-dot { width:9px; height:9px; padding:0; border:0; border-radius:50%; background:#c7d1df; cursor:pointer; transition:width .2s ease,background .2s ease; }
+    .hero-dot[aria-pressed="true"] { width:24px; border-radius:5px; background:var(--blue); }
+    .review-panel { margin-top:16px; padding:22px 26px 28px; border:1px solid #e5ebf2; border-radius:10px; background:#fff; box-shadow:0 3px 10px rgba(30,62,120,.05); }
+    .review-heading { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:18px; }
+    .review-title { display:flex; align-items:center; gap:16px; margin:0; color:#222; font-size:18px; font-weight:700; line-height:32px; }
+    .review-title img { width:32px; height:32px; object-fit:contain; }
+    .review-count { color:#8794a7; font-size:14px; font-weight:400; }
+    .review-result-count { margin:0 4px; color:var(--blue); font-weight:700; }
+    .review-filters { display:flex; align-items:center; gap:12px; }
+    .review-select { min-width:132px; height:40px; padding:0 32px 0 12px; border:1px solid #e2e8f0; border-radius:6px; color:#4c596b; background:#fff; font-size:14px; }
+    .review-toolbar { display:flex; align-items:center; justify-content:space-between; min-height:47px; margin-top:16px; margin-bottom:16px; padding-top:16px; border-top:1px solid #edf1f6; color:#999; font-size:14px; }
+    .review-sort { display:flex; align-items:center; gap:4px; }
+    .review-sort button { height:30px; padding:0 12px; border:0; border-radius:4px; color:#6c788a; background:transparent; font-size:13px; line-height:30px; white-space:nowrap; cursor:pointer; transition:background .15s,color .15s; }
+    .review-sort button:hover { color:var(--blue); background:#f3f7ff; }
+    .review-sort button.active { color:var(--blue); background:transparent; font-weight:700; }
+    .review-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px 16px; }
+    .review-card { min-width:0; overflow:hidden; border:1px solid rgba(217,225,236,.9); border-radius:8px; background:#fff; box-shadow:0 3px 10px rgba(30,62,120,.06); transition:transform .2s ease,box-shadow .2s ease; }
+    .review-card:hover { transform:translateY(-3px); box-shadow:0 8px 18px rgba(26,62,153,.13); }
+    .review-cover { width:100%; height:190px; overflow:hidden; background:#edf3fb; }
+    .review-cover img { width:100%; height:100%; object-fit:cover; transition:transform .25s ease; }
+    .review-card:hover .review-cover img { transform:scale(1.03); }
+    .review-body { padding:14px 16px 16px; }
+    .review-card-title { display:-webkit-box; min-height:48px; overflow:hidden; margin:0; color:#222; font-size:16px; font-weight:700; line-height:24px; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+    .review-card-summary { display:-webkit-box; height:44px; overflow:hidden; margin:8px 0 0; color:#687b91; font-size:14px; line-height:22px; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+    .review-card-meta { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:14px; padding-top:12px; border-top:1px solid #edf0f4; color:#8b97a7; font-size:12px; line-height:20px; }
+    .review-card-type { display:inline-flex; align-items:center; height:22px; padding:0 8px; border-radius:4px; color:#3d75cf; background:#edf4ff; }
+    .review-card-status { color:#e59a28; }
+    .review-empty { grid-column:1/-1; padding:64px 16px; color:#8a96a8; font-size:14px; text-align:center; }
+    .pagination { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:28px; }
+    .page-button { min-width:34px; height:34px; padding:0 10px; border:1px solid #e1e6ef; border-radius:3px; color:#666; background:#fff; font-size:14px; cursor:pointer; }
+    .page-button:hover,.page-button.active { border-color:var(--blue); color:#fff; background:var(--blue); }
+    .page-button:disabled { color:#c4cad4; background:#f7f8fa; cursor:default; }
+    .site-footer { min-width:1270px; padding:30px 0; color:#fff; background:#333; font-size:14px; }
+    .site-footer p { margin:0; line-height:25px; text-align:center; }
+    .site-footer a { color:#fff; }
+    @media (max-width:1300px) { html,body { min-width:0; }.page-shell { width:calc(100% - 40px); }.review-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }.site-footer { min-width:0; } }
+    @media (max-width:880px) { .header-links { display:none; }.page-shell { width:calc(100% - 28px); margin-top:18px; }.campaign-hero { min-height:340px; padding:34px 28px; }.campaign-title { font-size:28px; line-height:40px; }.review-heading,.review-toolbar { align-items:flex-start; flex-direction:column; }.review-filters { width:100%; }.review-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.review-cover { height:170px; } }
+    @media (max-width:560px) { .page-shell { width:calc(100% - 24px); }.campaign-panel { padding:5px; }.campaign-hero { min-height:310px; padding:24px 20px; background-position:62% center; }.campaign-eyebrow { font-size:15px; }.campaign-title { font-size:24px; line-height:34px; }.campaign-theme { font-size:14px; }.campaign-caption { flex-direction:column; gap:12px; }.hero-controls { align-self:center; margin-bottom:4px; }.review-panel { padding:18px 14px 22px; }.review-heading { align-items:stretch; }.review-filters { align-items:stretch; flex-direction:column; }.review-select { width:100%; }.review-grid { grid-template-columns:1fr; }.review-cover { height:180px; }.review-sort { gap:14px; flex-wrap:wrap; } }
+  </style>
+</head>
+<body data-xt-active-nav="topic">
+  <header class="platform-header"><div class="platform-header-inner"><div class="platform-brand"><a class="platform-logo-link" href="./index.html" aria-label="湖南智慧教育平台"><img class="platform-logo" src="./xiangtan-channel/_nuxt/img/image-login-new.a21550b.png" alt="湖南智慧教育平台"></a><button class="platform-switcher" type="button" aria-label="切换子平台"></button><span class="brand-divider"></span><span class="brand-name">湘潭市智慧教育平台</span></div><div class="header-links"><a href="./index.html">登录</a><a href="./index.html">注册</a></div></div></header>
+  <nav class="primary-nav" aria-label="主导航"><div class="primary-nav-inner"><ul class="nav-list"><li><a href="./xiangtan.html">首页</a></li><li><a href="./course-learning.html">课程学习</a></li><li><a href="./five-education.html">五育成长</a></li><li><a href="./xiangtan.html#教师发展">教师发展</a></li><li><a href="./textbook-resources.html">教材资源</a></li><li><a href="./ai-education.html">人工智能</a></li><li><a href="./application-services.html">应用服务</a></li><li><a class="active" href="./featured-topics.html">特色专题</a></li><li><a href="./city-services.html">市域服务</a></li></ul><button class="ai-search" type="button" aria-label="AI 搜索"><img src="./xiangtan-channel/_nuxt/img/ai-search-button.b0a1e04.svg" alt="AI 搜索"></button></div></nav>
+  <main class="page-shell">
+    <section class="campaign-panel" aria-label="重点活动">
+      <div class="campaign-hero" id="campaign-hero">
+        <div class="campaign-copy"><p class="campaign-eyebrow" id="campaign-eyebrow">2026年度湘潭市基础教育</p><h1 class="campaign-title" id="campaign-title">数字化应用展示交流活动</h1><span class="campaign-theme" id="campaign-theme">数字赋能 融合创新</span><p class="campaign-summary" id="campaign-summary">深入贯彻落实国家教育数字化战略行动，推动数字技术与教育教学深度融合，提升教师数字素养与应用创新能力，交流数字化应用实践成果。</p><a class="campaign-cta" id="campaign-cta" href="#activity-list">查看活动详情</a></div>
+      </div>
+      <div class="campaign-caption"><div><h2 id="campaign-caption-title">2026年度湘潭市基础教育数字化应用展示交流活动</h2><p id="campaign-caption-summary">面向全市中小学教师征集数字化教学应用案例，展示融合创新实践，促进优质经验交流与成果推广。</p></div><div class="hero-controls" aria-label="活动轮播"><button class="hero-dot" type="button" aria-label="活动 1" aria-pressed="true"></button><button class="hero-dot" type="button" aria-label="活动 2" aria-pressed="false"></button><button class="hero-dot" type="button" aria-label="活动 3" aria-pressed="false"></button></div></div>
+    </section>
+    <section class="review-panel" id="activity-list" aria-labelledby="review-title">
+      <div class="review-heading"><h2 class="review-title" id="review-title"><img src="./xiangtan-channel/_nuxt/img/entry-topic-competition.svg" alt="">精彩回顾 <span class="review-count" id="activity-count"></span></h2><div class="review-filters"><select class="review-select" id="activity-year" aria-label="按年份筛选活动"><option value="all">全部年份</option><option value="2026">2026年</option><option value="2025">2025年</option><option value="2024">2024年</option><option value="2023">2023年</option></select></div></div>
+      <div class="review-toolbar"><div id="activity-result-label">当前共 <strong class="review-result-count">8</strong> 个活动</div><div class="review-sort" aria-label="活动排序"><button class="active" type="button" data-sort="recommended" aria-pressed="true">综合排序</button><button type="button" data-sort="newest" aria-pressed="false">最新活动</button><button type="button" data-sort="popular" aria-pressed="false">参与热度</button></div></div>
+      <div class="review-grid" id="activity-cards"></div>
+      <nav class="pagination" id="activity-pagination" aria-label="活动分页"></nav>
+    </section>
+  </main>
+  <footer class="site-footer"><p><a href="#">湘ICP备12010102号-4</a>&nbsp;&nbsp;&nbsp;&nbsp;指导单位：湖南省教育厅</p><p>本网站由湖南省教育厅信息中心承办 | 联系电话：0731-85357667</p><p>技术服务（湖南教育音像电子出版社）电话：0731-84390585、84390675、84390175 | 咨询时间：工作日8:30至17:30</p></footer>
+  <script>
+    (function () {
+      'use strict';
+      var imageRoot = './xiangtan-channel/_nuxt/img/';
+      var activities = [
+        { title:'2025年湖南省中小学（幼儿园）教师在线集体备课大赛', summary:'坚持“以赛促研、以研促创、以创促用”，组织教师在线集体备课协同合作，促进人工智能技术与校本研修深度融合。', image:'teacher-collective-preparation-banner.png', category:'teacher', date:'2025-11-18', views:3856, status:'活动回顾' },
+        { title:'2025年湖南省教师数字素养提升实践活动', summary:'围绕教育数字化战略行动，展示教师数字素养提升路径、教学创新实践与优秀应用成果。', image:'featured-topics-banner.png', category:'literacy', date:'2025-10-12', views:3120, status:'活动回顾' },
+        { title:'2024年湖南省教师数字素养提升实践活动', summary:'分享数字技术赋能课堂教学的实践经验，推动教师专业成长与区域教研协同发展。', image:'banner_courseteaching.d50446c.png', category:'literacy', date:'2024-12-06', views:2841, status:'活动回顾' },
+        { title:'2023年湖南省教师数字素养提升实践活动', summary:'汇集一线教学案例与研修成果，探索信息技术与学科教学融合的有效方法。', image:'teacher-teaching-banner.png', category:'literacy', date:'2023-11-22', views:2467, status:'活动回顾' },
+        { title:'湘潭市中小学人工智能教育教学应用案例征集', summary:'面向学校和教师征集人工智能教育应用案例，展示课程实践、课堂创新与学生项目成果。', image:'ai-education-hero.png', category:'classroom', date:'2026-04-15', views:2186, status:'征集中' },
+        { title:'湘潭市基础教育精品课堂展示交流活动', summary:'聚焦课堂教学改革与教学质量提升，开展课堂展示、专家点评和校际交流。', image:'smart-and-fun-new-classroom-big.ff3121d.png', category:'classroom', date:'2026-03-28', views:1768, status:'活动回顾' },
+        { title:'中小学生数字创意与实践作品展示', summary:'鼓励学生运用数字工具开展探究学习和创意表达，提升信息意识与实践能力。', image:'resource-course-cover-04.png', category:'student', date:'2025-09-20', views:1524, status:'活动回顾' },
+        { title:'湘潭市青少年科学教育实践成果交流', summary:'展示科学探究、工程实践和跨学科学习成果，促进校内外科学教育资源共享。', image:'banner-science.png', category:'student', date:'2025-06-12', views:1396, status:'活动回顾' }
+      ];
+      var pageSize = 6;
+      var activePage = 1;
+      var activeSort = 'recommended';
+      var activeYear = 'all';
+      var grid = document.getElementById('activity-cards');
+      var pagination = document.getElementById('activity-pagination');
+      var yearSelect = document.getElementById('activity-year');
+      var heroSlides = [
+        { eyebrow:'2026年度湘潭市基础教育', title:'数字化应用展示交流活动', theme:'数字赋能 融合创新', summary:'深入贯彻落实国家教育数字化战略行动，推动数字技术与教育教学深度融合，提升教师数字素养与应用创新能力，交流数字化应用实践成果。', image:'featured-topics-banner.png', caption:'2026年度湘潭市基础教育数字化应用展示交流活动', note:'面向全市中小学教师征集数字化教学应用案例，展示融合创新实践，促进优质经验交流与成果推广。' },
+        { eyebrow:'2026年湖南省中小学（幼儿园）', title:'教师在线集体备课大赛', theme:'协同备课 共研共进', summary:'汇聚一线教师团队，围绕真实教学问题开展在线协同备课，沉淀可复用的教学设计与研修成果。', image:'teacher-collective-preparation-banner.png', caption:'2026年湖南省中小学（幼儿园）教师在线集体备课大赛', note:'大赛聚焦集体备课过程与课堂实践，推动教研活动常态化、数字化。' },
+        { eyebrow:'2026年度湘潭市', title:'人工智能教育应用案例征集', theme:'智能助教 创新课堂', summary:'征集人工智能支持备课、教学、学习与评价的实践案例，探索技术服务教育教学的真实路径。', image:'ai-education-hero.png', caption:'湘潭市中小学人工智能教育教学应用案例征集', note:'面向学校和教师征集应用案例，推动人工智能教育实践经验共享。' }
+      ];
+      function escapeHtml(value) { return String(value).replace(/[&<>"']/g, function (ch) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]; }); }
+      function visibleActivities() {
+        var result = activities.filter(function (item) {
+          return activeYear === 'all' || item.date.slice(0, 4) === activeYear;
+        });
+        if (activeSort === 'newest') result.sort(function (a,b) { return b.date.localeCompare(a.date); });
+        if (activeSort === 'popular') result.sort(function (a,b) { return b.views - a.views; });
+        return result;
+      }
+      function render() {
+        var result = visibleActivities();
+        var totalPages = Math.max(1, Math.ceil(result.length / pageSize));
+        activePage = Math.min(activePage, totalPages);
+        var start = (activePage - 1) * pageSize;
+        var pageItems = result.slice(start, start + pageSize);
+        document.getElementById('activity-count').textContent = '（' + result.length + '）';
+        document.getElementById('activity-result-label').innerHTML = '当前共 <strong class="review-result-count">' + result.length + '</strong> 个活动';
+        grid.innerHTML = pageItems.length ? pageItems.map(function (item) {
+          return '<article class="review-card"><a href="#activity-list"><div class="review-cover"><img src="' + imageRoot + escapeHtml(item.image) + '" alt="' + escapeHtml(item.title) + '"></div><div class="review-body"><h3 class="review-card-title">' + escapeHtml(item.title) + '</h3><p class="review-card-summary">' + escapeHtml(item.summary) + '</p><div class="review-card-meta"><span class="review-card-type">' + ({teacher:'教师发展',literacy:'数字素养',classroom:'课堂教学',student:'学生成长'}[item.category]) + '</span><span>' + item.date + '　<span class="review-card-status">' + item.status + '</span></span></div></div></a></article>';
+        }).join('') : '<div class="review-empty">没有找到符合条件的活动</div>';
+        var buttons = '<button class="page-button" type="button" data-page="prev" ' + (activePage === 1 ? 'disabled' : '') + ' aria-label="上一页">‹</button>';
+        for (var i = 1; i <= totalPages; i++) buttons += '<button class="page-button ' + (i === activePage ? 'active' : '') + '" type="button" data-page="' + i + '" aria-current="' + (i === activePage ? 'page' : 'false') + '">' + i + '</button>';
+        buttons += '<button class="page-button" type="button" data-page="next" ' + (activePage === totalPages ? 'disabled' : '') + ' aria-label="下一页">›</button>';
+        pagination.innerHTML = buttons;
+      }
+      yearSelect.addEventListener('change', function () { activeYear = yearSelect.value; activePage = 1; render(); });
+      document.querySelectorAll('.review-sort button').forEach(function (button) { button.addEventListener('click', function () { activeSort = button.getAttribute('data-sort'); document.querySelectorAll('.review-sort button').forEach(function (item) { var active = item === button; item.classList.toggle('active', active); item.setAttribute('aria-pressed', String(active)); }); activePage = 1; render(); }); });
+      pagination.addEventListener('click', function (event) { var button = event.target.closest('[data-page]'); if (!button || button.disabled) return; var page = button.getAttribute('data-page'); if (page === 'prev') activePage--; else if (page === 'next') activePage++; else activePage = Number(page); render(); });
+      document.querySelectorAll('.hero-dot').forEach(function (button, index) { button.addEventListener('click', function () { var slide = heroSlides[index]; var hero = document.getElementById('campaign-hero'); hero.style.backgroundImage = 'url("' + imageRoot + slide.image + '")'; document.getElementById('campaign-eyebrow').textContent = slide.eyebrow; document.getElementById('campaign-title').textContent = slide.title; document.getElementById('campaign-theme').textContent = slide.theme; document.getElementById('campaign-summary').textContent = slide.summary; document.getElementById('campaign-caption-title').textContent = slide.caption; document.getElementById('campaign-caption-summary').textContent = slide.note; document.querySelectorAll('.hero-dot').forEach(function (dot) { dot.setAttribute('aria-pressed', String(dot === button)); }); }); });
+      render();
+    }());
+  </script>
+</body>
+</html>

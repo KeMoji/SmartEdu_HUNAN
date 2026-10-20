@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>题目创编 - 湘潭市智慧教育平台</title>
+  <link rel="stylesheet" href="./channel-navigation.css">
+  <style>
+    :root{--blue:#1e62ec;--ink:#303b4d;--muted:#8793a5;--line:#e5ebf3;--page:#f4f7fb;--content-width:1370px;font-family:"Microsoft YaHei","微软雅黑",Arial,sans-serif;color:var(--ink);background:var(--page);font-synthesis:none;text-rendering:optimizeLegibility}
+    *{box-sizing:border-box}
+    html,body{min-width:320px;margin:0}
+    body{background:var(--page)}
+    button,input,select,textarea{font:inherit}
+    button{color:inherit}
+    a{color:inherit;text-decoration:none}
+    .design-main{width:min(var(--content-width),calc(100% - 40px));margin:0 auto;padding:22px 0 40px}
+    .page-context{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+    .autosave-note{display:flex;align-items:center;gap:7px;color:#8491a3;font-size:12px;white-space:nowrap}
+    .autosave-note:before{width:7px;height:7px;border-radius:50%;background:#38b985;content:""}
+    .workspace-shell{margin-top:16px;padding:16px;border:1px solid #e7edf4;border-radius:8px;background:#fff;box-shadow:0 4px 16px rgba(36,72,120,.045)}
+    .workspace-layout{display:grid;grid-template-columns:176px minmax(0,1fr);gap:18px;align-items:start}
+    .workspace-sidebar{min-width:0;padding:8px 0}
+    .sidebar-nav{display:grid;gap:5px;margin:0;padding:0;list-style:none}
+    .sidebar-tab{display:flex;align-items:center;gap:10px;width:100%;min-height:42px;padding:0 12px;border:0;border-radius:5px;color:#59677b;background:transparent;font-size:14px;text-align:left;cursor:pointer;transition:background .15s,color .15s}
+    .sidebar-tab:hover{color:var(--blue);background:#edf4ff}
+    .sidebar-tab.active{color:var(--blue);background:#eaf2ff;font-weight:700}
+    .sidebar-icon{display:grid;flex:0 0 18px;width:18px;height:18px;place-items:center;color:currentColor}
+    .sidebar-icon svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7}
+    .sidebar-count{margin-left:auto;color:#9ba6b5;font-size:12px;font-weight:400}
+    .workspace-content{min-width:0}
+    .view-panel[hidden]{display:none}
+    .workspace-toolbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:52px;margin-bottom:0;padding-left:12px}
+    .workspace-toolbar[hidden]{display:none}
+    .workspace-title{min-width:0}
+    .workspace-title h1{overflow:hidden;margin:0;color:#28364b;font-size:18px;font-weight:700;line-height:26px;text-overflow:ellipsis;white-space:nowrap}
+    .workspace-title p{margin:8px 0 0;color:#9aa5b3;font-size:12px;line-height:18px}
+    .toolbar-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;min-width:0}
+    .model-select{width:142px;height:36px;padding:0 28px 0 11px;border:1px solid #dfe6ef;border-radius:4px;outline:none;color:#48566b;background:#fff;font-size:13px;cursor:pointer}
+    .model-select:focus{border-color:#87b1f6}
+    .toolbar-divider{width:1px;height:24px;margin:0 2px;background:#e9edf3}
+    .toolbar-button{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:34px;padding:0 12px;border:1px solid #dfe6ef;border-radius:4px;color:#58667a;background:#fff;font-size:13px;white-space:nowrap;cursor:pointer;transition:border-color .15s,color .15s,background .15s}
+    .toolbar-button:hover{border-color:#9bbcf1;color:var(--blue);background:#f8fbff}
+    .toolbar-button.primary{border-color:var(--blue);color:#fff;background:var(--blue)}
+    .toolbar-button.primary:hover{border-color:#1556d8;background:#1556d8}
+    .toolbar-button svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7}
+    .designer-grid{display:grid;grid-template-columns:minmax(340px,390px) minmax(0,1fr);gap:14px;align-items:stretch}
+    .panel{min-width:0;border:1px solid var(--line);border-radius:6px;background:#fff;box-shadow:0 3px 12px rgba(38,75,122,.045)}
+    .form-panel{display:flex;flex-direction:column;padding:20px 20px 16px}
+    .panel-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:17px}
+    .panel-heading h2{margin:0;color:#334157;font-size:16px;line-height:24px}
+    .panel-heading-note{color:#a1abba;font-size:12px;white-space:nowrap}
+    .lesson-form{display:flex;min-height:0;flex:1;flex-direction:column;gap:13px}
+    .form-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .field{display:flex;align-items:center;gap:10px;min-width:0}
+    .field.wide{grid-column:1/-1}
+    .field-label{display:flex;align-items:center;justify-content:space-between;gap:8px;flex:0 0 auto;color:#536176;font-size:14px;line-height:19px;white-space:nowrap}
+    .field-label .required{margin-right:3px;color:#e45d5d}
+    .field-count{flex:0 0 auto;color:#a8b1bf;font-size:11px;font-weight:400}
+    .field input,.field select,.field textarea{display:block;width:100%;min-width:0;border:1px solid #dce4ee;border-radius:4px;outline:none;color:#344155;background:#fff;font-size:14px;transition:border-color .15s,box-shadow .15s}
+    .field input,.field select{height:36px;flex:1;padding:0 10px}
+    .field textarea{height:144px;min-height:144px;padding:8px 10px;line-height:20px;resize:vertical}
+    .field textarea.compact{height:144px;min-height:144px}
+    .field input::placeholder,.field textarea::placeholder{color:#b3bdca;font-size:13px}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:#73a4f1;box-shadow:0 0 0 3px rgba(30,98,236,.08)}
+    .form-footer{display:flex;align-items:center;gap:9px;margin-top:auto}
+    .form-footer .generate-button{flex:1}
+    .ghost-button{height:36px;padding:0 12px;border:1px solid #dfe6ef;border-radius:4px;color:#66758a;background:#fff;font-size:12px;white-space:nowrap;cursor:pointer}
+    .ghost-button:hover{border-color:#9bbcf1;color:var(--blue)}
+    .question-requirements{display:grid;gap:10px}
+    .question-requirements-heading{color:#536176;font-size:14px;font-weight:700;line-height:20px}
+    .question-requirements-list{display:grid;gap:8px}
+    .question-extra-field{display:grid;gap:6px}
+    .question-extra-field .field-label{flex:initial}
+    .question-requirement-row{display:grid;grid-template-columns:62px 86px minmax(0,1fr) 18px;gap:10px;align-items:center;min-width:0}
+    .question-type-select,.question-description{width:100%;height:36px;min-width:0;padding:0 9px;border:1px solid #dce4ee;border-radius:4px;outline:none;color:#344155;background:#fff;font-size:13px}
+    .question-type-select:focus,.question-description:focus{border-color:#73a4f1;box-shadow:0 0 0 3px rgba(30,98,236,.08)}
+    .question-count-control{display:grid;grid-template-columns:28px 30px 28px;height:36px;border:1px solid #dce4ee;border-radius:4px;overflow:hidden;background:#fff}
+    .question-count-control button,.question-count-control input{width:100%;height:34px;padding:0;border:0;border-right:1px solid #dce4ee;border-radius:0;color:#2568d9;background:#fff;font-size:16px;text-align:center}
+    .question-count-control button{cursor:pointer;line-height:34px}
+    .question-count-control button:hover{background:#edf5ff}
+    .question-count-control button:first-child{background:#f1f7ff}
+    .question-count-control button:last-child{border-right:0;background:#f1f7ff}
+    .question-count-control input{color:#344155;font-size:13px;appearance:textfield}
+    .question-count-control input::-webkit-outer-spin-button,.question-count-control input::-webkit-inner-spin-button{margin:0;appearance:none}
+    .remove-question{display:grid;width:18px;height:30px;padding:0;place-items:center;border:0;color:#b8bec8;background:transparent;cursor:pointer}
+    .remove-question:hover{color:#e45d5d}
+    .remove-question svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7}
+    .add-question-button{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;height:36px;border:1px solid var(--blue);border-radius:4px;color:var(--blue);background:#fff;font-size:14px;cursor:pointer}
+    .add-question-button:hover{background:#f4f8ff}
+    .hidden-field{display:none!important}
+    .chat-panel{display:flex;min-height:790px;flex-direction:column;overflow:hidden}
+    .chat-topline{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:0 18px;border-bottom:1px solid #e9edf3;background:#fff}
+    .chat-topic{min-width:0;flex:1;overflow:hidden;color:#4a586d;font-size:14px;font-weight:700;line-height:20px;text-align:left;text-overflow:ellipsis;white-space:nowrap}
+    .icon-button{display:inline-grid;width:30px;height:30px;padding:0;place-items:center;border:0;border-radius:4px;color:#8390a2;background:transparent;cursor:pointer}
+    .icon-button:hover{color:var(--blue);background:#edf4ff}
+    .icon-button svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7}
+    .chat-scroll{display:flex;flex:1;flex-direction:column;gap:18px;min-height:0;padding:22px 26px 16px;overflow:auto;background:linear-gradient(180deg,#fbfdff 0%,#fff 32%)}
+    .chat-time{align-self:center;color:#adb6c2;font-size:11px;line-height:18px}
+    .message-row{display:flex;align-items:flex-start;gap:10px;max-width:100%}
+    .message-row.user{justify-content:flex-end}
+    .message-avatar{display:grid;flex:0 0 24px;width:24px;height:24px;place-items:center;border:1px solid #dfe9f6;border-radius:50%;color:#3473ca;background:#f1f7ff}
+    .message-avatar svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7}
+    .message-row.user .message-avatar{flex-basis:32px;width:32px;height:32px}
+    .message-row.user .message-avatar svg{width:16px;height:16px}
+    .message-row.user .message-body{max-width:min(760px,calc(100% - 42px))}
+    .user-avatar{overflow:hidden}
+    .user-avatar img{display:block;width:100%;height:100%;object-fit:cover}
+    .assistant-avatar{flex-basis:32px;width:32px;height:32px;overflow:hidden}
+    .assistant-avatar img{display:block;width:100%;height:100%;object-fit:cover}
+    .message-row:not(.user) .message-body{max-width:min(760px,calc(100% - 42px))}
+    .message-body{min-width:0;max-width:min(760px,calc(100% - 38px))}
+    .message-label{margin:0 0 6px;color:#9aa6b6;font-size:11px;line-height:16px}
+    .message-bubble{padding:11px 14px;border:1px solid #e4ebf4;border-radius:5px;color:#657389;background:#fff;font-size:13px;line-height:22px;box-shadow:0 2px 8px rgba(39,73,117,.035)}
+    .user .message-bubble{border-color:#deebff;color:#4b6387;background:#f1f7ff}
+    .context-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+    .context-chip{padding:4px 9px;border:1px solid #e3eaf3;border-radius:3px;color:#738198;background:#fff;font-size:11px;line-height:17px}
+    .assistant-content{display:grid;gap:17px;margin-top:12px;padding:17px 18px;border:1px solid #e1e9f3;border-radius:5px;background:#fff}
+    .lesson-outline-title{display:flex;align-items:center;gap:9px;margin:0 0 9px;color:#34445b;font-size:14px;font-weight:700;line-height:21px}
+    .lesson-outline-title:before{width:3px;height:15px;border-radius:2px;background:#3982e8;content:""}
+    .assistant-content p,.assistant-content li{margin:0;color:#5f6e83;font-size:13px;line-height:23px}
+    .assistant-content ul,.assistant-content ol{display:grid;gap:4px;margin:0;padding-left:20px}
+    .plan-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+    .plan-step{min-width:0;padding:10px 11px;border:1px solid #e7edf5;border-radius:4px;background:#f9fbfe}
+    .plan-step strong{display:block;margin-bottom:5px;color:#435671;font-size:12px;line-height:18px}
+    .plan-step span{display:block;color:#758399;font-size:12px;line-height:19px}
+    .message-tools{display:flex;align-items:center;gap:4px;margin-top:5px}
+    .message-tools .icon-button{width:27px;height:27px}
+    .chat-composer{padding:0 20px 15px;background:#fff}
+    .new-chat-line{display:flex;justify-content:center;margin:0 0 10px}
+    .new-chat-button{height:24px;padding:0 11px;border:1px solid #e4eaf2;border-radius:12px;color:#8793a4;background:#fff;font-size:11px;cursor:pointer}
+    .new-chat-button:hover{border-color:#b6cef4;color:var(--blue)}
+    .composer-box{display:flex;align-items:flex-end;gap:10px;min-height:76px;padding:10px 12px;border:1px solid #dce4ee;border-radius:6px;background:#fff;transition:border-color .15s,box-shadow .15s}
+    .composer-box:focus-within{border-color:#82abed;box-shadow:0 0 0 3px rgba(30,98,236,.07)}
+    .composer-box textarea{flex:1;min-width:0;min-height:48px;max-height:120px;padding:4px 0;border:0;outline:0;color:#35445a;background:transparent;font-size:13px;line-height:21px;resize:vertical}
+    .composer-box textarea::placeholder{color:#aab4c2}
+    .composer-send{display:grid;flex:0 0 34px;width:34px;height:34px;place-items:center;border:0;border-radius:4px;color:#fff;background:var(--blue);cursor:pointer}
+    .composer-send:hover{background:#1458db}
+    .composer-send svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.8}
+    .composer-options{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:9px}
+    .composer-modes{display:flex;flex-wrap:wrap;gap:7px}
+    .mode-toggle{display:inline-flex;align-items:center;gap:6px;height:25px;padding:0 9px;border:1px solid #e2e8f0;border-radius:13px;color:#738096;background:#fff;font-size:11px;cursor:pointer}
+    .mode-toggle.active{border-color:#c8dcff;color:#286bd6;background:#f2f7ff}
+    .mode-toggle:before{width:7px;height:7px;border:1px solid currentColor;border-radius:50%;content:""}
+    .mode-toggle.active:before{border-color:#3982e8;background:#3982e8;box-shadow:inset 0 0 0 1px #fff}
+    .composer-hint{color:#a5afbd;font-size:11px;text-align:right}
+    .record-view{min-height:510px;padding:22px;border:1px solid var(--line);border-radius:6px;background:#fff;box-shadow:0 3px 12px rgba(38,75,122,.045)}
+    .record-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+    .record-heading h2{margin:0;color:#334157;font-size:17px;line-height:25px}
+    .record-heading p{margin:4px 0 0;color:#8995a6;font-size:12px;line-height:18px}
+    .record-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .record-item{display:flex;align-items:center;gap:14px;min-width:0;padding:16px;border:1px solid #e5ebf3;border-radius:5px;background:#fff;transition:border-color .15s,box-shadow .15s}
+    .record-item:hover{border-color:#bbd2f8;box-shadow:0 4px 12px rgba(39,91,163,.07)}
+    .record-mark{display:grid;flex:0 0 42px;width:42px;height:42px;place-items:center;border-radius:5px;color:#3778cf;background:#edf5ff}
+    .record-mark svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7}
+    .record-copy{min-width:0;flex:1}
+    .record-copy strong{display:block;overflow:hidden;color:#3d4b60;font-size:14px;font-weight:700;line-height:21px;text-overflow:ellipsis;white-space:nowrap}
+    .record-copy span{display:block;overflow:hidden;margin-top:4px;color:#929eae;font-size:12px;line-height:18px;text-overflow:ellipsis;white-space:nowrap}
+    .record-open{height:30px;padding:0 10px;border:1px solid #dce6f4;border-radius:4px;color:#5d6c80;background:#fff;font-size:12px;white-space:nowrap;cursor:pointer}
+    .record-open:hover{border-color:#9bbcf1;color:var(--blue)}
+    .record-empty{grid-column:1/-1;display:grid;min-height:300px;place-content:center;justify-items:center;gap:9px;color:#97a3b3;text-align:center}
+    .record-empty svg{width:36px;height:36px;fill:none;stroke:#bac5d3;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.4}
+    .record-empty strong{color:#718096;font-size:14px;font-weight:500}
+    .record-empty span{font-size:12px}
+    .site-footer{padding:24px 20px;color:#fff;background:#333;font-size:13px}
+    .site-footer p{margin:0;line-height:23px;text-align:center}
+    .site-footer a{color:#fff}
+    @media(max-width:1150px){.design-main{width:min(var(--content-width),calc(100% - 28px))}.workspace-shell{padding:16px}.workspace-layout{grid-template-columns:152px minmax(0,1fr);gap:12px}.designer-grid{grid-template-columns:minmax(310px,355px) minmax(0,1fr);gap:12px}.form-panel{padding:17px}.toolbar-button{padding:0 9px}.chat-scroll{padding-right:18px;padding-left:18px}}
+    @media(max-width:900px) and (min-width:701px){.workspace-layout{grid-template-columns:152px minmax(0,1fr)}.workspace-sidebar{margin-top:0;padding:8px 0}.designer-grid{grid-template-columns:minmax(285px,.82fr) minmax(0,1.18fr)}.chat-panel{min-height:720px}}
+    @media(max-width:700px){.design-main{width:calc(100% - 24px);padding-top:15px}.page-context{margin-bottom:12px}.autosave-note{font-size:11px}.workspace-shell{padding:16px;border-radius:6px}.workspace-toolbar{align-items:flex-start;flex-direction:column;gap:12px}.toolbar-actions{width:100%;justify-content:flex-start;flex-wrap:wrap}.toolbar-divider{display:none}.model-select{flex:1;min-width:125px}.workspace-layout{grid-template-columns:1fr}.workspace-sidebar{margin-top:24px;padding:0}.sidebar-nav{display:flex;gap:6px;margin-bottom:12px;padding:5px;border:1px solid var(--line);border-radius:6px;background:#fff}.sidebar-tab{justify-content:flex-start;min-height:36px;padding:0 12px}.sidebar-count{margin-left:2px}.designer-grid{grid-template-columns:1fr}.form-panel{padding:17px}.chat-panel{min-height:680px}.chat-scroll{padding:17px 13px 12px}.chat-composer{padding:0 12px 12px}.assistant-content{padding:14px}.plan-flow{grid-template-columns:1fr}.record-list{grid-template-columns:1fr}.record-view{padding:17px}.record-item{gap:10px;padding:12px}.composer-hint{display:none}}
+    @media(max-width:420px){.sidebar-tab{gap:6px;padding:0 8px;font-size:12px}.sidebar-icon{flex-basis:16px;width:16px}.form-row{gap:7px}.field{gap:6px}.field-label{font-size:12px}.field input,.field select{padding-right:7px;padding-left:7px;font-size:13px}.question-requirement-row{grid-template-columns:52px 76px minmax(0,1fr) 16px;gap:5px}.question-type-select,.question-description{padding-right:6px;padding-left:6px;font-size:12px}.question-count-control{grid-template-columns:24px 28px 24px}.toolbar-button{flex:1;padding:0 8px;font-size:12px}.model-select{width:100%;flex-basis:100%}.chat-topline{padding:0 12px}.message-body{max-width:calc(100% - 34px)}}
+  </style>
+  <script src="./channel-navigation.js" defer></script>
+</head>
+<body data-xt-active-nav="ai">
+  <main class="design-main">
+    <div class="page-context">
+      <nav class="xt-breadcrumb" aria-label="面包屑导航"><a href="./xiangtan.html">首页</a><svg class="xt-breadcrumb-separator" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6-9.6-25.6-9.6-35.2 0 9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"/></svg><a href="./ai-education.html">人工智能</a><svg class="xt-breadcrumb-separator" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6-9.6-25.6-9.6-35.2 0 9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"/></svg><span aria-current="page">题目创编</span></nav>
+    </div>
+    <section class="workspace-shell" aria-label="题目创编内容区域"><div class="workspace-layout">
+      <header class="workspace-toolbar" id="designer-toolbar">
+        <div class="workspace-title"><h1>题目创编</h1><p>填写题目要求，生成并整理练习题目</p></div>
+        <div class="toolbar-actions">
+          <select class="model-select" id="model-select" aria-label="选择生成模型"><option>DeepSeek-R1</option><option>湘潭教育助手</option><option>通用教学模型</option></select>
+          <span class="toolbar-divider" aria-hidden="true"></span>
+          <button class="toolbar-button" id="save-draft" type="button"><svg viewBox="0 0 24 24"><path d="M5 4.5h12l2.5 2.5v12A1.5 1.5 0 0 1 18 20.5H6A1.5 1.5 0 0 1 4.5 19V6A1.5 1.5 0 0 1 6 4.5Z"/><path d="M8 4.5v5h8v-5M8 20.5v-7h8v7"/></svg>保存题目</button>
+          <button class="toolbar-button primary" id="generate-plan" type="button"><svg viewBox="0 0 24 24"><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z"/><path d="m19 15 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z"/></svg>智能生成</button>
+          <button class="toolbar-button" id="export-plan" type="button"><svg viewBox="0 0 24 24"><path d="M12 3.5v11M8 10.5l4 4 4-4M5 16v3a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 19v-3"/></svg>导出题目</button>
+        </div>
+      </header>
+      <aside class="workspace-sidebar" aria-label="题目导航">
+        <nav class="sidebar-nav" role="tablist" aria-label="题目创编页面">
+          <button class="sidebar-tab active" type="button" role="tab" aria-selected="true" data-view="designer"><span class="sidebar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4.5h14a1.5 1.5 0 0 1 1.5 1.5v13a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19v-13A1.5 1.5 0 0 1 5 4.5Z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>题目创编</button>
+          <button class="sidebar-tab" type="button" role="tab" aria-selected="false" data-view="plans"><span class="sidebar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4.5h14a1.5 1.5 0 0 1 1.5 1.5v13a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19v-13A1.5 1.5 0 0 1 5 4.5Z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>我的题目<span class="sidebar-count" id="plan-count">0</span></button>
+          <button class="sidebar-tab" type="button" role="tab" aria-selected="false" data-view="history"><span class="sidebar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 11a7.5 7.5 0 1 1 2.2 5.3"/><path d="M4.5 5.5V11h5.5M12 7.5V12l3 2"/></svg></span>历史记录<span class="sidebar-count" id="history-count">0</span></button>
+        </nav>
+      </aside>
+      <div class="workspace-content">
+        <section class="view-panel" id="designer-view" role="tabpanel">
+          <div class="designer-grid">
+            <form class="panel form-panel" id="design-form">
+              <div class="panel-heading"><h2>题目内容</h2><span class="panel-heading-note">必填项标有 <span style="color:#e45d5d">*</span></span></div>
+              <div class="lesson-form">
+                <div class="form-row">
+                  <div class="field"><label class="field-label" for="stage"><span><span class="required">*</span>学段</span></label><select id="stage" required><option selected>小学</option><option>初中</option><option>高中</option></select></div>
+                  <div class="field"><label class="field-label" for="subject"><span><span class="required">*</span>学科</span></label><select id="subject" required><option selected>语文</option><option>信息科技</option><option>数学</option><option>英语</option><option>科学</option><option>综合实践</option></select></div>
+                </div>
+                <div class="form-row">
+                  <div class="field"><label class="field-label" for="grade"><span><span class="required">*</span>年级</span></label><select id="grade" required><option selected>一年级</option><option>二年级</option><option>三年级</option><option>四年级</option><option>五年级</option><option>六年级</option><option>七年级</option><option>八年级</option><option>九年级</option></select></div>
+                  <div class="field"><label class="field-label" for="textbook-edition"><span><span class="required">*</span>教材版本</span></label><select id="textbook-edition" required><option selected>人教部编版</option><option>人教版</option><option>湘教版</option><option>苏教版</option><option>教科版</option><option>其他</option></select></div>
+                </div>
+                <div class="form-row">
+                  <div class="field"><label class="field-label" for="semester"><span><span class="required">*</span>册次</span></label><select id="semester" required><option selected>上学期</option><option>下学期</option></select></div>
+                  <div class="field"></div>
+                </div>
+                <div class="field wide"><label class="field-label" for="question-topic"><span><span class="required">*</span>单元/课题/知识点</span></label><input id="question-topic" type="text" maxlength="200" placeholder="请输入单元/课题/知识点"></div>
+                <div class="form-row">
+                  <div class="field"><label class="field-label" for="difficulty"><span><span class="required">*</span>难度</span></label><select id="difficulty" required><option>基础</option><option>中等</option><option selected>提高</option></select></div>
+                  <div class="field"><label class="field-label" for="student-basics"><span><span class="required">*</span>学生基础</span></label><select id="student-basics" required><option>薄弱</option><option selected>中等</option><option>较好</option><option>差异较大</option></select></div>
+                </div>
+                <input id="knowledge-point" class="hidden-field" type="hidden" value="">
+                <input id="question-requirements" class="hidden-field" type="hidden" value="">
+                <textarea id="material" class="hidden-field" tabindex="-1">结合教材内容和学生熟悉的生活场景组织题目。</textarea>
+                <textarea id="answer-requirements" class="hidden-field" tabindex="-1">为每道题提供参考答案和简明解析，必要时补充评分要点。</textarea>
+                <section class="question-requirements" aria-labelledby="question-requirements-heading">
+                  <h3 class="question-requirements-heading" id="question-requirements-heading">题型要求</h3>
+                  <div class="question-requirements-list" id="question-requirements-list">
+                    <div class="question-requirement-row" data-question-row>
+                      <select class="question-type-select" id="question-type" aria-label="题型"><option selected>题型</option><option>选择题</option><option>填空题</option><option>判断题</option><option>简答题</option><option>综合题</option></select>
+                      <div class="question-count-control" aria-label="题目数量"><button type="button" data-step="-1" aria-label="减少题目数量">−</button><input id="question-count" type="number" min="1" max="99" value="4" aria-label="题目数量"><button type="button" data-step="1" aria-label="增加题目数量">＋</button></div>
+                      <input class="question-description" id="question-description" type="text" maxlength="200" placeholder="对题目的说明和要求" aria-label="对题目的说明和要求">
+                      <button class="remove-question" type="button" aria-label="删除题型"><svg viewBox="0 0 24 24"><path d="M5 7.5h14M10 4.5h4l1 3H9l1-3ZM8 10.5v7M12 10.5v7M16 10.5v7M6.5 7.5l.8 12h9.4l-.8-12"/></svg></button>
+                    </div>
+                  </div>
+                  <button class="add-question-button" id="add-question" type="button"><span aria-hidden="true">＋</span>新增题型</button>
+                </section>
+                <div class="field question-extra-field"><label class="field-label" for="other-requirements"><span>其他要求</span><span class="field-count"><span data-count-for="other-requirements">0</span>/2000</span></label><textarea class="compact" id="other-requirements" maxlength="2000" placeholder="填写其他要求，例如：利用人工智能辅助理解">结合学生生活经验，设计交流讨论和实践体验环节。</textarea></div>
+                <div class="form-footer"><button class="toolbar-button primary generate-button" type="submit"><svg viewBox="0 0 24 24"><path d="m12 3 1.7 5.3L19 10l-5.3-1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z"/></svg>一键生成</button><button class="ghost-button" id="think-toggle" type="button" aria-pressed="false">深度思考</button></div>
+              </div>
+            </form>
+            <section class="panel chat-panel" aria-label="题目创编生成对话">
+              <header class="chat-topline"><span class="chat-topic" id="chat-topic">待填写题目 题目创编</span><span class="autosave-note" id="save-state" aria-live="polite">本地草稿已就绪</span></header>
+              <div class="chat-scroll" id="chat-messages" aria-live="polite">
+                <time class="chat-time" id="message-time"></time>
+                <div class="message-row user"><div class="message-body"><p class="message-label">本次创编任务</p><div class="message-bubble" id="task-summary">请填写左侧题目内容，系统将根据题目主题、适用范围、题型、数量和难度生成练习题。</div><div class="context-chips" id="context-chips"><span class="context-chip">小学</span><span class="context-chip">一年级</span><span class="context-chip">语文</span><span class="context-chip">提高</span></div></div><span class="message-avatar user-avatar" aria-hidden="true"><img src="./local-assets/teaching-design-user-avatar.png" alt=""></span></div>
+                <div class="message-row"><span class="message-avatar assistant-avatar" aria-hidden="true"><img src="./local-assets/teaching-design-robot-avatar.png" alt=""></span><div class="message-body"><p class="message-label">湘小智</p><div class="message-bubble" id="assistant-intro">填写题目要求后，我会整理题目结构、考查重点以及答案解析规范。</div><div class="assistant-content" id="assistant-plan">
+                  <section><h3 class="lesson-outline-title">题目设计要求</h3><ul id="plan-goals"><li>围绕题目主题和知识点，明确本次练习的考查范围。</li><li>按照设定题型和数量组织题目，题干清晰、信息完整。</li><li>结合学生基础和难度要求安排题目梯度。</li></ul></section>
+                  <section><h3 class="lesson-outline-title">核心考查点</h3><p id="plan-focus">重点：围绕题目主题考查核心知识。难点：将知识点转化为符合学段和学生基础的题目。</p></section>
+                  <section><h3 class="lesson-outline-title">题目结构</h3><div class="plan-flow" id="plan-flow"><div class="plan-step"><strong>题型配置</strong><span>按所选题型和数量组织题目。</span></div><div class="plan-step"><strong>难度安排</strong><span>结合学生基础设置题目梯度。</span></div><div class="plan-step"><strong>解析规范</strong><span>提供答案、解析和必要的评分要点。</span></div></div></section>
+                  <section><h3 class="lesson-outline-title">答案与解析</h3><p id="plan-assessment">每道题配套参考答案和简明解析，说明判断依据，并补充必要的评分要点。</p></section>
+                  <section><h3 class="lesson-outline-title">补充要求</h3><p id="plan-extra">结合学生生活经验，设计交流讨论和实践体验环节。</p></section>
+                </div><div class="message-tools"><button class="icon-button" type="button" aria-label="复制题目" title="复制题目" id="copy-plan"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="12" rx="1.5"/><path d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4h-9A1.5 1.5 0 0 0 4 5.5v10A1.5 1.5 0 0 0 5.5 17H8"/></svg></button><button class="icon-button" type="button" aria-label="保存题目" title="保存题目" id="save-from-message"><svg viewBox="0 0 24 24"><path d="M5 4.5h12l2.5 2.5v12A1.5 1.5 0 0 1 18 20.5H6A1.5 1.5 0 0 1 4.5 19V6A1.5 1.5 0 0 1 6 4.5Z"/><path d="M8 4.5v5h8v-5M8 20.5v-7h8v7"/></svg></button></div></div></div>
+              </div>
+              <form class="chat-composer" id="chat-form"><div class="new-chat-line"><button class="new-chat-button" id="new-chat" type="button">新建题目</button></div><div class="composer-box"><textarea id="chat-input" rows="2" placeholder="还可以继续补充题目素材、调整题型或修改难度"></textarea><button class="composer-send" type="submit" aria-label="发送补充要求" title="发送"><svg viewBox="0 0 24 24"><path d="m21 3-7.5 18-3.8-7.7L2 9.5 21 3Z"/><path d="M9.7 13.3 21 3"/></svg></button></div><div class="composer-options"><div class="composer-modes"><button class="mode-toggle" id="deep-mode" type="button" aria-pressed="false">深度思考 (R1)</button><button class="mode-toggle" id="search-mode" type="button" aria-pressed="false">联网搜索</button></div><span class="composer-hint">生成内容请结合教材与题目要求审核</span></div></form>
+            </section>
+          </div>
+        </section>
+        <section class="view-panel" id="plans-view" role="tabpanel" hidden><div class="record-view"><header class="record-heading"><div><h2>我的题目</h2><p>保存的题目会保留在当前浏览器中</p></div><button class="toolbar-button primary" type="button" data-open-designer>新建题目</button></header><div class="record-list" id="plan-list"></div></div></section>
+        <section class="view-panel" id="history-view" role="tabpanel" hidden><div class="record-view"><header class="record-heading"><div><h2>历史记录</h2><p>最近生成和修改的题目会显示在这里</p></div><button class="toolbar-button primary" type="button" data-open-designer>继续创编</button></header><div class="record-list" id="history-list"></div></div></section>
+      </div>
+    </div></section>
+  </main>
+  <footer class="site-footer"><p><a href="#">湘ICP备12010102号-4</a>&nbsp;&nbsp;&nbsp;&nbsp;指导单位：湖南省教育厅</p><p>本网站由湖南省教育厅信息中心承办 | 联系电话：0731-85357667</p></footer>
+  <script>
+    (function () {
+      'use strict';
+      var STORAGE_PLANS = 'xiangtan-question-creation-plans-v1';
+      var STORAGE_HISTORY = 'xiangtan-question-creation-history-v1';
+      var form = document.getElementById('design-form');
+      var fields = ['stage', 'grade', 'subject', 'textbook-edition', 'semester', 'question-type', 'question-count', 'question-topic', 'difficulty', 'student-basics', 'question-requirements', 'knowledge-point', 'material', 'answer-requirements', 'other-requirements'];
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.sidebar-tab'));
+      var views = { designer: document.getElementById('designer-view'), plans: document.getElementById('plans-view'), history: document.getElementById('history-view') };
+      var planList = document.getElementById('plan-list');
+      var historyList = document.getElementById('history-list');
+
+      function readStore(key) {
+        try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch (error) { return []; }
+      }
+      function writeStore(key, data) {
+        try { localStorage.setItem(key, JSON.stringify(data)); return true; } catch (error) { return false; }
+      }
+      function stamp() {
+        var date = new Date();
+        return date.toLocaleString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
+      }
+      function syncQuestionRequirements() {
+        var details = getQuestionRows().map(function (item) {
+          return [item.type, item.count, item.description].filter(Boolean).join(' · ');
+        }).filter(Boolean);
+        document.getElementById('question-requirements').value = details.join('；');
+      }
+      function getQuestionRows() {
+        return Array.prototype.slice.call(document.querySelectorAll('[data-question-row]')).map(function (row) {
+          var type = row.querySelector('.question-type-select').value;
+          var count = row.querySelector('input[type="number"]').value;
+          var description = row.querySelector('.question-description').value.trim();
+          return { type: type !== '题型' ? type : '', count: count ? count + '题' : '', description: description };
+        }).filter(function (item) { return item.type || item.count || item.description; });
+      }
+      function questionConfigSummary() {
+        var rows = getQuestionRows();
+        return rows.length ? rows.map(function (item) {
+          return [item.type || '未指定题型', item.count, item.description].filter(Boolean).join(' · ');
+        }).join('；') : '尚未设置题型与数量';
+      }
+      function scopeSummary(valuesById) {
+        return [valuesById.stage, valuesById.grade, valuesById.subject, valuesById['textbook-edition'], valuesById.semester].filter(Boolean).join(' · ');
+      }
+      function values() {
+        syncQuestionRequirements();
+        var data = {};
+        fields.forEach(function (id) { data[id] = document.getElementById(id).value.trim(); });
+        var modelSelect = document.getElementById('model-select');
+        data.model = modelSelect ? modelSelect.value : 'DeepSeek-R1';
+        data.updated = stamp();
+        return data;
+      }
+      function fill(data) {
+        if (!data) return;
+        fields.forEach(function (id) { if (typeof data[id] === 'string') document.getElementById(id).value = data[id]; });
+        restoreQuestionRows(data['question-requirements']);
+        var modelSelect = document.getElementById('model-select');
+        if (data.model && modelSelect) modelSelect.value = data.model;
+        updateCounters();
+        updateSummary();
+        document.getElementById('preview-state').textContent = '已载入题目';
+      }
+      function updateCounters() {
+        document.querySelectorAll('[data-count-for]').forEach(function (counter) {
+          var target = document.getElementById(counter.getAttribute('data-count-for'));
+          counter.textContent = target.value.length;
+        });
+      }
+      function updateSummary() {
+        syncQuestionRequirements();
+        var valuesById = {};
+        fields.forEach(function (id) { valuesById[id] = document.getElementById(id).value.trim(); });
+        var title = valuesById['question-topic'] || '待填写题目';
+        var scope = scopeSummary(valuesById);
+        var config = questionConfigSummary();
+        document.getElementById('chat-topic').textContent = title + ' 题目创编';
+        document.getElementById('task-summary').textContent = '请根据' + (scope || '所选学段、年级与学科') + '，围绕“' + title + '”创编练习题。题型与数量：' + config + '。难度：' + (valuesById.difficulty || '未设置') + '；学生基础：' + (valuesById['student-basics'] || '未设置') + '。';
+        document.getElementById('context-chips').innerHTML = '';
+        [valuesById.stage, valuesById.grade, valuesById.subject, valuesById['textbook-edition'], valuesById.semester].concat(getQuestionRows().map(function (item) { return [item.type, item.count].filter(Boolean).join(' '); })).concat(valuesById.difficulty ? ['难度：' + valuesById.difficulty] : [], valuesById['student-basics'] ? ['学情：' + valuesById['student-basics']] : []).filter(Boolean).forEach(function (text) {
+          var chip = document.createElement('span'); chip.className = 'context-chip'; chip.textContent = text; document.getElementById('context-chips').appendChild(chip);
+        });
+      }
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, function (character) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character];
+        });
+      }
+      function planText(data) {
+        return ['题目主题：' + (data['question-topic'] || '未命名题目创编'), '适用范围：' + [data.stage, data.grade, data.subject, data['textbook-edition'], data.semester].filter(Boolean).join(' · '), '题型：' + (data['question-type'] && data['question-type'] !== '题型' ? data['question-type'] : '综合题型') + ' · 数量：' + (data['question-count'] ? data['question-count'] + '题' : '待定') + ' · 难度：' + data.difficulty, '', '知识点与考查重点', data['knowledge-point'] || '围绕题目主题考查核心概念和实际应用。', '', '题目要求', data['question-requirements'] || '结合真实情境设计题目，题干清晰，信息完整。', '', '补充素材', data.material || '无', '', '答案与解析要求', data['answer-requirements'] || '提供参考答案、解析和必要的评分要点。', '', '其他要求', data['other-requirements'] || '无', '', '生成模型：' + data.model, '更新时间：' + data.updated].join('\n');
+      }
+      function renderRecords(container, list, emptyTitle, emptyText) {
+        container.innerHTML = '';
+        if (!list.length) {
+          container.innerHTML = '<div class="record-empty"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M10 5.5h11l6 6V29a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 9 29V7a1.5 1.5 0 0 1 1-1.5Z"/><path d="M20.5 5.5v7h6.5M13 18h10M13 22.5h10"/></svg><strong>' + emptyTitle + '</strong><span>' + emptyText + '</span></div>';
+          return;
+        }
+        list.forEach(function (record, index) {
+          var item = document.createElement('article'); item.className = 'record-item';
+          var mark = document.createElement('span'); mark.className = 'record-mark'; mark.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h14a1.5 1.5 0 0 1 1.5 1.5v13a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 19v-13A1.5 1.5 0 0 1 5 4.5Z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>';
+          var copy = document.createElement('div'); copy.className = 'record-copy';
+          var title = document.createElement('strong'); title.textContent = record['question-topic'] || '未命名题目创编';
+          var meta = document.createElement('span'); meta.textContent = [record.stage, record.grade, record.subject, record['question-type'], record['question-count'], record.difficulty, record.updated].filter(Boolean).join(' · ');
+          var open = document.createElement('button'); open.type = 'button'; open.className = 'record-open'; open.textContent = '打开'; open.setAttribute('data-record-index', index);
+          copy.appendChild(title); copy.appendChild(meta); item.appendChild(mark); item.appendChild(copy); item.appendChild(open); container.appendChild(item);
+        });
+      }
+      function refreshRecords() {
+        var plans = readStore(STORAGE_PLANS); var history = readStore(STORAGE_HISTORY);
+        document.getElementById('plan-count').textContent = plans.length;
+        document.getElementById('history-count').textContent = history.length;
+        renderRecords(planList, plans, '还没有保存的题目', '完成题目创编后，点击“保存题目”保存方案。');
+        renderRecords(historyList, history, '暂时没有生成记录', '生成题目后，最近使用的方案会显示在这里。');
+      }
+      function showView(name) {
+        Object.keys(views).forEach(function (key) { views[key].hidden = key !== name; });
+        document.getElementById('designer-toolbar').hidden = name !== 'designer';
+        tabs.forEach(function (tab) { var active = tab.getAttribute('data-view') === name; tab.classList.toggle('active', active); tab.setAttribute('aria-selected', active ? 'true' : 'false'); });
+        if (name !== 'designer') refreshRecords();
+      }
+      function generate() {
+        if (!document.getElementById('question-topic').value.trim()) { document.getElementById('question-topic').focus(); return; }
+        updateSummary();
+        var data = values();
+        var title = data['question-topic'];
+        var scope = scopeSummary(data);
+        var config = questionConfigSummary();
+        var knowledge = data['knowledge-point'] || title;
+        var extraRequirements = [data.material, data['other-requirements']].filter(Boolean);
+        document.getElementById('plan-goals').innerHTML = '';
+        [
+          '题目主题：' + title,
+          '考查范围：' + knowledge,
+          '题型与数量：' + config,
+          '适用对象：' + (scope || '未设置') + '；难度' + (data.difficulty || '未设置') + '；学生基础' + (data['student-basics'] || '未设置')
+        ].concat(data['other-requirements'] ? ['补充要求：' + data['other-requirements']] : []).forEach(function (requirement) {
+          var li = document.createElement('li'); li.textContent = requirement; document.getElementById('plan-goals').appendChild(li);
+        });
+        document.getElementById('plan-focus').textContent = '重点：围绕“' + knowledge + '”考查核心知识和关键能力。难点：结合' + (data['student-basics'] || '学生基础') + '学情，以' + (data.difficulty || '适当') + '难度设计清晰、有效的题目。';
+        document.getElementById('plan-flow').innerHTML = '<div class="plan-step"><strong>适用范围</strong><span>' + escapeHtml(scope || '未设置') + '</span></div><div class="plan-step"><strong>题型与数量</strong><span>' + escapeHtml(config) + '</span></div><div class="plan-step"><strong>难度与学情</strong><span>' + escapeHtml((data.difficulty || '未设置') + ' · ' + (data['student-basics'] || '未设置')) + '</span></div>';
+        document.getElementById('plan-assessment').textContent = data['answer-requirements'] || '每道题配套参考答案和简明解析，说明判断依据，并补充必要的评分要点。';
+        document.getElementById('plan-extra').textContent = extraRequirements.length ? extraRequirements.join('；') : '暂无补充素材或额外要求。';
+        document.getElementById('assistant-intro').textContent = '已根据' + (scope || '所选适用范围') + '和“' + title + '”整理题目创编框架，按' + config + '组织内容，并结合' + (data['student-basics'] || '学生基础') + '学情控制' + (data.difficulty || '整体') + '难度。请检查题干、答案与解析是否符合教材要求。';
+        document.getElementById('preview-state').textContent = '已生成';
+        var history = readStore(STORAGE_HISTORY); history.unshift(data); writeStore(STORAGE_HISTORY, history.slice(0, 30));
+        document.getElementById('save-state').textContent = '题目方案已更新 · ' + data.updated;
+        refreshRecords();
+      }
+      function saveQuestion() {
+        var data = values();
+        if (!data['question-topic']) { document.getElementById('question-topic').focus(); return; }
+        var plans = readStore(STORAGE_PLANS);
+        var existing = plans.findIndex(function (item) { return item['question-topic'] === data['question-topic'] && item.grade === data.grade && item.subject === data.subject; });
+        if (existing >= 0) plans.splice(existing, 1);
+        plans.unshift(data); writeStore(STORAGE_PLANS, plans.slice(0, 50));
+        document.getElementById('save-state').textContent = '题目已保存 · ' + data.updated;
+        refreshRecords();
+      }
+      function exportQuestions() {
+        var data = values(); var blob = new Blob([planText(data)], { type: 'text/plain;charset=utf-8' });
+        var url = URL.createObjectURL(blob); var link = document.createElement('a');
+        link.href = url; link.download = (data['question-topic'] || '题目创编') + '.txt'; link.click(); URL.revokeObjectURL(url);
+      }
+      function createQuestionRow() {
+        var row = document.createElement('div');
+        row.className = 'question-requirement-row';
+        row.setAttribute('data-question-row', '');
+        row.innerHTML = '<select class="question-type-select" aria-label="题型"><option selected>题型</option><option>选择题</option><option>填空题</option><option>判断题</option><option>简答题</option><option>综合题</option></select><div class="question-count-control" aria-label="题目数量"><button type="button" data-step="-1" aria-label="减少题目数量">−</button><input type="number" min="1" max="99" value="4" aria-label="题目数量"><button type="button" data-step="1" aria-label="增加题目数量">＋</button></div><input class="question-description" type="text" maxlength="200" placeholder="对题目的说明和要求" aria-label="对题目的说明和要求"><button class="remove-question" type="button" aria-label="删除题型"><svg viewBox="0 0 24 24"><path d="M5 7.5h14M10 4.5h4l1 3H9l1-3ZM8 10.5v7M12 10.5v7M16 10.5v7M6.5 7.5l.8 12h9.4l-.8-12"/></svg></button>';
+        return row;
+      }
+      function resetQuestionRows() {
+        var list = document.getElementById('question-requirements-list');
+        Array.prototype.slice.call(list.querySelectorAll('[data-question-row]')).forEach(function (row, index) { if (index > 0) row.remove(); });
+        var row = list.querySelector('[data-question-row]');
+        row.querySelector('.question-type-select').value = '题型';
+        row.querySelector('input[type="number"]').value = '4';
+        row.querySelector('.question-description').value = '';
+      }
+      function restoreQuestionRows(value) {
+        resetQuestionRows();
+        if (!value) return;
+        var list = document.getElementById('question-requirements-list');
+        value.split('；').filter(Boolean).forEach(function (detail, index) {
+          var row = index === 0 ? list.querySelector('[data-question-row]') : createQuestionRow();
+          if (index > 0) list.appendChild(row);
+          var parts = detail.split(' · ');
+          var type = parts[0];
+          if (['选择题', '填空题', '判断题', '简答题', '综合题'].indexOf(type) >= 0) {
+            row.querySelector('.question-type-select').value = type;
+            parts.shift();
+          } else {
+            row.querySelector('.question-type-select').value = '题型';
+          }
+          var countText = parts.shift() || '';
+          var count = parseInt(countText, 10);
+          row.querySelector('input[type="number"]').value = Number.isFinite(count) ? Math.max(1, Math.min(99, count)) : 4;
+          row.querySelector('.question-description').value = parts.join(' · ');
+        });
+      }
+      function newQuestion() {
+        form.reset();
+        resetQuestionRows();
+        document.getElementById('question-topic').value = '';
+        document.getElementById('question-requirements').value = '';
+        document.getElementById('material').value = '结合教材内容和学生熟悉的生活场景组织题目。';
+        document.getElementById('answer-requirements').value = '为每道题提供参考答案和简明解析，必要时补充评分要点。';
+        document.getElementById('other-requirements').value = '结合学生生活经验，设计交流讨论和实践体验环节。';
+        updateCounters(); updateSummary();
+        document.getElementById('preview-state').textContent = '新建题目';
+        document.getElementById('chat-input').value = '';
+        showView('designer');
+      }
+
+      form.addEventListener('input', function (event) { if (event.target.matches('input,textarea')) updateCounters(); updateSummary(); });
+      form.addEventListener('change', updateSummary);
+      form.addEventListener('submit', function (event) { event.preventDefault(); generate(); });
+      document.getElementById('generate-plan').addEventListener('click', generate);
+      document.getElementById('save-draft').addEventListener('click', saveQuestion);
+      document.getElementById('export-plan').addEventListener('click', exportQuestions);
+      document.getElementById('save-from-message').addEventListener('click', saveQuestion);
+      document.getElementById('new-chat').addEventListener('click', newQuestion);
+      document.getElementById('add-question').addEventListener('click', function () {
+        document.getElementById('question-requirements-list').appendChild(createQuestionRow());
+        updateSummary();
+      });
+      document.getElementById('question-requirements-list').addEventListener('click', function (event) {
+        var stepButton = event.target.closest('[data-step]');
+        if (stepButton) {
+          var stepInput = stepButton.parentElement.querySelector('input[type="number"]');
+          var nextValue = Math.max(1, Math.min(99, Number(stepInput.value || 1) + Number(stepButton.getAttribute('data-step'))));
+          stepInput.value = nextValue;
+          updateSummary();
+          return;
+        }
+        var removeButton = event.target.closest('.remove-question');
+        if (!removeButton) return;
+        var row = removeButton.closest('[data-question-row]');
+        var list = document.getElementById('question-requirements-list');
+        if (list.querySelectorAll('[data-question-row]').length > 1) row.remove();
+        else { row.querySelector('.question-type-select').value = '题型'; row.querySelector('input[type="number"]').value = '4'; row.querySelector('.question-description').value = ''; }
+        updateSummary();
+      });
+      document.getElementById('think-toggle').addEventListener('click', function () { var active = this.getAttribute('aria-pressed') !== 'true'; this.setAttribute('aria-pressed', active); this.classList.toggle('primary', active); });
+      document.getElementById('deep-mode').addEventListener('click', function () { var active = this.getAttribute('aria-pressed') !== 'true'; this.setAttribute('aria-pressed', active); this.classList.toggle('active', active); });
+      document.getElementById('search-mode').addEventListener('click', function () { var active = this.getAttribute('aria-pressed') !== 'true'; this.setAttribute('aria-pressed', active); this.classList.toggle('active', active); });
+      document.getElementById('chat-form').addEventListener('submit', function (event) {
+        event.preventDefault(); var input = document.getElementById('chat-input'); var request = input.value.trim(); if (!request) { input.focus(); return; }
+        var requirement = document.getElementById('question-requirements'); requirement.value = (requirement.value ? requirement.value + '；' : '') + request; updateCounters(); input.value = ''; generate();
+      });
+      document.getElementById('copy-plan').addEventListener('click', function () { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(planText(values())).then(function () { document.getElementById('save-state').textContent = '题目内容已复制'; }); });
+      tabs.forEach(function (tab) { tab.addEventListener('click', function () { showView(tab.getAttribute('data-view')); }); });
+      document.querySelectorAll('[data-open-designer]').forEach(function (button) { button.addEventListener('click', function () { showView('designer'); }); });
+      document.addEventListener('click', function (event) {
+        var button = event.target.closest('.record-open'); if (!button) return;
+        var isHistory = button.closest('#history-list'); var list = readStore(isHistory ? STORAGE_HISTORY : STORAGE_PLANS); var record = list[Number(button.getAttribute('data-record-index'))];
+        if (record) { fill(record); showView('designer'); }
+      });
+      var clock = new Date(); document.getElementById('message-time').textContent = clock.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', hour12: false });
+      var planState = document.createElement('span'); planState.id = 'preview-state'; planState.textContent = '示例题目'; planState.className = 'context-chip'; document.getElementById('context-chips').appendChild(planState);
+      updateCounters(); updateSummary(); refreshRecords();
+    }());
+  </script>
+</body>
+</html>

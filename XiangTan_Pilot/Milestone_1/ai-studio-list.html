@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>基地校工作室 - 湘潭市智慧教育平台</title>
+  <link rel="stylesheet" href="./channel-navigation.css">
+  <style>
+    :root{--blue:#1e62ec;--ink:#303b4d;--muted:#8793a5;--line:#e5ebf3;--page:#f4f7fb;--content-width:1370px;font-family:"Microsoft YaHei","微软雅黑",Arial,sans-serif;color:var(--ink);background:var(--page);font-synthesis:none;text-rendering:optimizeLegibility}
+    *{box-sizing:border-box}
+    html,body{min-width:320px;margin:0}
+    body{background:var(--page)}
+    button,input{font:inherit}
+    button{color:inherit}
+    a{color:inherit;text-decoration:none}
+    img{display:block}
+    .studio-main{width:min(var(--content-width),calc(100% - 40px));margin:0 auto;padding:22px 0 48px}
+    .page-context{margin-bottom:22px}
+    .studio-content-card{width:100%;padding:16px;border:1px solid #e5ebf3;border-radius:8px;background:#fff;box-shadow:0 4px 16px rgba(36,72,120,.045)}
+    .page-heading{margin-bottom:16px}
+    .page-heading h1{margin:0;color:#263449;font-size:18px;font-weight:700;line-height:26px}
+    .page-heading p{margin:8px 0 0;color:#78869a;font-size:12px;line-height:20px}
+    .directory-shell{overflow:hidden;background:transparent}
+    .directory-toolbar{padding:0}
+    .toolbar-top,.toolbar-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .toolbar-label{flex:none;color:#4b586b;font-size:14px;font-weight:700;line-height:36px}
+    .region-filters{display:flex;align-items:center;gap:8px;min-width:0}
+    .region-options{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+    .region-button,.sort-button{height:36px;padding:0 12px;border:0;border-radius:4px;color:#6c788a;background:transparent;font-size:13px;line-height:36px;white-space:nowrap;cursor:pointer;transition:background .15s,color .15s}
+    .region-button:hover,.sort-button:hover{color:var(--blue);background:#f3f7ff}
+    .region-button.active{color:var(--blue);background:#edf4ff;font-weight:700}
+    .resource-search{display:flex;align-items:center;width:370px;height:40px;overflow:hidden;border-radius:24px;background:#f3f6fb}
+    .resource-search input{flex:1 1 auto;min-width:0;height:40px;padding:0 18px;border:0;outline:0;color:#555;background:transparent;font:14px "Microsoft YaHei","微软雅黑",sans-serif}
+    .resource-search input::placeholder{color:#aaa}
+    .resource-search button{flex:0 0 74px;width:74px;height:34px;margin-right:5px;border:0;border-radius:18px;color:#fff;background:var(--blue);font-size:14px;cursor:pointer}
+    .resource-search button:hover{background:#1555d5}
+    .toolbar-bottom{min-height:47px;margin-top:16px;padding-top:16px;border-top:1px solid #edf1f6;align-items:center}
+    .result-summary{height:20px;margin:0;display:flex;align-items:center;color:#999;font-size:14px;line-height:20px}
+    .result-count{margin:0 4px;color:var(--blue);font-weight:700}
+    .sort-options{display:flex;align-items:center;gap:4px}
+    .sort-label{margin-right:5px;color:#8793a5;font-size:13px;white-space:nowrap}
+    .sort-button{height:30px;line-height:30px}
+    .sort-button.active{color:var(--blue);font-weight:700}
+    .studio-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:16px 0 24px}
+    .studio-card{display:flex;min-width:0;min-height:376px;flex-direction:column;padding:16px;border:1px solid #e4ebf4;border-radius:7px;background:#f8fbff;transition:border-color .18s,box-shadow .18s,transform .18s}
+    .studio-card:hover{transform:translateY(-2px);border-color:#c8d9f1;box-shadow:0 8px 20px rgba(38,81,138,.09)}
+    .studio-card-header{display:flex;align-items:flex-start;gap:16px;min-width:0}
+    .studio-logo{flex:0 0 40px;width:40px;height:40px;border:1px solid #e5edf6;border-radius:50%;background:#fff;object-fit:cover}
+    .studio-card-heading{min-width:0;flex:1}
+    .studio-title-line{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .studio-title{min-width:0;overflow:hidden;margin:0;color:#2e3b50;font-size:14px;font-weight:700;line-height:20px;text-overflow:ellipsis;white-space:nowrap}
+    .studio-region{flex:0 0 48px;width:48px;height:24px;padding:0;border:1px solid #e3eaf3;border-radius:3px;color:#768499;background:#fff;font-size:10px;line-height:22px;text-align:center;white-space:nowrap}
+    .studio-description{display:block;height:18px;overflow:hidden;margin:8px 0 0;color:#8290a2;font-size:12px;line-height:18px;text-overflow:ellipsis;white-space:nowrap}
+    .studio-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin:16px 0 0;padding:16px 0;border-top:1px solid #e8eef6;border-bottom:1px solid #e8eef6;list-style:none}
+    .studio-stats li{display:flex;min-width:0;align-items:center;justify-content:center;gap:2px;color:#8c99aa;font-size:12px;line-height:16px;white-space:nowrap}
+    .studio-stats li+li{border-left:1px solid #e6edf5}
+    .studio-stats strong{overflow:hidden;color:#4284df;font-size:12px;font-weight:700;text-overflow:ellipsis}
+    .studio-stats button{display:flex;min-width:0;align-items:center;gap:2px;padding:0;border:0;color:#8c99aa;background:transparent;font-size:12px;line-height:16px;white-space:nowrap;cursor:pointer}
+    .studio-stats button strong{color:#4284df;font-size:12px}
+    .studio-stats button:hover,.studio-stats button.is-following{color:var(--blue)}
+    .studio-resource-list{flex:1;margin:0;padding:8px 0 0;list-style:none}
+    .studio-resource-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;align-items:center;min-height:80px;padding:8px 0;border-bottom:1px solid #e7edf5}
+    .studio-resource-thumb{width:96px;height:64px;overflow:hidden;border-radius:3px;background:#e6eef8;object-fit:cover}
+    .studio-resource-copy{min-width:0}
+    .studio-resource-title{display:-webkit-box;overflow:hidden;margin:0;color:#516177;font-size:14px;line-height:22px;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+    .studio-resource-meta{display:flex;gap:24px;margin-top:16px;color:#9aa5b4;font-size:10px;line-height:16px;white-space:nowrap}
+    .studio-resource-meta span{display:inline-flex;align-items:center;gap:16px}
+    .studio-resource-meta-icon{flex:0 0 16px;width:16px;height:16px;object-fit:contain}
+    .studio-card-actions{display:flex;justify-content:center;margin-top:10px}
+    .follow-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:32px;padding:0 11px;border:1px solid #dce5f1;border-radius:4px;color:#6d7c90;background:#fff;font-size:12px;cursor:pointer;transition:border-color .15s,color .15s,background .15s}
+    .studio-stats .follow-button{height:auto;padding:0;border:0;border-radius:0;color:#8c99aa;background:transparent;font-size:12px;line-height:16px}
+    .follow-button:hover,.follow-button.is-following{border-color:#b8cef4;color:var(--blue);background:#f4f8ff}
+    .follow-button svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7}
+    .studio-open{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:112px;height:30px;padding:0 12px;border:1px solid #c8d5e4;border-radius:16px;color:#68798f;background:#fff;font-size:11px;cursor:pointer;transition:border-color .15s,color .15s,background .15s}
+    .studio-open:hover{border-color:#91b4ec;color:var(--blue);background:#f5f9ff}
+    .studio-open svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.8}
+    .empty-state{display:none;grid-column:1/-1;min-height:280px;place-content:center;justify-items:center;gap:9px;color:#98a3b2;text-align:center}
+    .empty-state.visible{display:grid}
+    .empty-state svg{width:38px;height:38px;fill:none;stroke:#b9c4d2;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5}
+    .empty-state strong{color:#65748a;font-size:14px;font-weight:500}
+    .empty-state span{font-size:12px}
+    .studio-pagination{display:flex;justify-content:center;align-items:center;gap:8px;margin:8px 0 16px}
+    .studio-page-button{min-width:34px;height:34px;padding:0 10px;border:1px solid #e1e6ef;border-radius:3px;color:#666;background:#fff;font-size:14px;cursor:pointer}
+    .studio-page-button:hover,.studio-page-button.active{border-color:var(--blue);color:#fff;background:var(--blue)}
+    .studio-page-button[disabled]{color:#c4cad4;background:#f7f8fa;cursor:default}
+    .site-footer{padding:24px 20px;color:#fff;background:#333;font-size:13px}
+    .site-footer p{margin:0;line-height:23px;text-align:center}
+    .site-footer a{color:#fff}
+    .studio-dialog{width:min(680px,calc(100% - 32px));max-height:min(760px,calc(100% - 32px));padding:0;overflow:auto;border:1px solid #dfe7f1;border-radius:8px;color:var(--ink);background:#fff;box-shadow:0 18px 60px rgba(23,43,75,.22)}
+    .studio-dialog::backdrop{background:rgba(27,42,64,.45)}
+    .dialog-cover{position:relative;height:112px;background:#eaf3ff}
+    .studio-dialog[data-theme="green"] .dialog-cover{background:#eaf6f0}
+    .studio-dialog[data-theme="gold"] .dialog-cover{background:#fff4e4}
+    .dialog-close{position:absolute;top:14px;right:14px;display:grid;width:32px;height:32px;place-items:center;border:1px solid rgba(255,255,255,.9);border-radius:4px;color:#53647a;background:rgba(255,255,255,.82);cursor:pointer}
+    .dialog-close svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-width:1.8}
+    .dialog-logo{position:absolute;bottom:-34px;left:24px;width:78px;height:78px;padding:4px;border:1px solid #e2eaf3;border-radius:50%;background:#fff;object-fit:cover}
+    .dialog-content{padding:46px 24px 24px}
+    .dialog-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+    .dialog-title-row h2{margin:0;color:#2e3b50;font-size:21px;line-height:30px}
+    .dialog-region{flex:none;padding:3px 8px;border:1px solid #e1e9f3;border-radius:3px;color:#718097;background:#fbfcfe;font-size:12px;line-height:18px}
+    .dialog-description{margin:11px 0 0;color:#69788d;font-size:14px;line-height:24px}
+    .dialog-stats{display:flex;flex-wrap:wrap;gap:10px 28px;margin:18px 0 0;color:#8491a3;font-size:12px}
+    .dialog-stats strong{margin-right:4px;color:var(--blue);font-size:14px;font-weight:700}
+    .dialog-section-title{margin:23px 0 0;padding-top:18px;border-top:1px solid #edf1f6;color:#435168;font-size:14px;font-weight:700;line-height:22px}
+    .dialog-resource-list{margin:8px 0 0;padding:0;list-style:none}
+    .dialog-resource{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid #f0f3f7}
+    .dialog-resource img{width:72px;height:48px;border-radius:3px;background:#edf2f8;object-fit:cover}
+    .dialog-resource-type{display:block;color:#4c78b8;font-size:11px;line-height:17px}
+    .dialog-resource strong{display:block;overflow:hidden;margin-top:3px;color:#526177;font-size:13px;font-weight:500;line-height:20px;text-overflow:ellipsis;white-space:nowrap}
+    .dialog-resource time{color:#9aa4b1;font-size:11px;white-space:nowrap}
+    .dialog-actions{display:flex;justify-content:flex-end;margin-top:18px}
+    @media(max-width:1100px){.studio-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:1000px){.toolbar-top{align-items:stretch;flex-direction:column;gap:10px}.toolbar-top .resource-search{align-self:stretch;width:100%;margin:0;flex-basis:40px}}
+    @media(max-width:700px){.studio-main{width:calc(100% - 24px);padding-top:16px}.page-context{margin-bottom:17px}.studio-content-card{padding:12px}.page-heading{margin-bottom:16px}.directory-toolbar{padding:0}.toolbar-top{gap:12px}.region-filters{align-items:flex-start;flex-direction:column;gap:2px}.toolbar-label{line-height:36px}.region-options{gap:2px}.region-button{padding:0 9px}.toolbar-top .resource-search{align-self:stretch;width:100%;margin:0;flex-basis:36px}.toolbar-bottom{align-items:flex-start;flex-direction:column;gap:8px;padding:16px 0 0}.sort-options{flex-wrap:wrap}.sort-label{width:100%;margin:0}.studio-grid{grid-template-columns:1fr;gap:12px;padding:14px 0 2px}.studio-card{min-height:360px}.studio-dialog{width:calc(100% - 20px);max-height:calc(100% - 20px)}.dialog-content{padding-right:17px;padding-left:17px}.dialog-resource{grid-template-columns:60px minmax(0,1fr);gap:10px}.dialog-resource img{width:60px;height:42px}.dialog-resource time{grid-column:2}.dialog-title-row h2{font-size:18px;line-height:26px}}
+    @media(max-width:420px){.studio-stats{gap:0}.studio-stats li{font-size:10px}.studio-stats strong,.studio-stats button strong{font-size:10px}.studio-resource-row{grid-template-columns:96px minmax(0,1fr);gap:16px}.studio-resource-thumb{width:96px;height:64px}.dialog-stats{gap:8px 16px}}
+  </style>
+  <script src="./channel-navigation.js" defer></script>
+</head>
+<body data-xt-active-nav="ai">
+  <main class="studio-main">
+    <div class="page-context">
+      <nav class="xt-breadcrumb" aria-label="面包屑导航">
+        <a href="./xiangtan.html">首页</a>
+        <svg class="xt-breadcrumb-separator" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"/></svg>
+        <a href="./ai-education.html">人工智能</a>
+        <svg class="xt-breadcrumb-separator" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"/></svg>
+        <span aria-current="page">基地校工作室</span>
+      </nav>
+    </div>
+    <section class="studio-content-card" aria-label="基地校工作室内容区域">
+      <header class="page-heading">
+        <div><h1>基地校工作室</h1><p>汇聚湘潭人工智能教育基地校的教研团队、课程实践与优质资源</p></div>
+      </header>
+      <div class="directory-shell" aria-label="基地校工作室列表">
+      <div class="directory-toolbar">
+        <div class="toolbar-top">
+          <div class="region-filters" aria-label="按地区筛选">
+            <span class="toolbar-label">地区</span>
+            <div class="region-options" role="group" aria-label="工作室地区">
+              <button class="region-button active" type="button" data-region="all" aria-pressed="true">全部</button>
+              <button class="region-button" type="button" data-region="雨湖区" aria-pressed="false">雨湖区</button>
+              <button class="region-button" type="button" data-region="岳塘区" aria-pressed="false">岳塘区</button>
+              <button class="region-button" type="button" data-region="湘潭县" aria-pressed="false">湘潭县</button>
+              <button class="region-button" type="button" data-region="湘乡市" aria-pressed="false">湘乡市</button>
+              <button class="region-button" type="button" data-region="韶山市" aria-pressed="false">韶山市</button>
+              <button class="region-button" type="button" data-region="高新区" aria-pressed="false">高新区</button>
+              <button class="region-button" type="button" data-region="经开区" aria-pressed="false">经开区</button>
+              <button class="region-button" type="button" data-region="市直" aria-pressed="false">市直</button>
+            </div>
+          </div>
+          <form class="resource-search" id="studio-search-form" role="search">
+            <input id="studio-search" type="search" placeholder="请输入关键词" aria-label="搜索工作室名称或研究方向" autocomplete="off">
+            <button type="submit" aria-label="搜索">搜索</button>
+          </form>
+        </div>
+        <div class="toolbar-bottom">
+          <div class="result-summary" aria-live="polite">当前共<span class="result-count" id="result-count">3</span>个工作室</div>
+          <div class="sort-options" role="group" aria-label="工作室排序">
+            <button class="sort-button active" type="button" data-sort="default" aria-pressed="true">综合排序</button>
+            <button class="sort-button" type="button" data-sort="followers" aria-pressed="false">关注最多</button>
+            <button class="sort-button" type="button" data-sort="updated" aria-pressed="false">最新动态</button>
+          </div>
+        </div>
+      </div>
+      <div class="studio-grid" id="studio-grid" aria-live="polite"></div>
+      <div class="studio-pagination" aria-label="基地校工作室分页"><button class="studio-page-button" type="button" disabled aria-label="上一页">‹</button><button class="studio-page-button active" type="button">1</button><button class="studio-page-button" type="button">2</button><button class="studio-page-button" type="button">3</button><button class="studio-page-button" type="button">4</button><button class="studio-page-button" type="button" aria-label="下一页">›</button></div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><p><a href="#">湘ICP备12010102号-4</a>&nbsp;&nbsp;&nbsp;&nbsp;指导单位：湖南省教育厅</p><p>本网站由湖南省教育厅信息中心承办 | 联系电话：0731-85357667</p><p>技术服务（湖南教育音像电子出版社）电话：0731-84390585、84390675、84390175 | 咨询时间：工作日8:30至17:30</p></footer>
+  <dialog class="studio-dialog" id="studio-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-cover"><img class="dialog-logo" id="dialog-logo" src="" alt=""><button class="dialog-close" type="button" aria-label="关闭工作室详情"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg></button></div>
+    <div class="dialog-content" id="dialog-content"></div>
+  </dialog>
+  <script>
+    (function () {
+      'use strict';
+      var imageRoot = './xiangtan-channel/_nuxt/img/';
+      var studios = [
+        { id:'yuhu', region:'雨湖区', school:'人工智能教育基地校', name:'雨湖区人工智能教育基地校工作室', focus:'智慧课堂示范', theme:'blue', logo:'base-school-studios/studio-01.jpeg', description:'聚焦智慧课堂教学实践，分享 AI 辅助教学、人工智能通识课程与项目式学习经验。', followers:1286, members:18, resources:32, published:14, views:'3.6万', updated:'2026-09-18', items:[
+          {type:'文章',title:'AI赋能课堂教学：从工具应用到教学方式创新',image:'ai-cases/case-01.png',views:'628 浏览',likes:'32 点赞',date:'2026-09-18'},
+          {type:'案例',title:'人工智能通识课程校本化实施案例',image:'ai-cases/case-05.png',views:'516 浏览',likes:'24 点赞',date:'2026-09-12'},
+          {type:'视频',title:'机器人编程课程的项目式学习实践',image:'ai-cases/case-07.png',views:'842 浏览',likes:'46 点赞',date:'2026-09-05'}
+        ]},
+        { id:'yuetang', region:'岳塘区', school:'智慧教育创新基地校', name:'岳塘区智慧教育创新基地校工作室', focus:'数字教育创新', theme:'green', logo:'base-school-studios/studio-02.jpg', description:'探索数字教育创新与智能学习空间建设，交流生成式 AI 支持跨学科教学的实践。', followers:986, members:16, resources:28, published:12, views:'2.8万', updated:'2026-09-16', items:[
+          {type:'案例',title:'生成式AI支持跨学科教学设计实践',image:'ai-cases/case-03.png',views:'576 浏览',likes:'29 点赞',date:'2026-09-16'},
+          {type:'文章',title:'面向核心素养的智能学习空间建设',image:'ai-cases/case-04.png',views:'438 浏览',likes:'21 点赞',date:'2026-09-09'},
+          {type:'视频',title:'数字化课堂教学创新成果展示',image:'ai-cases/case-02.png',views:'709 浏览',likes:'38 点赞',date:'2026-09-02'}
+        ]},
+        { id:'xiangtan', region:'湘潭县', school:'AI课程研发基地校', name:'湘潭县AI课程研发基地校工作室', focus:'课程研发实践', theme:'gold', logo:'base-school-studios/studio-03.jpg', description:'开展人工智能课程研发与资源共建，沉淀中小学 AI 通识课程及编程实践方案。', followers:1124, members:20, resources:36, views:'3.1万', published:18, updated:'2026-09-15', items:[
+          {type:'课程',title:'中小学人工智能通识课程建设路径',image:'ai-cases/case-05.png',views:'684 浏览',likes:'36 点赞',date:'2026-09-15'},
+          {type:'案例',title:'AI编程项目式学习活动设计',image:'ai-cases/case-06.png',views:'492 浏览',likes:'27 点赞',date:'2026-09-08'},
+          {type:'文章',title:'区域人工智能教育课程资源共建机制',image:'ai-cases/case-08.png',views:'615 浏览',likes:'31 点赞',date:'2026-09-01'}
+        ]},
+        { id:'xiangxiang', region:'湘乡市', school:'AI创新实践基地校', name:'湘乡市人工智能创新实践工作室', focus:'创客实践与竞赛', theme:'blue', logo:'base-school-studios/studio-01.jpeg', description:'围绕机器人、编程与生成式 AI 开展创客实践，沉淀可复制的校本课程资源。', followers:864, members:14, resources:21, views:'2.2万', published:14, updated:'2026-09-13', items:[
+          {type:'案例',title:'校园机器人社团项目式学习案例',image:'ai-cases/case-02.png',views:'431 浏览',likes:'19 点赞',date:'2026-09-13'},
+          {type:'课程',title:'小学人工智能创客活动设计',image:'ai-cases/case-06.png',views:'386 浏览',likes:'22 点赞',date:'2026-09-06'},
+          {type:'文章',title:'人工智能实践课程的评价方式探索',image:'ai-cases/case-01.png',views:'298 浏览',likes:'16 点赞',date:'2026-08-29'}
+        ]},
+        { id:'shaoshan', region:'韶山市', school:'数字素养基地校', name:'韶山市数字素养教育工作室', focus:'数字素养培养', theme:'green', logo:'base-school-studios/studio-02.jpg', description:'面向中小学教师与学生推进数字素养教育，交流人工智能安全、伦理与应用实践。', followers:752, members:12, resources:18, views:'1.9万', published:11, updated:'2026-09-11', items:[
+          {type:'文章',title:'人工智能安全与伦理启蒙课堂',image:'ai-cases/case-04.png',views:'352 浏览',likes:'18 点赞',date:'2026-09-11'},
+          {type:'案例',title:'数字素养主题班会活动实录',image:'ai-cases/case-08.png',views:'284 浏览',likes:'15 点赞',date:'2026-09-04'},
+          {type:'视频',title:'学生智能工具使用规范微课',image:'ai-cases/case-03.png',views:'419 浏览',likes:'23 点赞',date:'2026-08-26'}
+        ]},
+        { id:'gaoxin', region:'高新区', school:'智能教育示范基地校', name:'高新区智能教育示范工作室', focus:'智能课堂应用', theme:'gold', logo:'base-school-studios/studio-03.jpg', description:'探索人工智能工具融入备课、课堂与教研的应用路径，服务区域教育教学创新。', followers:1388, members:22, resources:45, views:'4.2万', published:26, updated:'2026-09-10', items:[
+          {type:'案例',title:'AI辅助备课与课堂反馈实践',image:'ai-cases/case-07.png',views:'908 浏览',likes:'52 点赞',date:'2026-09-10'},
+          {type:'文章',title:'区域智能教研共同体建设经验',image:'ai-cases/case-02.png',views:'647 浏览',likes:'35 点赞',date:'2026-09-03'},
+          {type:'课程',title:'教师人工智能素养提升工作坊',image:'ai-cases/case-05.png',views:'532 浏览',likes:'28 点赞',date:'2026-08-23'}
+        ]},
+        { id:'jingkai', region:'经开区', school:'智慧学习基地校', name:'经开区智慧学习应用工作室', focus:'学习空间建设', theme:'blue', logo:'base-school-studios/studio-01.jpeg', description:'聚焦智慧学习空间和个性化学习支持，分享学校人工智能教育应用案例。', followers:936, members:15, resources:24, views:'2.6万', published:16, updated:'2026-09-07', items:[
+          {type:'案例',title:'智慧学习空间支持个性化学习',image:'ai-cases/case-03.png',views:'573 浏览',likes:'26 点赞',date:'2026-09-07'},
+          {type:'文章',title:'学校人工智能应用场景清单',image:'ai-cases/case-04.png',views:'405 浏览',likes:'20 点赞',date:'2026-08-31'},
+          {type:'视频',title:'智能学习终端课堂应用展示',image:'ai-cases/case-06.png',views:'488 浏览',likes:'24 点赞',date:'2026-08-20'}
+        ]},
+        { id:'city', region:'市直', school:'市级人工智能教育基地校', name:'湘潭市人工智能教育工作室', focus:'区域教研协同', theme:'green', logo:'base-school-studios/studio-02.jpg', description:'汇聚市级基地校教研力量，推进人工智能通识教育资源共建与区域应用示范。', followers:1542, members:26, resources:52, views:'4.8万', published:31, updated:'2026-09-05', items:[
+          {type:'文章',title:'湘潭市人工智能教育区域推进报告',image:'ai-cases/case-08.png',views:'1024 浏览',likes:'63 点赞',date:'2026-09-05'},
+          {type:'案例',title:'基地校工作室协同教研实践',image:'ai-cases/case-01.png',views:'786 浏览',likes:'44 点赞',date:'2026-08-28'},
+          {type:'视频',title:'人工智能通识课程示范课展示',image:'ai-cases/case-07.png',views:'931 浏览',likes:'57 点赞',date:'2026-08-16'}
+        ]}
+      ];
+      var followed = new Set();
+      var selectedRegion = 'all';
+      var selectedSort = 'default';
+      var searchTerm = '';
+      var grid = document.getElementById('studio-grid');
+      var dialog = document.getElementById('studio-dialog');
+      var searchInput = document.getElementById('studio-search');
+
+      function countFor(studio) { return studio.followers + (followed.has(studio.id) ? 1 : 0); }
+      function formatCount(value) { return value >= 10000 ? (value / 10000).toFixed(1).replace(/\.0$/, '') + '万' : String(value); }
+      function followIcon() { return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.2-4.3-8.8-8.2C1.2 6.9 7.1 3.8 12 8c4.9-4.2 10.8-1.1 8.8 3.8C19.2 15.7 12 20 12 20Z"></path></svg>'; }
+      function filteredStudios() {
+        var query = searchTerm.trim().toLowerCase();
+        var result = studios.filter(function (studio) {
+          var matchesRegion = selectedRegion === 'all' || studio.region === selectedRegion;
+          var searchable = [studio.name,studio.school,studio.region,studio.focus,studio.description].join(' ').toLowerCase();
+          return matchesRegion && (!query || searchable.indexOf(query) !== -1);
+        });
+        if (selectedSort === 'followers') result.sort(function (a,b) { return countFor(b) - countFor(a); });
+        if (selectedSort === 'updated') result.sort(function (a,b) { return b.updated.localeCompare(a.updated); });
+        return result;
+      }
+      function cardMarkup(studio) {
+        var isFollowing = followed.has(studio.id);
+        var resources = studio.items.slice(0, 3).map(function (item) {
+          return '<li class="studio-resource-row"><img class="studio-resource-thumb" src="' + imageRoot + item.image + '" alt=""><div class="studio-resource-copy"><p class="studio-resource-title">' + item.title + '</p><div class="studio-resource-meta"><span><img class="studio-resource-meta-icon" src="' + imageRoot + 'resource-view.svg" alt="">' + item.views.replace(' 浏览', '') + '</span><span><img class="studio-resource-meta-icon" src="' + imageRoot + 'resource-like.svg" alt="">' + item.likes.replace(' 点赞', '') + '</span></div></div></li>';
+        }).join('');
+        return '<article class="studio-card" data-theme="' + studio.theme + '">' +
+          '<div class="studio-card-header"><img class="studio-logo" src="' + imageRoot + studio.logo + '" alt="' + studio.school + '标识"><div class="studio-card-heading"><div class="studio-title-line"><h2 class="studio-title">' + studio.name + '</h2><span class="studio-region">' + studio.region + '</span></div><p class="studio-description">' + studio.description + '</p></div></div>' +
+          '<ul class="studio-stats"><li><button class="follow-button' + (isFollowing ? ' is-following' : '') + '" type="button" data-follow="' + studio.id + '" aria-pressed="' + (isFollowing ? 'true' : 'false') + '"><strong>' + formatCount(countFor(studio)) + '</strong>关注</button></li><li><strong>' + studio.resources + '</strong>资源</li><li><strong>' + studio.views + '</strong>浏览</li><li><strong>' + studio.published + '</strong>发布</li></ul>' +
+          '<ul class="studio-resource-list">' + resources + '</ul>' +
+          '<div class="studio-card-actions"><button class="studio-open" type="button" data-open="' + studio.id + '">立即进入<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></button></div></article>';
+      }
+      function render() {
+        var visible = filteredStudios();
+        document.getElementById('result-count').textContent = visible.length;
+        grid.innerHTML = visible.map(cardMarkup).join('') + (visible.length ? '' : '<div class="empty-state visible"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="21" cy="21" r="12"></circle><path d="m30 30 9 9M16 21h10"></path></svg><strong>没有找到符合条件的工作室</strong><span>试试其他地区或关键词</span></div>');
+      }
+      function renderDialog(studio) {
+        dialog.setAttribute('data-theme', studio.theme);
+        var logo = document.getElementById('dialog-logo');
+        logo.src = imageRoot + studio.logo;
+        logo.alt = studio.school + '标识';
+        var resources = studio.items.map(function (item) {
+          return '<li class="dialog-resource"><img src="' + imageRoot + item.image + '" alt=""><div><span class="dialog-resource-type">' + item.type + ' · ' + item.views + ' · ' + item.likes + '</span><strong>' + item.title + '</strong></div><time datetime="' + item.date + '">' + item.date + '</time></li>';
+        }).join('');
+        var isFollowing = followed.has(studio.id);
+        document.getElementById('dialog-content').innerHTML = '<div class="dialog-title-row"><h2 id="dialog-title">' + studio.name + '</h2><span class="dialog-region">' + studio.region + '</span></div>' +
+          '<p class="dialog-description">' + studio.description + '</p><div class="dialog-stats"><span><strong>' + formatCount(countFor(studio)) + '</strong>关注</span><span><strong>' + studio.members + '</strong>成员</span><span><strong>' + studio.views + '</strong>浏览量</span></div>' +
+          '<h3 class="dialog-section-title">工作室动态</h3><ul class="dialog-resource-list">' + resources + '</ul>' +
+          '<div class="dialog-actions"><button class="follow-button' + (isFollowing ? ' is-following' : '') + '" type="button" data-follow="' + studio.id + '" aria-pressed="' + (isFollowing ? 'true' : 'false') + '">' + followIcon() + (isFollowing ? '已关注' : '关注工作室') + '</button></div>';
+      }
+      function findStudio(id) { return studios.find(function (studio) { return studio.id === id; }); }
+      function toggleFollow(id) {
+        if (followed.has(id)) followed.delete(id); else followed.add(id);
+        render();
+        var studio = findStudio(id);
+        if (dialog.open && studio) renderDialog(studio);
+      }
+      document.querySelectorAll('.region-button').forEach(function (button) {
+        button.addEventListener('click', function () {
+          selectedRegion = button.getAttribute('data-region');
+          document.querySelectorAll('.region-button').forEach(function (item) {
+            var active = item === button;
+            item.classList.toggle('active', active);
+            item.setAttribute('aria-pressed', active ? 'true' : 'false');
+          });
+          render();
+        });
+      });
+      document.querySelectorAll('.sort-button').forEach(function (button) {
+        button.addEventListener('click', function () {
+          selectedSort = button.getAttribute('data-sort');
+          document.querySelectorAll('.sort-button').forEach(function (item) {
+            var active = item === button;
+            item.classList.toggle('active', active);
+            item.setAttribute('aria-pressed', active ? 'true' : 'false');
+          });
+          render();
+        });
+      });
+      searchInput.addEventListener('input', function () { searchTerm = searchInput.value; render(); });
+      document.getElementById('studio-search-form').addEventListener('submit', function (event) { event.preventDefault(); searchTerm = searchInput.value; render(); });
+      grid.addEventListener('click', function (event) {
+        var followButton = event.target.closest('[data-follow]');
+        if (followButton) { toggleFollow(followButton.getAttribute('data-follow')); return; }
+        var openButton = event.target.closest('[data-open]');
+        if (!openButton) return;
+        var studio = findStudio(openButton.getAttribute('data-open'));
+        if (studio) { renderDialog(studio); dialog.showModal(); }
+      });
+      dialog.addEventListener('click', function (event) {
+        if (event.target.closest('.dialog-close')) { dialog.close(); return; }
+        var followButton = event.target.closest('[data-follow]');
+        if (followButton) toggleFollow(followButton.getAttribute('data-follow'));
+      });
+      dialog.addEventListener('click', function (event) { if (event.target === dialog) dialog.close(); });
+      document.querySelectorAll('.studio-page-button:not([disabled])').forEach(function (button) {
+        button.addEventListener('click', function () {
+          if (!/^\d+$/.test(button.textContent)) return;
+          document.querySelectorAll('.studio-page-button').forEach(function (item) { item.classList.toggle('active', item === button); });
+        });
+      });
+      render();
+    }());
+  </script>
+</body>
+</html>

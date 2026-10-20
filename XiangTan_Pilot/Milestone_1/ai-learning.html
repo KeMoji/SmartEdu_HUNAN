@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <title>学AI - 湘潭市智慧教育平台</title>
+  <link rel="stylesheet" href="./channel-navigation.css">
+  <script src="./channel-navigation.js" defer></script>
+  <style>
+    :root { --blue:#1e62ec; --ink:#333; --page:#f5f7fb; --line:#edf0f4; --content-width:1370px; }
+    * { box-sizing:border-box; }
+    html,body { margin:0; min-width:320px; }
+    body { background:var(--page); color:var(--ink); font-family:"Microsoft YaHei","微软雅黑",Arial,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    button,input { font:inherit; }
+    img { display:block; }
+    .platform-header { position:relative; z-index:20; width:100%; height:60px; padding:0 20px; background:#1e62ec; }
+    .platform-header-inner { position:relative; display:flex; align-items:center; justify-content:space-between; width:100%; max-width:var(--content-width); height:60px; margin:0 auto; }
+    .platform-brand { position:relative; display:flex; align-items:center; height:48px; }
+    .platform-logo-link,.platform-logo { display:block; width:205px; height:48px; }
+    .platform-logo { object-fit:contain; }
+    .platform-switcher { width:50px; height:48px; border:0; background:transparent; cursor:pointer; }
+    .brand-divider { width:1px; height:20px; margin-left:4px; background:#fff; }
+    .brand-name { display:flex; align-items:center; height:24px; min-width:180px; margin-left:25px; color:#fff; font-size:18px; font-weight:700; line-height:24px; white-space:nowrap; }
+    .header-links { display:flex; align-items:center; gap:15px; color:#fff; font-size:14px; }
+    .header-links a { min-width:58px; padding:5px 10px; border:1px solid #fff; border-radius:18px; text-align:center; }
+    .primary-nav { position:relative; z-index:11; width:100%; height:66px; padding:0 20px; border-bottom:1px solid #f6f6f6; background:#fff; box-shadow:0 6px 25px 1px rgba(0,0,0,.05); }
+    .primary-nav-inner { display:flex; align-items:flex-end; justify-content:space-between; width:100%; max-width:var(--content-width); height:66px; margin:0 auto; }
+    .nav-list { display:flex; align-items:stretch; flex:1 1 auto; height:66px; min-width:0; margin:0; padding:0; overflow:hidden; list-style:none; }
+    .nav-list li { position:relative; flex:0 0 auto; margin-right:24px; }
+    .nav-list a { display:inline-block; min-width:40px; height:66px; padding:21px 0; color:#333; font-size:16px; line-height:24px; text-align:center; white-space:nowrap; }
+    .nav-list a:hover,.nav-list a.active { color:var(--blue); }
+    .nav-list a.active { font-weight:700; }
+    .nav-list a.active::after { position:absolute; right:0; bottom:0; left:0; height:3px; background:var(--blue); content:""; }
+    .ai-search { flex:0 0 128px; width:128px; height:37px; margin:0 0 14px 20px; padding:0; border:0; background:transparent; cursor:pointer; }
+    .ai-search img { width:128px; height:37px; }
+    .ai-learning-page { padding-bottom:48px; background:#f3f6fc; }
+    .ai-learning-banner { width:100%; height:198px; object-fit:cover; object-position:center; }
+    .learning-shell { width:calc(100% - 60px); max-width:var(--content-width); margin:24px auto 0; }
+    .learning-controls { padding:16px; border-radius:8px; background:#fff; box-shadow:0 2px 10px rgba(25,67,145,.06); }
+    .category-nav { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:42px; align-items:center; min-height:58px; padding:8px 22px; }
+    .category-button { display:inline-flex; align-items:center; justify-content:center; width:100%; min-width:0; height:42px; margin:0; padding:0 12px; border:1px solid transparent; border-radius:4px; color:#555; background:transparent; font-size:16px; text-align:center; cursor:pointer; transition:color .2s ease; }
+    .category-button:hover,.category-button.active { color:var(--blue); background:transparent; }
+    .category-button.active { font-weight:700; }
+    .filter-panel { margin-top:16px; padding:16px 0 0; border-top:1px solid var(--line); }
+    .filter-row { display:flex; align-items:center; min-height:36px; }
+    .filter-row + .filter-row { margin-top:16px; }
+    .filter-label { flex:0 0 60px; color:#666; font-size:14px; line-height:36px; }
+    .filter-options { display:flex; align-items:center; flex-wrap:wrap; gap:16px; }
+    .filter-option { min-width:64px; height:36px; padding:0 14px; border:0; border-radius:18px; color:#333; background:transparent; font-size:14px; white-space:nowrap; cursor:pointer; }
+    .filter-option:hover,.filter-option.active { color:var(--blue); background:#f3f7ff; }
+    .filter-option.active { font-weight:700; }
+    .list-toolbar { display:flex; align-items:center; justify-content:space-between; min-height:72px; margin-top:18px; padding:0 26px 0 36px; border-radius:10px; background:#fff; }
+    .course-sort { display:flex; align-items:center; gap:30px; color:#999; font-size:14px; }
+    .course-sort button { padding:8px 0; border:0; color:#999; background:transparent; font:inherit; cursor:pointer; }
+    .course-sort button:hover,.course-sort button.active { color:var(--blue); font-weight:700; }
+    .course-search { display:flex; align-items:center; width:370px; height:40px; overflow:hidden; border-radius:24px; background:#f3f6fb; }
+    .course-search input { flex:1 1 auto; min-width:0; height:40px; padding:0 18px; border:0; outline:0; color:#555; background:transparent; font:14px "Microsoft YaHei","微软雅黑",sans-serif; }
+    .course-search input::placeholder { color:#aaa; }
+    .course-search button { flex:0 0 74px; width:74px; height:34px; margin-right:5px; border:0; border-radius:18px; color:#fff; background:var(--blue); font-size:14px; cursor:pointer; }
+    .course-search button:hover { background:#1555d5; }
+    .list-summary { display:inline-flex; align-items:center; height:32px; margin:18px 0 0 18px; padding:0 16px; border-radius:16px; color:#666; background:#fff; font-size:14px; line-height:32px; }
+    .list-summary strong { margin:0 3px; color:var(--blue); font-weight:700; }
+    .course-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:28px 18px; margin:18px 0 36px; }
+    .course-card { display:flex; flex-direction:column; min-width:0; overflow:hidden; padding:12px; border:1px solid rgba(217,225,236,.9); border-radius:8px; background:#fff; box-shadow:0 3px 10px rgba(30,62,120,.08); transition:transform .2s ease,box-shadow .2s ease; }
+    .course-card:hover { transform:translateY(-3px); box-shadow:0 8px 18px rgba(26,62,153,.14); }
+    .course-cover { position:relative; width:100%; height:148px; overflow:hidden; border-radius:4px; background:#eff4fb; }
+    .course-cover img { width:100%; height:100%; object-fit:cover; transition:transform .25s ease; }
+    .course-card:hover .course-cover img { transform:scale(1.03); }
+    .course-body { display:flex; flex:1; flex-direction:column; padding:12px 0 0; }
+    .course-title { min-height:24px; overflow:hidden; margin:0; color:#222; font-size:15px; font-weight:700; line-height:24px; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+    .course-description { display:none; }
+    .course-source { display:inline-flex; align-items:center; height:22px; gap:8px; margin:8px 0 0; overflow:hidden; color:#999; font-size:12px; line-height:22px; white-space:nowrap; text-overflow:ellipsis; }
+    .course-source img { flex:0 0 16px; width:16px; height:16px; object-fit:contain; }
+    .course-stats { display:flex; align-items:center; min-height:36px; gap:24px; margin-top:8px; padding:8px 0 0; border-top:1px solid var(--line); color:#999; font-size:12px; line-height:20px; }
+    .course-stat { display:inline-flex; align-items:center; gap:7px; }
+    .course-stat svg { width:16px; height:16px; fill:#858d99; }
+    .course-empty { grid-column:1/-1; padding:64px 16px; color:#8a96a8; font-size:14px; text-align:center; }
+    .pagination { display:flex; align-items:center; justify-content:center; gap:8px; }
+    .page-button { min-width:34px; height:34px; padding:0 10px; border:1px solid #e1e6ef; border-radius:3px; color:#666; background:#fff; font-size:14px; cursor:pointer; }
+    .page-button:hover,.page-button.active { border-color:var(--blue); color:#fff; background:var(--blue); }
+    .page-button:disabled { color:#c4cad4; background:#f7f8fa; cursor:default; }
+    .site-footer { padding:30px 0; color:#fff; background:#333; font-size:14px; }
+    .site-footer p { margin:0; line-height:25px; text-align:center; }
+    .site-footer a { color:#fff; }
+    @media(max-width:1300px) { .learning-shell { width:calc(100% - 40px); }.course-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px 16px; } }
+    @media(max-width:880px) { .brand-divider,.header-links { display:none; }.platform-logo-link,.platform-logo { width:180px; }.brand-name { font-size:16px; }.nav-list li { margin-right:15px; }.nav-list a { font-size:14px; }.ai-learning-banner { height:150px; }.learning-shell { width:calc(100% - 28px); margin-top:18px; }.category-nav { display:flex; flex-wrap:wrap; min-height:58px; padding:8px 14px; }.category-button { flex:1 1 0; width:0; height:38px; padding:0 10px; font-size:14px; }.list-toolbar { align-items:stretch; flex-direction:column; gap:12px; padding:14px; }.course-sort { gap:18px; flex-wrap:wrap; }.course-search { width:100%; }.list-summary { margin-left:0; }.course-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }.course-cover { height:145px; } }
+    @media(max-width:560px) { .ai-learning-banner { height:120px; }.learning-shell { width:calc(100% - 24px); }.category-nav { gap:4px; }.category-button { flex:1 1 calc(50% - 4px); }.course-grid { grid-template-columns:1fr; }.course-cover { height:180px; }.course-sort { gap:14px; } }
+  </style>
+</head>
+<body data-xt-active-nav="ai">
+  <header class="platform-header"><div class="platform-header-inner"><div class="platform-brand"><a class="platform-logo-link" href="./index.html" target="_blank" rel="noopener" aria-label="湖南智慧教育平台"><img class="platform-logo" src="./xiangtan-channel/_nuxt/img/image-login-new.a21550b.png" alt="湖南智慧教育平台"></a><button class="platform-switcher" type="button" aria-label="切换子平台"></button><div class="platform-switch-panel"><ul class="platform-switch-list"><li>湖南智慧教育平台</li><li class="active">湘潭市智慧教育平台</li><li>湖南职业教育智慧教育平台</li><li>湖南高等教育智慧教育平台</li></ul></div><span class="brand-divider"></span><span class="brand-name">湘潭市智慧教育平台</span></div><div class="header-links"><a href="./index.html" target="_blank" rel="noopener">登录</a><a href="./index.html" target="_blank" rel="noopener">注册</a><button class="accessibility-button" type="button">无障碍浏览</button></div></div></header>
+  <nav class="primary-nav" aria-label="主导航"><div class="primary-nav-inner"><ul class="nav-list"><li><a href="./xiangtan.html">首页</a></li><li><a href="./course-learning.html">课程学习</a></li><li><a href="./five-education.html">五育成长</a></li><li><a href="./xiangtan.html#教师发展">教师发展</a></li><li><a href="./textbook-resources.html">教材资源</a></li><li><a class="active" href="./ai-education.html">人工智能</a></li><li><a href="./application-services.html">应用服务</a></li><li><a href="./featured-topics.html">特色专题</a></li><li><a href="./city-services.html">市域服务</a></li></ul><button class="ai-search" type="button" aria-label="AI 搜索"><img src="./xiangtan-channel/_nuxt/img/ai-search-button.b0a1e04.svg" alt="AI 搜索"></button></div></nav>
+  <main class="ai-learning-page" aria-label="学AI课程列表">
+    <img class="ai-learning-banner" src="./local-assets/ai-learning-banner.png" alt="学AI">
+    <div class="learning-shell">
+      <div class="learning-controls">
+        <nav class="category-nav" aria-label="课程分类">
+          <button class="category-button active" type="button" data-category="general" aria-pressed="true">人工智能通识课程</button>
+          <button class="category-button" type="button" data-category="teacher" aria-pressed="false">教师培训资源</button>
+          <button class="category-button" type="button" data-category="student" aria-pressed="false">学生学习资源</button>
+        </nav>
+        <div class="filter-panel" aria-label="课程筛选条件">
+          <div class="filter-row">
+            <span class="filter-label">学段</span>
+            <div class="filter-options" role="group" aria-label="学段筛选" data-filter-group="stage">
+              <button class="filter-option active" type="button" data-filter="all" aria-pressed="true">全部</button>
+              <button class="filter-option" type="button" data-filter="primary" aria-pressed="false">小学</button>
+              <button class="filter-option" type="button" data-filter="junior" aria-pressed="false">初中</button>
+              <button class="filter-option" type="button" data-filter="senior" aria-pressed="false">高中</button>
+            </div>
+          </div>
+          <div class="filter-row">
+            <span class="filter-label">分类</span>
+            <div class="filter-options" role="group" aria-label="分类筛选" data-filter-group="topic">
+              <button class="filter-option active" type="button" data-filter="all" aria-pressed="true">全部</button>
+              <button class="filter-option" type="button" data-filter="foundation" aria-pressed="false">基础认知</button>
+              <button class="filter-option" type="button" data-filter="application" aria-pressed="false">生活应用</button>
+              <button class="filter-option" type="button" data-filter="practice" aria-pressed="false">实践探究</button>
+              <button class="filter-option" type="button" data-filter="ethics" aria-pressed="false">伦理与安全</button>
+            </div>
+          </div>
+          <div class="filter-row">
+            <span class="filter-label">主题</span>
+            <div class="filter-options" role="group" aria-label="主题筛选" data-filter-group="theme">
+              <button class="filter-option active" type="button" data-filter="all" aria-pressed="true">全部</button>
+              <button class="filter-option" type="button" data-filter="knowledge" aria-pressed="false">AI基础知识</button>
+              <button class="filter-option" type="button" data-filter="tools" aria-pressed="false">AI工具应用</button>
+              <button class="filter-option" type="button" data-filter="classroom" aria-pressed="false">课堂实践</button>
+              <button class="filter-option" type="button" data-filter="safety" aria-pressed="false">安全与伦理</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="list-toolbar">
+        <div class="course-sort" role="group" aria-label="课程排序"><button class="active" type="button" data-sort="default" aria-pressed="true">综合排序</button><button type="button" data-sort="updated" aria-pressed="false">最新更新</button><button type="button" data-sort="views" aria-pressed="false">浏览量</button></div>
+        <form class="course-search" id="course-search-form" role="search"><input id="course-search-input" type="search" placeholder="请输入关键词" aria-label="搜索AI课程" autocomplete="off"><button type="submit">搜索</button></form>
+      </div>
+      <div class="list-summary" aria-live="polite">共有 <strong id="course-count">12</strong> 个课程</div>
+      <div class="course-grid" id="course-grid" aria-live="polite"></div>
+      <nav class="pagination" id="course-pagination" aria-label="课程分页"></nav>
+    </div>
+  </main>
+  <footer class="site-footer"><p><a href="#">湘ICP备12010102号-4</a>&nbsp;&nbsp;&nbsp;&nbsp;指导单位：湖南省教育厅</p><p>本网站由湖南省教育厅信息中心承办 | 联系电话：0731-85357667</p><p>技术服务（湖南教育音像电子出版社）电话：0731-84390585、84390675、84390175 | 咨询时间：工作日8:30至17:30</p></footer>
+  <script>
+    (function () {
+      'use strict';
+      var imageRoot = './xiangtan-channel/_nuxt/img/';
+      var coverImages = ['resource-course-cover-01.png','resource-course-cover-02.png','resource-course-cover-03.png','resource-course-cover-04.png','resource-course-cover-05.png'];
+      var courses = [
+        { title:'人工智能基础', category:'general', stage:'primary', topic:'foundation', theme:'knowledge', level:'人工智能通识课程', description:'从身边的智能应用认识人工智能，了解数据、算法与智能技术的基本概念。', source:'湘潭市智慧教育平台', hours:12, likes:34, views:2860, updated:'2026-09-22' },
+        { title:'人工智能的概念', category:'general', stage:'junior', topic:'foundation', theme:'knowledge', level:'人工智能通识课程', description:'理解人工智能的感知、学习与推理过程，认识生活中的典型智能应用。', source:'湘潭市教育局', hours:8, likes:30, views:2540, updated:'2026-09-18' },
+        { title:'探秘人工智能', category:'general', stage:'junior', topic:'practice', theme:'classroom', level:'人工智能通识课程', description:'通过真实案例理解模型、数据和算法，探索人工智能背后的运行逻辑。', source:'湘潭市教科院', hours:10, likes:23, views:2310, updated:'2026-09-15' },
+        { title:'生成式AI初识', category:'general', stage:'senior', topic:'application', theme:'tools', level:'人工智能实践课', description:'学习生成式人工智能的基本原理、正确提问方法与内容核验规范。', source:'湘潭市智慧教育平台', hours:6, likes:24, views:2190, updated:'2026-09-12' },
+        { title:'AI赋能教学设计', category:'teacher', stage:'senior', topic:'application', theme:'tools', level:'教师培训资源', description:'围绕课程目标、教学重难点和课堂活动，提升教师智能化教学设计能力。', source:'湘潭市教科院', hours:8, likes:21, views:1980, updated:'2026-09-20' },
+        { title:'生成式AI与备课实践', category:'teacher', stage:'senior', topic:'practice', theme:'classroom', level:'教师培训资源', description:'学习利用生成式人工智能辅助备课、素材整理和教学内容优化。', source:'湘潭市智慧教育平台', hours:6, likes:18, views:1870, updated:'2026-09-17' },
+        { title:'智能习题设计与评价', category:'teacher', stage:'junior', topic:'practice', theme:'classroom', level:'教师培训资源', description:'掌握习题创编、变式设计、解析生成与教学评价的智能辅助方法。', source:'湘潭市教师发展中心', hours:7, likes:16, views:1530, updated:'2026-09-11' },
+        { title:'人工智能教育伦理与安全', category:'teacher', stage:'primary', topic:'ethics', theme:'safety', level:'教师培训资源', description:'理解数据安全、内容核验和教育伦理要求，规范使用人工智能工具。', source:'湘潭市教育局', hours:5, likes:17, views:1490, updated:'2026-09-08' },
+        { title:'生活中的人工智能', category:'student', stage:'primary', topic:'application', theme:'tools', level:'学生学习资源', description:'从语音助手、图像识别等生活场景出发，认识人工智能的常见应用。', source:'湘潭市智慧教育平台', hours:6, likes:19, views:1780, updated:'2026-09-19' },
+        { title:'与智能机器人做朋友', category:'student', stage:'primary', topic:'practice', theme:'classroom', level:'学生学习资源', description:'了解机器人的感知、控制和交互过程，完成趣味探究任务。', source:'湘潭市青少年活动中心', hours:8, likes:15, views:1620, updated:'2026-09-14' },
+        { title:'AI创意绘画入门', category:'student', stage:'junior', topic:'application', theme:'tools', level:'学生学习资源', description:'学习描述创意、生成图像并辨别内容，培养审美能力和数字素养。', source:'湘潭市教育局', hours:5, likes:13, views:1410, updated:'2026-09-10' },
+        { title:'安全使用生成式AI', category:'student', stage:'senior', topic:'ethics', theme:'safety', level:'学生学习资源', description:'掌握正确提问、事实核验、隐私保护与负责任使用人工智能的方法。', source:'湘潭市智慧教育平台', hours:4, likes:11, views:1260, updated:'2026-09-05' }
+      ];
+      var pageSize = 8;
+      var activeCategory = 'general';
+      var activeStage = 'all';
+      var activeTopic = 'all';
+      var activeTheme = 'all';
+      var activeSort = 'default';
+      var activePage = 1;
+      var query = '';
+      var grid = document.getElementById('course-grid');
+      var pagination = document.getElementById('course-pagination');
+      var count = document.getElementById('course-count');
+      var searchInput = document.getElementById('course-search-input');
+      function escapeHtml(value) { return String(value).replace(/[&<>"']/g, function (ch) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]; }); }
+      function visibleCourses() {
+        var result = courses.filter(function (course) {
+          var categoryMatch = activeCategory === 'all' || course.category === activeCategory;
+          var stageMatch = activeStage === 'all' || course.stage === activeStage;
+          var topicMatch = activeTopic === 'all' || course.topic === activeTopic;
+          var themeMatch = activeTheme === 'all' || course.theme === activeTheme;
+          var textMatch = !query || (course.title + course.description + course.source + course.level).toLowerCase().indexOf(query.toLowerCase()) !== -1;
+          return categoryMatch && stageMatch && topicMatch && themeMatch && textMatch;
+        });
+        if (activeSort === 'updated') result.sort(function (a,b) { return b.updated.localeCompare(a.updated); });
+        if (activeSort === 'views') result.sort(function (a,b) { return b.views - a.views; });
+        return result;
+      }
+      function render() {
+        var result = visibleCourses();
+        var pageCount = Math.max(1,Math.ceil(result.length / pageSize));
+        activePage = Math.min(activePage,pageCount);
+        var start = (activePage - 1) * pageSize;
+        var pageItems = result.slice(start,start + pageSize);
+        count.textContent = result.length;
+        grid.innerHTML = pageItems.length ? pageItems.map(function (course,index) {
+          var image = coverImages[(start + index) % coverImages.length];
+          return '<article class="course-card"><div class="course-cover"><img src="' + imageRoot + image + '" alt="' + escapeHtml(course.title) + '"></div><div class="course-body"><h2 class="course-title">' + escapeHtml(course.title) + '</h2><p class="course-description">' + escapeHtml(course.description) + '</p><p class="course-source"><img src="' + imageRoot + 'ai-learn-entry.png" alt=""><span>' + escapeHtml(course.source) + '</span></p><div class="course-stats"><span class="course-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M256 128h512v128H256zM256 384h512v128H256zM256 640h512v128H256z"/></svg>' + course.likes + '</span><span class="course-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 128C274 128 91 306 32 512c59 206 242 384 480 384s421-178 480-384C933 306 750 128 512 128zm0 640a256 256 0 1 1 0-512 256 256 0 0 1 0 512zm0-128a128 128 0 1 0 0-256 128 128 0 0 0 0 256z"/></svg>' + course.views.toLocaleString() + '</span></div></div></article>';
+        }).join('') : '<div class="course-empty">没有找到相关课程</div>';
+        var markup = '<button class="page-button" type="button" data-page="prev" ' + (activePage === 1 ? 'disabled' : '') + ' aria-label="上一页">‹</button>';
+        for (var i = 1; i <= pageCount; i++) markup += '<button class="page-button ' + (i === activePage ? 'active' : '') + '" type="button" data-page="' + i + '" aria-current="' + (i === activePage ? 'page' : 'false') + '">' + i + '</button>';
+        markup += '<button class="page-button" type="button" data-page="next" ' + (activePage === pageCount ? 'disabled' : '') + ' aria-label="下一页">›</button>';
+        pagination.innerHTML = markup;
+      }
+      document.querySelectorAll('.category-button').forEach(function (button) {
+        button.addEventListener('click',function () {
+          activeCategory = button.getAttribute('data-category');
+          activeSort = 'default';
+          query = '';
+          searchInput.value = '';
+          activeStage = 'all';
+          activeTopic = 'all';
+          activeTheme = 'all';
+          activePage = 1;
+          document.querySelectorAll('.category-button').forEach(function (item) { var active = item === button; item.classList.toggle('active',active); item.setAttribute('aria-pressed',String(active)); });
+          document.querySelectorAll('.course-sort button').forEach(function (item) { var active = item.getAttribute('data-sort') === 'default'; item.classList.toggle('active',active); item.setAttribute('aria-pressed',String(active)); });
+          document.querySelectorAll('.filter-options').forEach(function (group) { group.querySelectorAll('.filter-option').forEach(function (item,index) { var active = index === 0; item.classList.toggle('active',active); item.setAttribute('aria-pressed',String(active)); }); });
+          render();
+        });
+      });
+      document.querySelectorAll('.filter-option').forEach(function (button) {
+        button.addEventListener('click',function () {
+          var group = button.closest('[data-filter-group]');
+          var value = button.getAttribute('data-filter');
+          if (group.getAttribute('data-filter-group') === 'stage') activeStage = value;
+          if (group.getAttribute('data-filter-group') === 'topic') activeTopic = value;
+          if (group.getAttribute('data-filter-group') === 'theme') activeTheme = value;
+          group.querySelectorAll('.filter-option').forEach(function (item) {
+            var active = item === button;
+            item.classList.toggle('active',active);
+            item.setAttribute('aria-pressed',String(active));
+          });
+          activePage = 1;
+          render();
+        });
+      });
+      document.querySelectorAll('.course-sort button').forEach(function (button) {
+        button.addEventListener('click',function () {
+          activeSort = button.getAttribute('data-sort');
+          activePage = 1;
+          document.querySelectorAll('.course-sort button').forEach(function (item) { var active = item === button; item.classList.toggle('active',active); item.setAttribute('aria-pressed',String(active)); });
+          render();
+        });
+      });
+      document.getElementById('course-search-form').addEventListener('submit',function (event) { event.preventDefault(); query = searchInput.value.trim(); activePage = 1; render(); });
+      pagination.addEventListener('click',function (event) { var button = event.target.closest('[data-page]'); if (!button || button.disabled) return; var page = button.getAttribute('data-page'); if (page === 'prev') activePage--; else if (page === 'next') activePage++; else activePage = Number(page); render(); });
+      render();
+    }());
+  </script>
+</body>
+</html>

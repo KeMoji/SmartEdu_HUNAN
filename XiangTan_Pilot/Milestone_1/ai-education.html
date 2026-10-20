@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <title>人工智能 - 湘潭市智慧教育平台</title>
+  <style>
+    :root{--blue:#1e62ec;--ink:#2d3548;--muted:#768198;--page:#f4f8ff;--content-width:1370px}*{box-sizing:border-box}html{scroll-behavior:smooth}html,body{margin:0;min-width:1270px}body{color:var(--ink);background:var(--page);font-family:"Microsoft YaHei","微软雅黑",Arial,sans-serif}a{color:inherit;text-decoration:none}button{font:inherit}img{display:block}
+    .platform-header{position:relative;z-index:20;width:100%;height:60px;padding:0 20px;background:#1e62ec}.platform-header-inner{width:100%;max-width:var(--content-width);height:60px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.platform-brand{position:relative;display:flex;align-items:center;height:48px}.platform-logo-link{display:block;width:205px;height:48px}.platform-logo{width:205px;height:48px;object-fit:contain}.platform-switcher{position:relative;width:50px;height:48px;padding:0;border:0;background:transparent;cursor:pointer}.platform-switcher:after{content:"";position:absolute;top:50%;left:11px;width:10px;height:6px;margin-top:-3px;background:#fff;clip-path:polygon(0 0,100% 0,50% 100%)}.platform-switch-panel{position:absolute;top:48px;left:0;z-index:3000;display:none;width:220px;padding:16px;border:1px solid #ebeef5;border-radius:2px;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.1)}.platform-brand:hover .platform-switch-panel,.platform-switcher:focus+.platform-switch-panel{display:block}.platform-switch-list{margin:0;padding:0;list-style:none}.platform-switch-list li{height:40px;color:#666;font-size:16px;line-height:40px;white-space:nowrap;cursor:pointer}.platform-switch-list li+li{border-top:1px solid #f0f0f0}.platform-switch-list li:hover,.platform-switch-list li.active{color:var(--blue);font-weight:700}.brand-divider{width:1px;height:20px;margin-left:4px;background:#fff}.brand-name{display:flex;align-items:center;height:24px;min-width:180px;margin-left:25px;color:#fff;font-size:18px;font-weight:700;line-height:24px;white-space:nowrap}.header-links{display:flex;align-items:center;color:#fff;font-size:14px}.header-links a{display:inline-block;width:58px;height:28px;margin-right:15px;border:1px solid #f5f7fb;border-radius:18px;color:#333;background:#f5f7fb;line-height:26px;text-align:center}.header-links a+a{margin-right:0;border-color:#fff;color:#fff;background:transparent}.accessibility-button{display:inline-flex;align-items:center;justify-content:center;width:130px;height:30px;margin-left:20px;border:1px solid #f3f7ff;border-radius:15px;color:#fff;background:transparent;cursor:pointer}
+    .primary-nav{position:relative;z-index:11;width:100%;height:66px;padding:0 20px;border-bottom:1px solid #f6f6f6;background:#fff;box-shadow:0 6px 25px 1px rgba(0,0,0,.05)}.primary-nav-inner{width:100%;max-width:var(--content-width);height:66px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between}.nav-list{display:flex;flex:1 1 auto;align-items:stretch;height:66px;min-width:0;margin:0;padding:0;overflow:hidden;list-style:none}.nav-list li{position:relative;flex:0 0 auto;margin-right:24px}.nav-list a{display:inline-block;min-width:40px;height:66px;padding:21px 0;color:#333;font-size:16px;line-height:24px;text-align:center;white-space:nowrap}.nav-list a:hover,.nav-list a.active{color:var(--blue)}.nav-list a.active{font-weight:700}.nav-list a.active:after{content:"";position:absolute;right:0;bottom:0;left:0;height:3px;background:var(--blue)}.ai-search{flex:0 0 128px;width:128px;height:37px;margin:0 0 14px 20px;padding:0;border:0;background:transparent;cursor:pointer}.ai-search img{width:128px;height:37px}
+    .ai-hero{position:relative;height:900px;overflow:hidden;background:linear-gradient(180deg,#398eea 0%,#8ecff5 64%,#f9fbff 88%,#f9fbff 100%)}.ai-hero:before{content:"";position:absolute;inset:0;background:transparent}.ai-hero:after{content:"";position:absolute;inset:0;opacity:.48;background:linear-gradient(135deg,transparent 0 32%,rgba(134,232,255,.19) 32.1% 32.7%,transparent 32.8% 69%,rgba(194,238,255,.13) 69.1% 69.5%,transparent 69.6%);pointer-events:none}.ai-tech-art{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;color:rgba(225,250,255,.22)}.ai-tech-art:before,.ai-tech-art:after{content:"";position:absolute;border:1px solid rgba(199,246,255,.24);transform:rotate(-18deg)}.ai-tech-art:before{top:80px;left:-64px;width:350px;height:190px;border-radius:50% 50% 8px 8px;box-shadow:0 0 0 16px rgba(151,235,255,.035),0 0 0 34px rgba(151,235,255,.025)}.ai-tech-art:after{right:-115px;top:100px;width:430px;height:210px;border-radius:50%;box-shadow:0 0 0 18px rgba(151,235,255,.04),0 0 0 38px rgba(151,235,255,.025)}.ai-tech-orbit{position:absolute;width:190px;height:190px;border:1px solid rgba(213,250,255,.2);border-radius:50%;box-shadow:inset 0 0 32px rgba(124,236,255,.08),0 0 28px rgba(124,236,255,.1)}.ai-tech-orbit:before,.ai-tech-orbit:after{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:#aaf8ff;box-shadow:0 0 14px 4px rgba(146,243,255,.4)}.ai-tech-orbit:before{top:19px;left:38px}.ai-tech-orbit:after{right:14px;bottom:47px;width:5px;height:5px}.ai-tech-orbit.orbit-left{left:7%;top:165px}.ai-tech-orbit.orbit-right{right:11%;top:84px;width:230px;height:230px}.ai-tech-circuit{position:absolute;right:28%;top:192px;width:180px;height:80px;border-top:1px solid rgba(177,244,255,.17);border-bottom:1px solid rgba(177,244,255,.13);transform:skewY(-20deg)}.ai-tech-circuit:before,.ai-tech-circuit:after{content:"";position:absolute;top:50%;width:6px;height:6px;border:1px solid rgba(206,249,255,.38);border-radius:50%;background:rgba(103,211,255,.35);box-shadow:0 0 12px rgba(126,237,255,.5)}.ai-tech-circuit:before{left:24px}.ai-tech-circuit:after{right:20px}.hero-inner{position:relative;z-index:1;width:calc(100% - 40px);max-width:var(--content-width);height:100%;margin:0 auto;padding-top:120px;display:flex;flex-direction:column;justify-content:flex-start;align-items:center}.hero-copy{position:relative;z-index:2;width:100%;text-align:center}.hero-eyebrow{display:block;margin:0 0 4px;color:rgba(255,255,255,.72);font-size:22px;font-weight:700;letter-spacing:2px;text-align:left}.hero-title{margin:0 auto;color:#fff;font-size:68px;line-height:1.18;letter-spacing:8px;text-shadow:0 3px 16px rgba(17,83,174,.3)}.hero-subtitle{display:block;margin:24px 0 0;color:rgba(255,255,255,.82);font-size:28px;font-weight:400;letter-spacing:4px;line-height:1.2}.hero-description{width:max-content;max-width:calc(100% - 24px);margin:24px auto 0;color:rgba(255,255,255,.94);font-size:14px;line-height:24px;white-space:nowrap;text-shadow:0 1px 3px rgba(20,91,168,.28)}.hero-visual{display:none}.hero-shortcuts{position:absolute;right:38px;bottom:30px;left:38px;transform:translateY(-120px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,116px);column-gap:8px;row-gap:16px;margin:0;padding:0;list-style:none}.hero-shortcut{height:116px;border:1px solid rgba(255,255,255,.82);border-radius:8px;background:rgba(255,255,255,.76);clip-path:polygon(14% 0,86% 0,100% 100%,0 100%);clip-path:polygon(14% 0,86% 0,100% 100%,0 100% round 8px);box-shadow:0 12px 32px rgba(39,107,176,.14);backdrop-filter:blur(8px);transition:transform .2s ease,filter .2s ease}.hero-shortcut:nth-child(2),.hero-shortcut:nth-child(4){clip-path:polygon(0 0,100% 0,86% 100%,14% 100%);clip-path:polygon(0 0,100% 0,86% 100%,14% 100% round 8px)}.hero-shortcut:nth-child(1){grid-area:1/1}.hero-shortcut:nth-child(2){grid-area:1/2}.hero-shortcut:nth-child(3){grid-area:1/3}.hero-shortcut:nth-child(4){grid-area:2/1}.hero-shortcut:nth-child(5){grid-area:2/2}.hero-shortcut:hover{transform:translateY(-4px);filter:brightness(1.04)}.hero-shortcut a{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}.hero-shortcut img{width:58px;height:58px;object-fit:contain}.hero-shortcut strong{margin-top:4px;color:#1f2937;font-size:18px}
+    .ai-page{overflow:hidden;background:#f5f9ff}.section{position:relative;padding:66px 20px 76px}.section:nth-child(odd){background:#f9fbff}.section:nth-child(even){background:#edf8ff}.section-inner{position:relative;z-index:1;width:100%;max-width:var(--content-width);margin:0 auto}.section-heading{display:flex;align-items:center;justify-content:center;margin-bottom:34px}.section-heading:before,.section-heading:after{content:"";width:62px;height:14px;margin:0 22px;border-radius:8px;background:linear-gradient(90deg,rgba(87,215,238,0),#57d7ee)}.section-heading:after{transform:scaleX(-1)}.section-heading h2{margin:0;color:#1e2533;font-size:34px;line-height:48px}.section-subnav{display:flex;align-items:center;justify-content:center;gap:64px;margin:0 0 30px;padding:0;list-style:none}.section-tab{position:relative;padding:8px 12px 14px;border:0;color:#4a5364;background:transparent;font-size:21px;cursor:pointer}.section-tab.active{color:var(--blue);font-weight:700}.section-tab.active:after{content:"";position:absolute;right:18px;bottom:0;left:18px;height:3px;border-radius:2px;background:var(--blue)}.section-topline{display:flex;align-items:center;justify-content:flex-end;height:28px;margin-top:-58px;margin-bottom:30px}.more-link{color:#758095;font-size:14px}.more-link:hover{color:var(--blue)}
+    .feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-bottom:58px}.feature-card{position:relative;min-height:172px;overflow:hidden;padding:34px 180px 30px 34px;border:1px solid #dcecff;border-radius:8px;background:rgba(255,255,255,.92);box-shadow:0 9px 24px rgba(38,89,146,.08)}.feature-card img{position:absolute;right:42px;bottom:12px;width:118px;height:118px;object-fit:contain}.feature-card h3{margin:0;color:#243249;font-size:23px;line-height:34px}.feature-card p{margin:10px 0 0;color:#758095;font-size:14px;line-height:24px}.enter-link{display:inline-flex;align-items:center;margin-top:16px;color:var(--blue);font-size:14px;font-weight:700}.enter-link:after{content:"›";margin-left:8px;font-size:21px;line-height:16px}.principle-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:34px}.principle-card{min-height:156px;padding:24px 24px 20px;border:1px solid #d9eafb;border-radius:8px;background:#fff;box-shadow:0 7px 20px rgba(38,89,146,.07)}.principle-card strong{display:block;color:#1e62ec;font-size:18px;line-height:28px}.principle-card p{margin:9px 0 0;color:#68778d;font-size:14px;line-height:24px}
+    .course-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px}.course-card{overflow:hidden;border:1px solid #e1e9f5;border-radius:6px;background:#fff;box-shadow:0 6px 18px rgba(37,79,135,.08);transition:transform .2s ease,box-shadow .2s ease}.course-card:hover{transform:translateY(-4px);box-shadow:0 12px 26px rgba(37,79,135,.15)}.lesson-visual{position:relative;height:166px;padding:28px 22px;overflow:hidden;background:#2f5747;color:#fff}.lesson-visual:before{content:"";position:absolute;inset:8px;border:2px solid rgba(236,218,161,.68)}.lesson-visual:after{content:"AI";position:absolute;right:20px;bottom:-12px;color:rgba(255,255,255,.1);font-size:96px;font-weight:700}.lesson-visual small,.lesson-visual strong{position:relative;z-index:1;display:block;text-align:center}.lesson-visual small{font-size:12px;opacity:.82}.lesson-visual strong{margin-top:24px;font-size:23px;line-height:32px}.visual-blue{background:#2c6295}.visual-violet{background:#5b5188}.visual-cyan{background:#267783}.course-body{min-height:114px;padding:16px 18px 18px}.course-body h3{overflow:hidden;margin:0;color:#293143;font-size:17px;line-height:26px;text-overflow:ellipsis;white-space:nowrap}.course-body p{margin:7px 0 0;color:#8a93a3;font-size:13px;line-height:22px}.course-meta{display:flex;align-items:center;justify-content:space-between;margin-top:12px;color:#9aa3b1;font-size:12px}
+    .tool-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px}.tool-card{min-height:300px;padding:34px 28px;border:1px solid #e1eafa;border-radius:8px;background:rgba(255,255,255,.9);text-align:center;box-shadow:0 8px 24px rgba(53,98,151,.08);transition:transform .2s ease}.tool-card:hover{transform:translateY(-4px)}.tool-icon{width:88px;height:88px;margin:0 auto 22px;display:grid;place-items:center;border-radius:50%;background:#f0f5ff}.tool-icon img{width:64px;height:64px;object-fit:contain}.tool-card h3{margin:0;color:#26334a;font-size:19px;line-height:28px}.tool-card p{height:88px;overflow:hidden;margin:14px 0 0;color:#737f92;font-size:14px;line-height:22px;text-align:left;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical}.tool-card .enter-link{margin-top:20px}
+    .policy-section{height:auto;min-height:680px;margin-top:48px;background:#f5f9ff!important}.policy-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 28px}.policy-card{position:relative;display:flex;flex-direction:column;justify-content:center;min-height:142px;padding:26px 64px 24px 28px;border:1px solid rgba(209,230,250,.95);border-radius:7px;background:rgba(255,255,255,.75);box-shadow:0 6px 20px rgba(48,103,159,.07);transition:background .2s ease}.policy-card:after{content:"";position:absolute;top:-1px;right:28px;width:29px;height:39px;background:linear-gradient(#b5c8ff,#a5e8f2);clip-path:polygon(0 0,100% 0,100% 100%,50% 77%,0 100%)}.policy-card:hover{background:#fff}.policy-card h3{overflow:hidden;margin:0;color:#2c3547;font-size:18px;line-height:28px;text-overflow:ellipsis;white-space:nowrap}.policy-card p{height:48px;overflow:hidden;margin:10px 0 0;color:#778397;font-size:13px;line-height:24px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.policy-more{margin-top:36px}
+    .site-footer{min-width:1270px;padding:30px 0;color:#fff;background:#333;font-size:14px}.site-footer p{margin:0;line-height:25px;text-align:center}.site-footer a{color:#fff}
+    @media (max-width:1300px){html,body{min-width:0}.platform-header-inner,.primary-nav-inner{min-width:0}.hero-inner{width:calc(100% - 28px)}.hero-copy{width:48%}.hero-visual{width:47%}.section{padding-right:14px;padding-left:14px}.site-footer{min-width:0}}@media (max-width:600px){.hero-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,82px);bottom:18px}.hero-shortcut:nth-child(n){grid-area:auto}.hero-shortcut{height:82px}.hero-shortcut img{width:40px;height:40px}.hero-shortcut strong{font-size:14px}}@media (max-width:920px){.brand-divider,.header-links{display:none}.platform-logo-link,.platform-logo{width:180px}.brand-name{font-size:16px}.nav-list li{margin-right:15px}.nav-list a{font-size:14px}.ai-hero{height:900px}.hero-inner{padding-top:45px}.hero-copy{width:60%}.hero-title{font-size:46px}.hero-visual{top:46px;right:-150px;width:520px;opacity:.58}.hero-shortcuts{right:14px;left:14px;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,104px);column-gap:8px;row-gap:16px}.hero-shortcut:nth-child(1){grid-area:1/1}.hero-shortcut:nth-child(2){grid-area:1/2}.hero-shortcut:nth-child(3){grid-area:1/3}.hero-shortcut:nth-child(4){grid-area:2/1}.hero-shortcut:nth-child(5){grid-area:2/2}.hero-shortcut{height:104px}.hero-shortcut img{width:50px;height:50px}.hero-shortcut strong{font-size:16px}.course-grid,.tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:600px){.hero-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,82px);bottom:18px}.hero-shortcut:nth-child(n){grid-area:auto}.hero-shortcut{height:82px}.hero-shortcut img{width:40px;height:40px}.hero-shortcut strong{font-size:14px}}
+    /* Keep the first row visibly overlapped by 16px while the second row stays centered. */
+    .hero-shortcuts{column-gap:0}
+    .hero-shortcuts{grid-template-rows:repeat(2,132px)}
+    .hero-shortcut{height:132px}
+    .hero-shortcut{position:relative}
+    .hero-shortcut:nth-child(1){left:32px}
+    .hero-shortcut:nth-child(2){left:0}
+    .hero-shortcut:nth-child(3){left:-32px}
+    .hero-shortcut:nth-child(4){left:calc(50% + 16px)}
+    .hero-shortcut:nth-child(5){left:calc(50% - 16px)}
+    .hero-shortcut{padding:16px}
+    .hero-shortcut a{flex-direction:row;gap:16px}
+    .hero-shortcut img{width:64px;height:64px}
+    .hero-shortcut strong{margin-top:0;font-size:22px}
+    .hero-shortcut{border-radius:16px;clip-path:polygon(14% 0,86% 0,100% 100%,0 100% round 16px);overflow:hidden}
+    .hero-shortcut:nth-child(2),.hero-shortcut:nth-child(4){clip-path:polygon(0 0,100% 0,86% 100%,14% 100% round 16px)}
+    .hero-shortcuts{grid-template-rows:148px;transform:translateY(-184px)}
+    .hero-shortcut{height:148px}
+    #learn-ai{background:#F9FBFF}
+    #learn-ai .section-inner{background:transparent}
+    .learn-resource-panel{overflow:hidden;border:1px solid rgba(218,232,250,.9);border-radius:10px;background:#def7ff;box-shadow:0 18px 42px rgba(54,119,190,.12)}
+    #learn-ai .section-subnav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;height:68px;margin:0;background:rgba(255,255,255,.94)}
+    #learn-ai .section-tab{height:68px;padding:0 18px;color:#737d8e;font-size:18px}
+    #learn-ai .section-tab.active{color:#1e62ec;background:linear-gradient(180deg,#fff 0%,#f1fbff 100%);box-shadow:0 12px 18px rgba(39,116,180,.16)}
+    #learn-ai .section-tab.active:after{right:38%;bottom:0;left:38%;height:3px}
+    #learn-ai .course-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding:30px;background:linear-gradient(180deg,#dcf8ff 0%,#eafaff 100%)}
+    #learn-ai .course-card{display:flex;min-width:0;max-width:none;flex-direction:column;overflow:hidden;border:1px solid #f1f1f1;border-radius:8px;background:#fff;box-shadow:0 2px 8px rgba(26,62,153,.1);transition:transform .2s ease,box-shadow .2s ease}
+    #learn-ai .course-card:hover{transform:translateY(-2px);box-shadow:0 7px 15px rgba(26,62,153,.14)}
+    #learn-ai .ai-course-cover{position:relative;width:100%;height:158px;padding:22px 20px;overflow:hidden;color:#fff;background:#1765d7}
+    #learn-ai .ai-course-cover:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(255,255,255,.06),transparent 44%),radial-gradient(circle at 78% 28%,rgba(91,232,255,.34),transparent 34%)}
+    #learn-ai .ai-course-cover.has-image{padding:22px 20px;background:#163d5f}
+    #learn-ai .ai-course-cover.has-image .course-cover-image{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover}
+    #learn-ai .ai-course-cover.has-image:before{z-index:1;background:linear-gradient(180deg,rgba(10,28,48,.08) 0%,rgba(10,28,48,.62) 100%)}
+    #learn-ai .ai-course-cover small,#learn-ai .ai-course-cover strong{position:relative;z-index:1;display:block;width:66%}
+    #learn-ai .ai-course-cover small{font-size:12px;line-height:20px;opacity:.86}
+    #learn-ai .ai-course-cover strong{margin-top:18px;font-size:22px;line-height:30px}
+    #learn-ai .ai-course-cover img{position:absolute;right:12px;bottom:8px;z-index:1;width:88px;height:88px;object-fit:contain}
+    #learn-ai .cover-cyan{background:linear-gradient(135deg,#168ecf,#1765d7)}
+    #learn-ai .cover-violet{background:linear-gradient(135deg,#6558bd,#3d4fa4)}
+    #learn-ai .cover-indigo{background:linear-gradient(135deg,#267783,#3152ad)}
+    #learn-ai .course-body{display:flex;flex:1;flex-direction:column;min-height:142px;margin:10px 10px 13px;padding:0}
+    #learn-ai .course-body h3{height:24px;overflow:hidden;margin:0;color:#333;font-size:16px;font-weight:700;line-height:24px;text-overflow:ellipsis;white-space:nowrap}
+    #learn-ai .course-body>p{display:-webkit-box;height:44px;margin:8px 0 0;overflow:hidden;color:#666;font-size:14px;line-height:22px;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+    #learn-ai .course-meta{display:flex;align-items:center;justify-content:space-between;height:46px;margin-top:auto;border-top:1px solid #f0f0f0;color:#999;font-size:14px;line-height:20px}
+    .learn-more{display:flex;align-items:center;justify-content:center;gap:8px;width:120px;height:36px;margin:36px auto 0;border:1px solid #cbd8e8;border-radius:18px;color:#667489;background:rgba(255,255,255,.55);font-size:14px}
+    .learn-more:hover{border-color:#1e62ec;color:#1e62ec;background:#fff}
+    #use-ai{background:linear-gradient(180deg,#edf7ff 0%,#e3f4ff 100%)}
+    #use-ai .section-heading{margin-bottom:34px}
+    #use-ai .section-heading h2{display:flex;align-items:center;gap:10px}
+    .ai-running-badge{display:inline-flex;align-items:center;height:22px;padding:0 7px;border:1px solid #61c8ff;border-radius:3px;color:#2da7ee;background:#eefaff;font-size:12px;font-weight:400;letter-spacing:0}
+    #use-ai .ai-app-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}
+    #use-ai .ai-app-card{min-width:0;min-height:236px;padding:28px 18px 20px;border:1px solid rgba(255,255,255,.9);border-radius:8px;background:#eff9ff url('./xiangtan-channel/_nuxt/img/ai-app-card-bg.png') center/cover no-repeat;text-align:center;box-shadow:0 10px 24px rgba(75,139,194,.06);transition:transform .2s ease,box-shadow .2s ease}
+    #use-ai .ai-app-card>a{display:block;height:100%;color:inherit;text-decoration:none}
+    #use-ai .ai-app-card:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(75,139,194,.14)}
+    #use-ai .ai-app-card.is-current{border-color:rgba(94,191,250,.72);background:#eff9ff url('./xiangtan-channel/_nuxt/img/ai-app-card-bg.png') center/cover no-repeat;box-shadow:0 14px 30px rgba(62,135,196,.14)}
+    #use-ai .ai-app-icon{width:76px;height:76px;margin:0 auto 14px;border-radius:50%;background:#fff;display:grid;place-items:center}
+    #use-ai .ai-app-icon img{width:64px;height:64px;object-fit:contain}
+    #use-ai .ai-app-trial{display:inline-flex;align-items:center;justify-content:center;width:100px;height:32px;margin-bottom:16px;padding:0;border:1px solid #60c6ff;border-radius:16px;color:#299fe9;background:#effaff;font-size:11px;line-height:30px}
+    #use-ai .ai-app-card h3{height:24px;overflow:hidden;margin:0;color:#333;font-size:16px;font-weight:700;line-height:24px;text-overflow:ellipsis;white-space:nowrap}
+    #use-ai .ai-app-card p{display:-webkit-box;height:44px;overflow:hidden;margin:16px 0 0;color:#7c8794;font-size:14px;line-height:22px;text-align:center;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+    #use-ai .ai-app-controls{display:flex;align-items:center;justify-content:space-between;margin-top:34px}
+    #use-ai .ai-app-dots{display:flex;align-items:center;gap:8px}
+    #use-ai .ai-app-dots i{display:block;width:6px;height:6px;border-radius:50%;background:#c8d7e5;cursor:pointer}
+    #use-ai .ai-app-dots i.active{width:30px;border-radius:4px;background:#1e62ec}
+    #use-ai .ai-app-more{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:120px;height:36px;border:1px solid #cbd8e8;border-radius:18px;color:#657489;background:rgba(255,255,255,.35);font-size:14px}
+    #use-ai .ai-app-more:hover{border-color:#1e62ec;color:#1e62ec;background:#fff}
+    #use-ai .ai-running-badge{display:none}
+    #use-ai .principle-grid{display:none}
+    /* 湘潭应用案例：采用项目统一的紧凑图片卡片样式 */
+    #ai-cases-section{height:auto;padding-bottom:66px;background:#f5f9ff}
+    #ai-cases-section .section-heading{margin-bottom:24px;transform:translateY(-24px)}
+    #ai-cases-section .case-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 16px}
+    #ai-cases-section .case-card{min-width:0;overflow:hidden;border:1px solid #e7edf6;border-radius:6px;background:#fff;box-shadow:0 5px 16px rgba(37,79,135,.07);transition:transform .2s ease,box-shadow .2s ease}
+    #ai-cases-section .case-card:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(37,79,135,.13)}
+    #ai-cases-section .case-card-media{width:100%;aspect-ratio:1.72/1;overflow:hidden;background:#e7f1fb}
+    #ai-cases-section .case-card-media img{width:100%;height:100%;object-fit:cover;transition:transform .25s ease}
+    #ai-cases-section .case-card:hover .case-card-media img{transform:scale(1.03)}
+    #ai-cases-section .case-card-body{min-height:60px;padding:16px 12px 11px;background:#fff}
+    #ai-cases-section .case-card-body h3{display:-webkit-box;min-height:20px;overflow:hidden;margin:0;color:#4b5565;font-size:14px;font-weight:400;line-height:20px;text-overflow:ellipsis;-webkit-box-orient:vertical;-webkit-line-clamp:2}
+    @media (max-width:920px){
+      #ai-cases-section .case-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    }
+    @media (max-width:600px){
+      #ai-cases-section{padding-bottom:50px}
+      #ai-cases-section .section-heading{margin-bottom:22px}
+      #ai-cases-section .case-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+      #ai-cases-section .case-card-body{min-height:56px;padding:16px 10px 9px}
+      #ai-cases-section .case-card-body h3{font-size:12px;line-height:18px}
+    }
+    /* 基地校工作室：左侧基地校卡片 + 右侧工作室详情 */
+    #base-school-studios{height:680px;padding-top:66px;padding-bottom:66px;background:#edf8ff}
+    #base-school-studios .section-heading{margin-bottom:32px;transform:translateY(-36px)}
+    .studio-layout{display:grid;grid-template-columns:repeat(3,180px) minmax(0,1fr);gap:16px;align-items:stretch}
+    .studio-school-card{position:relative;min-height:430px;padding:16px;border:1px solid #e1edf9;border-radius:6px;color:#344054;background:linear-gradient(180deg,#fff 0%,#f0f9ff 43%,#8cc8ff 100%);box-shadow:0 5px 16px rgba(37,79,135,.07);cursor:pointer;text-align:center;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+    .studio-school-card:hover,.studio-school-card.active{transform:translateY(-3px);border-color:#79b9f5;box-shadow:0 10px 22px rgba(37,79,135,.13)}
+    .studio-school-card.active:before{content:"";position:absolute;top:0;right:0;left:0;height:3px;border-radius:6px 6px 0 0;background:#1e62ec}
+    .studio-school-mark{display:block;width:88px;height:88px;margin:-56px auto 24px;overflow:hidden;border:0;border-radius:50%;background:#eaf4ff;object-fit:cover;box-shadow:0 2px 8px rgba(32,92,153,.18);transform:translateY(-56px)}
+    .studio-school-name{display:block;color:#303846;font-size:16px;font-weight:700;line-height:24px;text-align:center;transform:translateY(-56px)}
+    .studio-school-region{display:block;margin-top:16px;color:#748197;font-size:14px;line-height:22px;text-align:center;transform:translateY(-56px)}
+    .studio-school-arrow{position:absolute;right:0;bottom:28px;left:0;display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin:auto;border:1px solid rgba(43,105,169,.3);border-radius:50%;color:#2467aa;background:rgba(255,255,255,.2);font-size:20px;line-height:1}
+    .studio-school-card.active .studio-school-arrow{border-color:#1e62ec;color:#fff;background:#1e62ec}
+    .studio-detail{min-width:0;min-height:430px;padding:28px 32px 24px;border:1px solid #e0ebf7;border-radius:6px;background:linear-gradient(135deg,rgba(255,255,255,.97),rgba(233,246,255,.88));box-shadow:0 5px 16px rgba(37,79,135,.07)}
+    .studio-detail-header{display:flex;align-items:center;gap:24px;padding-bottom:24px;border-bottom:1px solid #e6eef7}
+    .studio-detail-logo{display:block;flex:0 0 64px;width:64px;height:64px;overflow:hidden;border:2px solid #fff;border-radius:50%;background:#eaf4ff;object-fit:cover;box-shadow:0 2px 8px rgba(32,92,153,.16)}
+    .studio-detail-summary{min-width:0;flex:1}.studio-detail-summary h3{overflow:hidden;margin:0;color:#303846;font-size:18px;line-height:28px;text-overflow:ellipsis;white-space:nowrap}.studio-detail-meta{display:flex;flex-wrap:wrap;gap:24px;margin-top:16px;color:#8a95a5;font-size:12px;line-height:20px}.studio-detail-meta strong{margin-right:3px;color:#1e62ec;font-weight:400}
+    .studio-follow{flex:0 0 auto;height:32px;padding:0 16px;border:1px solid #cfe0f5;border-radius:16px;color:#1e62ec;background:#fff;font-size:12px;cursor:pointer}.studio-follow:hover{border-color:#1e62ec;background:#f2f7ff}
+    .studio-resource-list{margin:8px 0 0;padding:0;list-style:none}.studio-resource-item{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:center;min-height:100px;padding:10px 0}.studio-resource-item:first-child{padding-top:0}.studio-resource-item+.studio-resource-item{border-top:1px solid #edf1f6}.studio-resource-thumb{width:120px;height:78px;overflow:hidden;border-radius:4px;background:#e6eef8}.studio-resource-thumb img{width:100%;height:100%;object-fit:cover}.studio-resource-copy{min-width:0}.studio-resource-title{overflow:hidden;margin:0;color:#3d4656;font-size:14px;font-weight:400;line-height:22px;text-overflow:ellipsis;white-space:nowrap}.studio-resource-type{display:inline-flex;align-items:center;justify-content:center;width:48px;height:24px;margin-right:16px;padding:0;border:1px solid #bcd7ff;border-radius:2px;color:#1e62ec;background:#f5f9ff;font-size:11px;line-height:22px;vertical-align:1px;box-sizing:border-box}.studio-resource-meta{display:flex;gap:48px;margin-top:16px;color:#9aa3b1;font-size:12px;line-height:18px}
+    .studio-more{display:flex;align-items:center;justify-content:center;gap:8px;width:120px;height:36px;margin:32px auto 0;border:1px solid #cbd8e8;border-radius:18px;color:#667489;background:rgba(255,255,255,.6);font-size:14px}.studio-more:hover{border-color:#1e62ec;color:#1e62ec;background:#fff}
+    .learn-more,#use-ai .ai-app-more,.studio-more,.studio-follow{align-items:center;justify-content:center;gap:8px;width:auto;min-width:112px;height:36px;padding:0 13px 0 17px;border:1px solid rgba(255,255,255,.9);border-radius:18px;color:#333;background:rgba(255,255,255,.58);font-size:14px;line-height:20px;transition:color .2s ease,background .2s ease,box-shadow .2s ease}
+    .learn-more,.studio-more{display:flex;width:max-content}
+    #use-ai .ai-app-more,.studio-follow{display:inline-flex}
+    .learn-more>span,#use-ai .ai-app-more>span,.studio-more>span{display:none}
+    .learn-more::after,#use-ai .ai-app-more::after,.studio-more::after,.studio-follow::after{content:"›";display:grid;place-items:center;width:18px;height:18px;border-radius:9px;color:#555;background:rgba(255,255,255,.75);font-size:18px;line-height:16px}
+    .learn-more:hover,#use-ai .ai-app-more:hover,.studio-more:hover,.studio-follow:hover{border-color:rgba(255,255,255,.9);color:var(--blue);background:#fff;box-shadow:0 3px 10px rgba(30,98,236,.1)}
+    .learn-more:hover::after,#use-ai .ai-app-more:hover::after,.studio-more:hover::after,.studio-follow:hover::after{color:#fff;background:var(--blue)}
+    @media (max-width:920px){
+      #base-school-studios{height:auto}.policy-section{height:auto}.studio-layout{grid-template-columns:repeat(3,minmax(0,1fr))}.studio-school-card{min-height:250px}.studio-detail{grid-column:1/-1;min-height:0}
+    }
+    @media (max-width:600px){
+      #base-school-studios{padding-top:42px;padding-bottom:50px}
+      #base-school-studios .section-heading{margin-bottom:22px}
+      .studio-layout{grid-template-columns:1fr;gap:12px}.studio-school-card{min-height:120px;padding:18px 64px 18px 84px}.studio-school-mark{position:absolute;top:24px;left:16px;width:52px;height:52px;margin:0;font-size:16px;transform:none}.studio-school-name,.studio-school-region{text-align:left;transform:none}.studio-school-name{font-size:15px;line-height:24px}.studio-school-region{margin-top:4px}.studio-school-arrow{top:0;right:16px;bottom:0;left:auto;width:32px;height:32px}.studio-detail{padding:20px 16px}.studio-detail-header{align-items:flex-start;gap:12px}.studio-detail-logo{flex-basis:48px;width:48px;height:48px;font-size:15px}.studio-detail-summary h3{font-size:16px;line-height:24px}.studio-follow{padding:0 10px}.studio-resource-item{grid-template-columns:82px minmax(0,1fr)}.studio-resource-thumb{width:82px;height:54px}.studio-resource-title{font-size:12px;line-height:20px}.studio-resource-meta{gap:12px;font-size:11px}
+    }
+    @media (min-width:921px){
+      #learn-ai{height:600px;margin-top:-88px;margin-bottom:136px;padding-bottom:8px;box-sizing:border-box}
+      #learn-ai .section-inner{height:auto;box-sizing:border-box;transform:none;margin-bottom:0}
+      #use-ai{height:560px;padding-bottom:24px;box-sizing:border-box}
+      #use-ai .ai-app-grid{grid-template-columns:repeat(5,250px);gap:24px;justify-content:space-between}
+      #use-ai .ai-app-card{width:250px;height:318px;min-height:318px;padding:16px;box-sizing:border-box}
+      #use-ai .ai-app-icon{width:100px;height:100px;margin-bottom:14px}
+      #use-ai .ai-app-icon img{width:100px;height:100px}
+      #use-ai .ai-app-icon{margin-bottom:0}
+      #use-ai .ai-app-trial{width:100px;height:32px;margin-top:16px;margin-bottom:16px;border-radius:16px;line-height:30px}
+    }
+    @media (min-width:921px){.ai-page{overflow:visible}}
+  </style>
+
+  <link rel="stylesheet" href="./channel-navigation.css">
+  <script src="./channel-navigation.js" defer></script>
+</head>
+<body>
+  <header class="platform-header"><div class="platform-header-inner"><div class="platform-brand"><a class="platform-logo-link" href="./index.html" target="_blank" rel="noopener" aria-label="湖南智慧教育平台"><img class="platform-logo" src="./xiangtan-channel/_nuxt/img/image-login-new.a21550b.png" alt="湖南智慧教育平台"></a><button class="platform-switcher" type="button" aria-label="切换子平台"></button><div class="platform-switch-panel"><ul class="platform-switch-list"><li>湖南智慧教育平台</li><li class="active">湘潭市智慧教育平台</li><li>湖南职业教育智慧教育平台</li><li>湖南高等教育智慧教育平台</li></ul></div><span class="brand-divider"></span><span class="brand-name">湘潭市智慧教育平台</span></div><div class="header-links"><a href="./index.html" target="_blank" rel="noopener">登录</a><a href="./index.html" target="_blank" rel="noopener">注册</a><button class="accessibility-button" type="button">无障碍浏览</button></div></div></header>
+  <nav class="primary-nav" aria-label="主导航"><div class="primary-nav-inner"><ul class="nav-list"><li><a href="./xiangtan.html">首页</a></li><li><a href="./course-learning.html">课程学习</a></li><li><a href="./five-education.html">五育成长</a></li><li><a href="./xiangtan.html#教师发展">教师发展</a></li><li><a href="./textbook-resources.html">教材资源</a></li><li><a class="active" href="./ai-education.html" aria-current="page">人工智能</a></li><li><a href="./xiangtan.html#应用服务">应用服务</a></li><li><a href="./xiangtan.html#特色专题">特色专题</a></li><li><a href="./xiangtan.html#市域服务">市域服务</a></li></ul><button class="ai-search" type="button" aria-label="AI 搜索"><img src="./xiangtan-channel/_nuxt/img/ai-search-button.b0a1e04.svg" alt="AI 搜索"></button></div></nav>
+  <section class="ai-hero" aria-labelledby="ai-page-title"><div class="ai-tech-art" aria-hidden="true"><span class="ai-tech-orbit orbit-left"></span><span class="ai-tech-orbit orbit-right"></span><span class="ai-tech-circuit"></span></div><div class="hero-inner"><div class="hero-copy"><h1 class="hero-title" id="ai-page-title">人工智能教育</h1><p class="hero-subtitle">点亮 AI 素养，启程智慧未来</p><p class="hero-description">为推进中小学人工智能教育普及，汇聚人工智能通识课程、教师培训资源、学生学习资源与政策指导内容，建设湘潭人工智能教育应用示范。</p></div><ul class="hero-shortcuts"><li class="hero-shortcut"><a href="./ai-learning.html"><img src="./xiangtan-channel/_nuxt/img/ai-learn-entry.png" alt=""><strong>学AI</strong></a></li><li class="hero-shortcut"><a href="#use-ai"><img src="./xiangtan-channel/_nuxt/img/ai-use-entry.png" alt=""><strong>用AI</strong></a></li><li class="hero-shortcut"><a href="#ai-cases-section"><img src="./xiangtan-channel/_nuxt/img/ai-policy-entry.png" alt=""><strong>湘潭应用案例</strong></a></li></ul></div></section>
+  <main class="ai-page">
+    <section class="section" id="learn-ai">
+      <div class="section-inner">
+        <div class="section-heading"><h2>学AI</h2></div>
+        <div class="learn-resource-panel">
+          <div class="section-subnav" role="tablist" aria-label="人工智能教育资源类型">
+            <button class="section-tab active" type="button" role="tab" aria-selected="true" data-filter="all">人工智能通识课程</button>
+            <button class="section-tab" type="button" role="tab" aria-selected="false" data-filter="teacher">教师培训资源</button>
+            <button class="section-tab" type="button" role="tab" aria-selected="false" data-filter="student">学生学习资源</button>
+          </div>
+          <div class="course-grid" id="ai-courses">
+            <article class="course-card" data-type="student">
+              <div class="ai-course-cover cover-blue has-image"><img class="course-cover-image" src="./xiangtan-channel/_nuxt/img/ai-course-cover-robotics.png" alt="人工智能基础课程封面"><small>人工智能通识课程</small><strong>人工智能基础</strong></div>
+              <div class="course-body"><h3>人工智能基础</h3><p>从身边的智能应用认识人工智能，了解数据、算法与智能技术的基本概念。</p><div class="course-meta"><span>湘潭市智慧教育平台</span><span>12课时</span></div></div>
+            </article>
+            <article class="course-card" data-type="student">
+              <div class="ai-course-cover cover-cyan"><small>初中信息科技</small><strong>人工智能的概念</strong><img src="./xiangtan-channel/_nuxt/img/ai-use-entry.png" alt=""></div>
+              <div class="course-body"><h3>人工智能的概念</h3><p>理解人工智能的感知、学习与推理过程，认识生活中的典型智能应用。</p><div class="course-meta"><span>湘潭市教育局</span><span>8课时</span></div></div>
+            </article>
+            <article class="course-card" data-type="teacher">
+              <div class="ai-course-cover cover-violet"><small>教师培训资源</small><strong>探秘人工智能</strong><img src="./xiangtan-channel/_nuxt/img/ai-teaching-design.png" alt=""></div>
+              <div class="course-body"><h3>探秘人工智能</h3><p>通过教学案例理解模型、数据和算法，提升教师人工智能教育教学能力。</p><div class="course-meta"><span>湘潭市教科院</span><span>10课时</span></div></div>
+            </article>
+            <article class="course-card" data-type="teacher">
+              <div class="ai-course-cover cover-indigo"><small>人工智能实践课</small><strong>生成式AI初识</strong><img src="./xiangtan-channel/_nuxt/img/ai-question-create.png" alt=""></div>
+              <div class="course-body"><h3>生成式人工智能初识</h3><p>学习生成式人工智能的基本原理、正确提问方法与内容核验规范。</p><div class="course-meta"><span>湘潭市智慧教育平台</span><span>6课时</span></div></div>
+            </article>
+          </div>
+        </div>
+        <a class="learn-more" href="./ai-learning.html">查看更多 <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+    <section class="section ai-app-section" id="use-ai"><div class="section-inner"><div class="section-heading"><h2>用AI <span class="ai-running-badge">试运行</span></h2></div><div class="tool-grid ai-app-grid"><article class="tool-card ai-app-card"><a href="./teaching-design.html" target="_blank" rel="noopener" aria-label="打开教学设计页"><div class="ai-app-icon"><img src="./xiangtan-channel/_nuxt/img/ai-teaching-design.png" alt=""></div><span class="ai-app-trial">全国试用</span><h3>备课设计助手</h3><p>一站式智能英语教学工具，整合课前备课、智能批改、班级管理等服务。</p></a></article><article class="tool-card ai-app-card" id="question-creation"><div class="ai-app-icon"><img src="./xiangtan-channel/_nuxt/img/ai-use-entry.png" alt=""></div><span class="ai-app-trial">全国试用</span><h3>企鹅智慧学练</h3><p>集成全模态AIGC能力，构建课堂与课后的一体化智能学习空间。</p></article><article class="tool-card ai-app-card"><div class="ai-app-icon"><img src="./xiangtan-channel/_nuxt/img/ai-card-use.png" alt=""></div><span class="ai-app-trial">全国试用</span><h3>企鹅教师助手</h3><p>包含AI课件、创意教学设计、多模态教学资源制作等智能服务。</p></article><article class="tool-card ai-app-card"><div class="ai-app-icon"><img src="./xiangtan-channel/_nuxt/img/ai-learn-entry.png" alt=""></div><span class="ai-app-trial">全国试用</span><h3>猿创未来人工智能教育</h3><p>依据青少年人工智能核心素养4C体系，涵盖人工智能课程与实践。</p></article><article class="tool-card ai-app-card"><div class="ai-app-icon"><img src="./xiangtan-channel/_nuxt/img/ai-policy-entry.png" alt=""></div><span class="ai-app-trial">全国试用</span><h3>飞象老师</h3><p>支持教师快速生成教学动画、AI课件、互动练习和游戏化课堂活动。</p></article></div><div class="ai-app-controls"><div class="ai-app-dots" aria-label="应用轮播位置"><i></i><i></i><i></i><i></i><i></i><i class="active"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><a class="ai-app-more" href="#use-ai">查看更多 <span aria-hidden="true">→</span></a></div><div class="principle-grid" aria-label="人工智能应用原则"><article class="principle-card"><strong>安全规范接入</strong><p>优先接入符合教育教学需求和安全规范的成熟人工智能应用。</p></article><article class="principle-card"><strong>湘潭案例示范</strong><p>汇聚湘潭学校、教师在辅助教学、学习和教研中的典型实践。</p></article><article class="principle-card"><strong>省级能力直用</strong><p>依托平台能力开放和迭代情况，持续拓展教师智能服务。</p></article></div></div></section>
+    <section class="section ai-app-section" id="ai-cases-section">
+      <div class="section-inner">
+        <div class="section-heading"><h2>湘潭应用案例</h2></div>
+        <div class="case-grid" aria-label="湘潭人工智能教育应用案例">
+          <article class="case-card"><a href="#" aria-label="雨湖区：AI赋能智慧课堂教学实践"><div class="case-card-media"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-01.png" alt="雨湖区AI赋能智慧课堂教学实践"></div><div class="case-card-body"><h3>雨湖区：AI赋能智慧课堂教学实践</h3></div></a></article>
+          <article class="case-card"><a href="#" aria-label="湘潭市：人工智能教育创新团队风采"><div class="case-card-media"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-02.png" alt="湘潭市人工智能教育创新团队风采"></div><div class="case-card-body"><h3>湘潭市：人工智能教育创新团队风采</h3></div></a></article>
+          <article class="case-card"><a href="#" aria-label="岳塘区：智能学习空间应用探索"><div class="case-card-media"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-03.png" alt="岳塘区智能学习空间应用探索"></div><div class="case-card-body"><h3>岳塘区：智能学习空间应用探索</h3></div></a></article>
+          <article class="case-card"><a href="#" aria-label="湘潭县：人工智能通识课堂实践"><div class="case-card-media"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-04.png" alt="湘潭县人工智能通识课堂实践"></div><div class="case-card-body"><h3>湘潭县：人工智能通识课堂实践</h3></div></a></article>
+          <article class="case-card"><a href="#" aria-label="湘乡市：AI编程与创客教育实践"><div class="case-card-media"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-05.png" alt="湘乡市AI编程与创客教育实践"></div><div class="case-card-body"><h3>湘乡市：AI编程与创客教育实践</h3></div></a></article>
+          <article class="case-card"><a href="#" aria-label="韶山市：数字素养与创新能力培养"><div class="case-card-media"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-06.png" alt="韶山市数字素养与创新能力培养"></div><div class="case-card-body"><h3>韶山市：数字素养与创新能力培养</h3></div></a></article>
+          <article class="case-card"><a href="#" aria-label="湘潭高新区：机器人课程创新实践"><div class="case-card-media"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-07.png" alt="湘潭高新区机器人课程创新实践"></div><div class="case-card-body"><h3>湘潭高新区：机器人课程创新实践</h3></div></a></article>
+          <article class="case-card"><a href="#" aria-label="湘潭经开区：校园智能应用推广"><div class="case-card-media"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-08.png" alt="湘潭经开区校园智能应用推广"></div><div class="case-card-body"><h3>湘潭经开区：校园智能应用推广</h3></div></a></article>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="base-school-studios">
+      <div class="section-inner">
+        <div class="section-heading"><h2>基地校工作室</h2></div>
+        <div class="studio-layout">
+          <button class="studio-school-card active" type="button" data-studio="yuhu" aria-pressed="true"><img class="studio-school-mark" src="./xiangtan-channel/_nuxt/img/base-school-studios/studio-01.jpeg" alt="人工智能教育基地校"><strong class="studio-school-name">人工智能教育基地校</strong><span class="studio-school-region">智慧课堂示范</span><span class="studio-school-arrow" aria-hidden="true">→</span></button>
+          <button class="studio-school-card" type="button" data-studio="yuetang" aria-pressed="false"><img class="studio-school-mark" src="./xiangtan-channel/_nuxt/img/base-school-studios/studio-02.jpg" alt="智慧教育创新基地校"><strong class="studio-school-name">智慧教育创新基地校</strong><span class="studio-school-region">数字教育创新</span><span class="studio-school-arrow" aria-hidden="true">→</span></button>
+          <button class="studio-school-card" type="button" data-studio="xiangtan" aria-pressed="false"><img class="studio-school-mark" src="./xiangtan-channel/_nuxt/img/base-school-studios/studio-03.jpg" alt="AI课程研发基地校"><strong class="studio-school-name">AI课程研发基地校</strong><span class="studio-school-region">课程研发实践</span><span class="studio-school-arrow" aria-hidden="true">→</span></button>
+          <article class="studio-detail" aria-live="polite">
+            <header class="studio-detail-header"><img class="studio-detail-logo" id="studio-logo" src="./xiangtan-channel/_nuxt/img/base-school-studios/studio-01.jpeg" alt="雨湖区人工智能教育基地校工作室"><div class="studio-detail-summary"><h3 id="studio-name">雨湖区人工智能教育基地校工作室</h3><div class="studio-detail-meta"><span><strong id="studio-followers">1286</strong>关注</span><span><strong id="studio-members">18</strong>成员</span><span><strong id="studio-views">3.6万</strong>浏览量</span></div></div><button class="studio-follow" type="button">查看</button></header>
+            <ul class="studio-resource-list" id="studio-resources">
+              <li class="studio-resource-item"><div class="studio-resource-thumb"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-01.png" alt=""></div><div class="studio-resource-copy"><p class="studio-resource-title"><span class="studio-resource-type">文章</span>AI赋能课堂教学：从工具应用到教学方式创新</p><div class="studio-resource-meta"><span>628 浏览</span><span>32 点赞</span><time datetime="2026-09-18">2026-09-18</time></div></div></li>
+              <li class="studio-resource-item"><div class="studio-resource-thumb"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-05.png" alt=""></div><div class="studio-resource-copy"><p class="studio-resource-title"><span class="studio-resource-type">案例</span>人工智能通识课程校本化实施案例</p><div class="studio-resource-meta"><span>516 浏览</span><span>24 点赞</span><time datetime="2026-09-12">2026-09-12</time></div></div></li>
+              <li class="studio-resource-item"><div class="studio-resource-thumb"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-07.png" alt=""></div><div class="studio-resource-copy"><p class="studio-resource-title"><span class="studio-resource-type">视频</span>机器人编程课程的项目式学习实践</p><div class="studio-resource-meta"><span>842 浏览</span><span>46 点赞</span><time datetime="2026-09-05">2026-09-05</time></div></div></li>
+            </ul>
+          </article>
+        </div>
+        <a class="studio-more" href="./ai-studio-list.html">查看更多 <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+    <section class="section policy-section" id="ai-policy"><div class="section-inner"><div class="section-heading"><h2>政策法规</h2></div><div class="policy-grid"><article class="policy-card"><h3>中小学生成式人工智能使用指南（2025年版）</h3><p>引导中小学生科学、规范、负责任地使用生成式人工智能，提升数字素养与创新能力。</p></article><article class="policy-card"><h3>中小学人工智能通识教育指南（2025年版）</h3><p>明确人工智能通识教育的目标、内容和实施路径，促进课程教学规范开展。</p></article><article class="policy-card"><h3>人工智能生成合成内容标识办法</h3><p>规范人工智能生成合成内容标识，保护公民、法人和其他组织合法权益。</p></article><article class="policy-card"><h3>生成式人工智能服务管理暂行办法</h3><p>促进生成式人工智能健康发展和规范应用，维护国家安全和社会公共利益。</p></article><article class="policy-card"><h3>新一代人工智能伦理规范</h3><p>将伦理道德融入人工智能全生命周期，为相关活动提供清晰的伦理指引。</p></article><article class="policy-card"><h3>新一代人工智能发展规划</h3><p>把握人工智能发展的战略机遇，加快建设创新型国家和世界科技强国。</p></article></div><a class="learn-more policy-more" href="#ai-policy">查看更多 <span aria-hidden="true">→</span></a></div></section>
+  </main>
+  <footer class="site-footer"><p><a href="#">湘ICP备12010102号-4</a>&nbsp;&nbsp;&nbsp;&nbsp;指导单位：湖南省教育厅</p><p>本网站由湖南省教育厅信息中心承办 | 联系电话：0731-85357667</p><p>技术服务（湖南教育音像电子出版社）电话：0731-84390585、84390675、84390175 | 咨询时间：工作日8:30至17:30</p></footer>
+  <script>
+    (function () {
+      var courseGrid = document.getElementById('ai-courses');
+      var tabs = document.querySelectorAll('#learn-ai .section-tab');
+      if (!courseGrid || !tabs.length) return;
+
+      var courseData = {
+        all: [
+          { eyebrow: '人工智能通识课程', title: '人工智能基础', desc: '从身边的智能应用认识人工智能，了解数据、算法与智能技术的基本概念。', source: '湘潭市智慧教育平台', hours: '12课时', theme: 'cover-blue', icon: 'ai-learn-entry.png', cover: 'ai-course-cover-robotics.png' },
+          { eyebrow: '人工智能通识课程', title: '人工智能的概念', desc: '理解人工智能的感知、学习与推理过程，认识生活中的典型智能应用。', source: '湘潭市教育局', hours: '8课时', theme: 'cover-cyan', icon: 'ai-use-entry.png' },
+          { eyebrow: '人工智能通识课程', title: '探秘人工智能', desc: '通过真实案例理解模型、数据和算法，探索人工智能背后的运行逻辑。', source: '湘潭市教科院', hours: '10课时', theme: 'cover-violet', icon: 'ai-teaching-design.png' },
+          { eyebrow: '人工智能实践课', title: '生成式AI初识', desc: '学习生成式人工智能的基本原理、正确提问方法与内容核验规范。', source: '湘潭市智慧教育平台', hours: '6课时', theme: 'cover-indigo', icon: 'ai-question-create.png' }
+        ],
+        teacher: [
+          { eyebrow: '教师培训资源', title: 'AI赋能教学设计', desc: '围绕课程目标、教学重难点和课堂活动，提升教师智能化教学设计能力。', source: '湘潭市教科院', hours: '8课时', theme: 'cover-violet', icon: 'ai-teaching-design.png' },
+          { eyebrow: '教师培训资源', title: '生成式AI与备课实践', desc: '学习利用生成式人工智能辅助备课、素材整理和教学内容优化。', source: '湘潭市智慧教育平台', hours: '6课时', theme: 'cover-blue', icon: 'ai-use-entry.png' },
+          { eyebrow: '教师培训资源', title: '智能习题设计与评价', desc: '掌握习题创编、变式设计、解析生成与教学评价的智能辅助方法。', source: '湘潭市教师发展中心', hours: '7课时', theme: 'cover-cyan', icon: 'ai-question-create.png' },
+          { eyebrow: '教师培训资源', title: '人工智能教育伦理与安全', desc: '理解数据安全、内容核验和教育伦理要求，规范使用人工智能工具。', source: '湘潭市教育局', hours: '5课时', theme: 'cover-indigo', icon: 'ai-policy-entry.png' }
+        ],
+        student: [
+          { eyebrow: '学生学习资源', title: '生活中的人工智能', desc: '从语音助手、图像识别等生活场景出发，认识人工智能的常见应用。', source: '湘潭市智慧教育平台', hours: '6课时', theme: 'cover-cyan', icon: 'ai-learn-entry.png' },
+          { eyebrow: '学生学习资源', title: '与智能机器人做朋友', desc: '了解机器人的感知、控制和交互过程，完成趣味探究任务。', source: '湘潭市青少年活动中心', hours: '8课时', theme: 'cover-blue', icon: 'ai-use-entry.png' },
+          { eyebrow: '学生学习资源', title: 'AI创意绘画入门', desc: '学习描述创意、生成图像并辨别内容，培养审美能力和数字素养。', source: '湘潭市教育局', hours: '5课时', theme: 'cover-violet', icon: 'ai-teaching-design.png' },
+          { eyebrow: '学生学习资源', title: '安全使用生成式AI', desc: '掌握正确提问、事实核验、隐私保护与负责任使用人工智能的方法。', source: '湘潭市智慧教育平台', hours: '4课时', theme: 'cover-indigo', icon: 'ai-policy-entry.png' }
+        ]
+      };
+
+      function renderCourses(type) {
+        var items = courseData[type] || courseData.all;
+        courseGrid.innerHTML = items.map(function (item) {
+          var coverClass = 'ai-course-cover ' + item.theme + (item.cover ? ' has-image' : '');
+          var coverMarkup = item.cover
+            ? '<img class="course-cover-image" src="./xiangtan-channel/_nuxt/img/' + item.cover + '" alt="' + item.title + '课程封面">'
+            : '<img src="./xiangtan-channel/_nuxt/img/' + item.icon + '" alt="">';
+          return '<article class="course-card">' +
+            '<div class="' + coverClass + '"><small>' + item.eyebrow + '</small><strong>' + item.title + '</strong>' + coverMarkup + '</div>' +
+            '<div class="course-body"><h3>' + item.title + '</h3><p>' + item.desc + '</p><div class="course-meta"><span>' + item.source + '</span><span>' + item.hours + '</span></div></div>' +
+            '</article>';
+        }).join('');
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          if (tab.classList.contains('active')) return;
+          tabs.forEach(function (item) {
+            var selected = item === tab;
+            item.classList.toggle('active', selected);
+            item.setAttribute('aria-selected', selected ? 'true' : 'false');
+          });
+          renderCourses(tab.getAttribute('data-filter'));
+        });
+      });
+    }());
+  </script>
+  <script>
+    document.querySelectorAll('.nav-list a').forEach(function(link){ if (link.textContent.trim() === '应用服务') link.href = './application-services.html'; });
+  </script>
+  <script>
+    (function () {
+      document.querySelectorAll('.ai-app-section').forEach(function (section) {
+        var cards = section.querySelectorAll('.ai-app-card');
+        var dots = section.querySelectorAll('.ai-app-dots i');
+        dots.forEach(function (dot, index) {
+          dot.addEventListener('click', function () {
+            var cardIndex = index % cards.length;
+            dots.forEach(function (item) { item.classList.remove('active'); });
+            cards.forEach(function (card) { card.classList.remove('is-current'); });
+            dot.classList.add('active');
+            if (cards[cardIndex]) cards[cardIndex].classList.add('is-current');
+          });
+        });
+      });
+    }());
+  </script>
+  <script>
+    (function () {
+      var section = document.getElementById('base-school-studios');
+      if (!section) return;
+      var cards = section.querySelectorAll('.studio-school-card');
+      var name = document.getElementById('studio-name');
+      var logo = document.getElementById('studio-logo');
+      var followers = document.getElementById('studio-followers');
+      var members = document.getElementById('studio-members');
+      var views = document.getElementById('studio-views');
+      var resources = document.getElementById('studio-resources');
+      var data = {
+        yuhu: { name: '雨湖区人工智能教育基地校工作室', followers: '1286', members: '18', views: '3.6万', items: [
+          ['文章','AI赋能课堂教学：从工具应用到教学方式创新','case-01.png','628','32','2026-09-18'],
+          ['案例','人工智能通识课程校本化实施案例','case-05.png','516','24','2026-09-12'],
+          ['视频','机器人编程课程的项目式学习实践','case-07.png','842','46','2026-09-05']
+        ]},
+        yuetang: { name: '岳塘区智慧教育创新基地校工作室', followers: '986', members: '16', views: '2.8万', items: [
+          ['案例','生成式AI支持跨学科教学设计实践','case-03.png','576','29','2026-09-16'],
+          ['文章','面向核心素养的智能学习空间建设','case-04.png','438','21','2026-09-09'],
+          ['视频','数字化课堂教学创新成果展示','case-02.png','709','38','2026-09-02']
+        ]},
+        xiangtan: { name: '湘潭县AI课程研发基地校工作室', followers: '1124', members: '20', views: '3.1万', items: [
+          ['课程','中小学人工智能通识课程建设路径','case-05.png','684','36','2026-09-15'],
+          ['案例','AI编程项目式学习活动设计','case-06.png','492','27','2026-09-08'],
+          ['文章','区域人工智能教育课程资源共建机制','case-08.png','615','31','2026-09-01']
+        ]}
+      };
+
+      function render(key) {
+        var item = data[key];
+        if (!item) return;
+        logo.src = './xiangtan-channel/_nuxt/img/base-school-studios/studio-' + ({ yuhu: '01.jpeg', yuetang: '02.jpg', xiangtan: '03.jpg' }[key]);
+        logo.alt = item.name + '工作室';
+        name.textContent = item.name;
+        followers.textContent = item.followers;
+        members.textContent = item.members;
+        views.textContent = item.views;
+        resources.innerHTML = item.items.map(function (entry) {
+          return '<li class="studio-resource-item"><div class="studio-resource-thumb"><img src="./xiangtan-channel/_nuxt/img/ai-cases/' + entry[2] + '" alt=""></div><div class="studio-resource-copy"><p class="studio-resource-title"><span class="studio-resource-type">' + entry[0] + '</span>' + entry[1] + '</p><div class="studio-resource-meta"><span>' + entry[3] + ' 浏览</span><span>' + entry[4] + ' 点赞</span><time>' + entry[5] + '</time></div></div></li>';
+        }).join('');
+      }
+
+      cards.forEach(function (card) {
+        card.addEventListener('click', function () {
+          cards.forEach(function (item) {
+            var selected = item === card;
+            item.classList.toggle('active', selected);
+            item.setAttribute('aria-pressed', selected ? 'true' : 'false');
+          });
+          render(card.getAttribute('data-studio'));
+        });
+      });
+    }());
+  </script>
+  <script>document.querySelectorAll('.nav-list a').forEach(function(link){if(link.textContent.trim()==='市域服务')link.href='./city-services.html'});</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

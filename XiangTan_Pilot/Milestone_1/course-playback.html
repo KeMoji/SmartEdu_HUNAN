@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <title>课程播放详情 - 湘潭市智慧教育平台</title>
+  <link rel="stylesheet" href="./channel-navigation.css">
+  <script src="./channel-navigation.js" defer></script>
+  <style>
+    :root { --blue:#1e62ec; --ink:#303742; --muted:#8a94a3; --page:#f5f7fb; --content-width:1370px; --nav-content-width:1370px; }
+    * { box-sizing:border-box; }
+    html,body { margin:0; min-width:1270px; }
+    body { color:var(--ink); background:var(--page); font-family:"Microsoft YaHei","微软雅黑",Arial,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    button { font:inherit; }
+    img { display:block; }
+    .platform-header { position:relative; z-index:20; width:100%; height:60px; padding:0 20px; background:#1e62ec; }
+    .platform-header-inner { width:100%; max-width:var(--nav-content-width); height:60px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+    .platform-brand { position:relative; display:flex; align-items:center; height:48px; }
+    .platform-logo-link,.platform-logo { width:205px; height:48px; }
+    .platform-logo { object-fit:contain; }
+    .platform-switcher { position:relative; width:50px; height:48px; padding:0; border:0; background:transparent; cursor:pointer; }
+    .platform-switcher::after { content:""; position:absolute; top:50%; left:11px; width:10px; height:6px; margin-top:-3px; background:#fff; clip-path:polygon(0 0,100% 0,50% 100%); }
+    .platform-switch-panel { position:absolute; top:48px; left:0; z-index:3000; display:none; width:220px; padding:16px; border:1px solid #ebeef5; background:#fff; box-shadow:0 2px 12px rgba(0,0,0,.1); }
+    .platform-brand:hover .platform-switch-panel,.platform-switcher:focus + .platform-switch-panel { display:block; }
+    .platform-switch-list { margin:0; padding:0; list-style:none; }
+    .platform-switch-list li { height:40px; color:#666; font-size:16px; line-height:40px; white-space:nowrap; }
+    .platform-switch-list li + li { border-top:1px solid #f0f0f0; }
+    .platform-switch-list li.active { color:var(--blue); font-weight:700; }
+    .brand-divider { width:1px; height:20px; margin-left:4px; background:#fff; }
+    .brand-name { margin-left:25px; color:#fff; font-size:18px; font-weight:700; white-space:nowrap; }
+    .header-links { display:flex; align-items:center; color:#fff; font-size:14px; }
+    .header-links a { width:58px; height:28px; margin-right:15px; border:1px solid #fff; border-radius:18px; color:#333; background:#fff; line-height:26px; text-align:center; }
+    .header-links a + a { margin-right:0; color:#fff; background:transparent; }
+    .accessibility-button { width:130px; height:30px; margin-left:20px; border:1px solid #fff; border-radius:15px; color:#fff; background:transparent; cursor:pointer; }
+    .primary-nav { position:relative; z-index:11; width:100%; height:66px; padding:0 20px; border-bottom:1px solid #f6f6f6; background:#fff; box-shadow:0 6px 25px rgba(0,0,0,.05); }
+    .primary-nav-inner { width:100%; max-width:var(--nav-content-width); height:66px; margin:0 auto; display:flex; align-items:flex-end; justify-content:space-between; }
+    .nav-list { display:flex; flex:1; height:66px; margin:0; padding:0; overflow:hidden; list-style:none; }
+    .nav-list li { position:relative; flex:0 0 auto; margin-right:24px; }
+    .nav-list a { display:inline-block; height:66px; padding:21px 0; font-size:16px; line-height:24px; white-space:nowrap; }
+    .nav-list a:hover,.nav-list a.active { color:var(--blue); }
+    .nav-list a.active { font-weight:700; }
+    .nav-list a.active::after { content:""; position:absolute; right:0; bottom:0; left:0; height:3px; background:var(--blue); }
+    .ai-search { flex:0 0 128px; width:128px; height:37px; margin:0 0 14px 20px; padding:0; border:0; background:transparent; cursor:pointer; }
+    .ai-search img { width:128px; height:37px; }
+    .portal-header { position:fixed; top:0; right:0; left:0; z-index:100; height:60px; padding:0 20px; background:#1e62ec; }
+    .portal-header-inner { width:100%; max-width:1370px; height:60px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+    .portal-brand { display:block; flex:0 0 205px; width:205px; height:48px; }
+    .portal-brand img { width:205px; height:48px; object-fit:contain; }
+    .portal-header-actions { display:flex; align-items:center; gap:14px; color:#fff; font-size:14px; }
+    .city-switch { position:relative; height:36px; display:flex; align-items:center; }
+    .city-switch-trigger { height:32px; padding:0 8px; display:flex; align-items:center; gap:8px; border:0; color:#fff; background:transparent; font:14px inherit; cursor:pointer; }
+    .city-switch-trigger::after { width:7px; height:7px; border-right:1px solid #fff; border-bottom:1px solid #fff; transform:rotate(45deg) translateY(-2px); content:""; }
+    .city-switch-menu { position:absolute; top:calc(100% + 6px); right:0; z-index:300; display:none; min-width:240px; padding:10px; border:1px solid #e6eaf1; border-radius:4px; background:#fff; box-shadow:0 6px 18px rgba(24,53,103,.15); }
+    .city-switch:hover .city-switch-menu,.city-switch:focus-within .city-switch-menu { display:grid; gap:4px; }
+    .city-switch-menu a { padding:9px 10px; border-radius:3px; color:#515d6c; font-size:14px; }
+    .city-switch-menu a:hover { color:var(--blue); background:#f1f6ff; }
+    .portal-login,.portal-register { min-width:58px; height:28px; padding:0 12px; border:1px solid #f5f7fb; border-radius:16px; color:#333; background:#f5f7fb; font-size:13px; line-height:26px; text-align:center; }
+    .portal-register { border-color:#fff; color:#fff; background:transparent; }
+    .portal-accessibility { display:inline-flex; align-items:center; justify-content:center; width:130px; height:30px; margin-left:20px; padding:0; border:1px solid #f3f7ff; border-radius:15px; color:#fff; background:transparent; font:14px "Microsoft YaHei","微软雅黑",sans-serif; cursor:pointer; }
+    .portal-accessibility i { flex:0 0 18px; width:18px; height:18px; margin-right:4px; background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGRSURBVHgB7ZeBVYMwEIYPXwdgBDawTmA2sE4gI7gBuEE3EDfoBsUJihOAG9QJ4gUuvigJl0B9r+3L99490oT7uV6SIwBEIldGYv6QUgq8CA+/RlmSJJ1tEHUy0smAZ4c6jU0kl+EclJ+hIdD2MhyhNVZGTML49x/gJkNL0W7R1mivKHhP/cK475O0jhNaWuMJrf41gqIVRVuCB2paDB8TFeDaU6PUPrpvBTOh9aOmucarFnzE/h0s4AaWUxvtBhZyioBOyuUFhGuk5baqxWfj8Nlzz1uSoWxiLJ3h0+Ozy+5sD3BVaRqraPf9Zaom+QWE4kcfIYtfBzNgA5Lu99uWgrX5qIzmMM5sw9UpnylzLUQVzNYx9oxWOHwWB/QC4wxxwhXYs8pWcZ81VEIgtH4EzCBWao4YEMfZBWTuMl3kCixsxYSPuq+D4ezzRu0fqJBu0B5gKIwp8HyNeuhI2spwWqN9kOG0cvhK6UksgQngyYws2HiHoTh2ME2fbdcrKBhLVmvpecD/V+TwTZdDJBIZ8w3R3crq+Xji3QAAAABJRU5ErkJggg==) center / 18px 18px no-repeat; content:""; }
+    .portal-accessibility span { height:14px; line-height:14px; }
+    .portal-nav { position:fixed; top:60px; right:0; left:0; z-index:99; height:66px; padding:0 20px; border-bottom:1px solid #f6f6f6; background:#fff; box-shadow:0 6px 25px rgba(0,0,0,.05); }
+    .portal-nav-inner { width:100%; max-width:1370px; height:66px; margin:0 auto; display:flex; align-items:center; }
+    .portal-nav-brand { flex:0 0 215px; width:215px; height:34px; margin-right:3%; }
+    .portal-nav-brand img { width:215px; height:34px; object-fit:contain; }
+    .portal-nav-list { flex:1 1 auto; min-width:0; height:66px; margin:0; padding:0; display:flex; align-items:center; justify-content:space-between; list-style:none; }
+    .portal-nav-list li { display:flex; align-items:center; height:66px; padding:0 10px; }
+    .portal-nav-list a { position:relative; display:flex; align-items:center; height:66px; color:#333; font-size:16px; white-space:nowrap; }
+    .portal-nav-list a:hover,.portal-nav-list a.active { color:var(--blue); }
+    .portal-nav-list a.active { font-weight:700; }
+    .portal-nav-list a.active::after { position:absolute; right:0; bottom:0; left:0; height:3px; background:var(--blue); content:""; }
+    .portal-ai-search { flex:0 0 128px; width:128px; height:37px; margin-left:20px; padding:0; border:0; background:transparent; cursor:pointer; }
+    .portal-ai-search img { width:128px; height:37px; }
+    .portal-header,.portal-nav { display:none; }
+    .detail-main { padding:0 20px 36px; background:#f5f7fa; }
+    .detail-breadcrumb { width:100%; max-width:var(--content-width); margin:16px auto; }
+    .detail-shell { width:100%; max-width:var(--content-width); min-height:620px; margin:0 auto; padding:16px; overflow:hidden; border:1px solid #e1e7ef; border-radius:8px; background:#fff; box-shadow:0 3px 14px rgba(30,54,88,.08); }
+    .package-heading { padding:0 0 16px; color:#586372; font-size:12px; }
+    .package-topline { display:flex; align-items:center; justify-content:space-between; gap:16px; min-width:0; }
+    .package-title-group { flex:0 1 auto; min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:16px; }
+    .detail-title { overflow:hidden; margin:0; color:#26313e; font-size:16px; font-weight:700; line-height:24px; text-overflow:ellipsis; white-space:nowrap; }
+    .package-metarow { min-width:0; margin-top:16px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .supplier-line { flex:0 1 auto; min-width:0; color:#8a94a3; font-size:14px; text-align:left; white-space:nowrap; }
+    .package-summaryline { min-height:58px; padding:8px 0; display:flex; align-items:center; justify-content:space-between; gap:24px; color:#7b8592; font-size:12px; }
+    .package-summaryline[hidden] { display:none !important; }
+    .supplier-name { overflow:hidden; color:#303742; text-overflow:ellipsis; white-space:nowrap; }
+    .course-actions { display:flex; align-items:center; gap:16px; white-space:nowrap; }
+    .course-metric,.course-action { display:inline-flex; align-items:center; gap:8px; border:0; color:#7b8592; background:transparent; font:inherit; }
+    .course-action { padding:2px 0; cursor:pointer; }
+    .course-action:hover,.course-action.is-active { color:var(--blue); }
+    .course-action-icon { flex:0 0 16px; width:16px; height:16px; display:block; fill:currentColor; }
+    .course-action-icon path { fill:currentColor; stroke:none; }
+    .rating-stars { display:inline-flex; align-items:center; color:#ffc400; font-size:16px; letter-spacing:0; line-height:16px; }
+    .lesson-info-group { min-width:0; display:flex; flex-direction:column; align-items:flex-end; justify-content:center; align-self:center; }
+    .supplier-line { flex:0 0 auto; text-align:left; }
+    .lesson-staff { width:calc(100% + 326px); display:flex; align-items:stretch; gap:24px; min-width:0; margin-top:16px; padding:16px; border:1px solid #edf0f4; border-radius:8px; background:#fff; }
+    .staff-group { flex:1 1 0; min-width:0; display:flex; align-items:center; gap:16px; }
+    .staff-label { flex:0 0 48px; width:48px; min-height:48px; display:flex; align-items:center; justify-content:center; padding:4px 8px; border-radius:4px; color:#fa8c16; background:#fff7e8; font-size:14px; line-height:18px; text-align:center; }
+    .staff-group:nth-child(2) .staff-label { color:#1e62ec; background:#f0f5ff; }
+    .staff-group:nth-child(3) .staff-label { color:#8c8c8c; background:#f5f5f5; }
+    .staff-name-list { min-width:0; display:flex; flex-wrap:wrap; align-items:flex-start; gap:8px 20px; }
+    .staff-member { flex:0 0 160px; min-width:0; display:flex; flex-direction:column; gap:8px; }
+    .staff-name { color:#303742; font-size:14px; line-height:20px; white-space:nowrap; }
+    .staff-workplace { width:160px; max-width:100%; overflow:hidden; color:#8a94a3; font-size:12px; line-height:18px; text-overflow:ellipsis; white-space:nowrap; }
+    .lesson-workspace { display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:6px; padding-top:8px; align-items:stretch; }
+    .lesson-viewer { min-width:0; }
+    .player-frame { overflow:hidden; border:1px solid #dce1e8; background:#080a0d; }
+    .player-stage { position:relative; width:100%; aspect-ratio:16 / 9; max-height:calc(100vh - 230px); min-height:380px; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#142821; }
+    .video-poster { position:absolute; inset:0; overflow:hidden; color:#d5dfd8; background:#234132; }
+    .video-poster::before { position:absolute; inset:3.2% 1.5% 7%; border:10px solid #69482e; border-bottom-width:25px; background:#244332; box-shadow:inset 0 0 0 3px rgba(24,32,25,.28), inset 0 0 34px rgba(0,0,0,.16); content:""; }
+    .video-poster::after { position:absolute; right:1.5%; bottom:5.2%; left:1.5%; height:2.2%; background:#573a28; box-shadow:0 5px 0 #382719; content:""; }
+    .poster-kicker,.poster-center,.poster-meta { position:absolute; z-index:1; text-shadow:0 1px 1px rgba(0,0,0,.18); }
+    .poster-kicker { top:17%; left:10%; color:#d3ded5; font-size:23px; font-weight:700; }
+    .poster-center { top:39%; right:10%; left:10%; text-align:center; }
+    .poster-title { overflow:hidden; margin:0; color:#e1e8e2; font-size:48px; font-weight:700; line-height:1.2; text-overflow:ellipsis; white-space:nowrap; }
+    .poster-meta { right:10%; bottom:16%; left:10%; display:flex; justify-content:space-between; gap:16px; color:#d0d9d1; font-size:20px; font-weight:500; }
+    .player-shade { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.08); transition:background .2s; }
+    .player-frame.is-playing .player-shade { background:rgba(0,0,0,.18); }
+    .player-play-overlay { width:74px; height:74px; padding:0 0 0 5px; border:0; border-radius:50%; color:#fff; background:rgba(0,0,0,.66); font-size:32px; line-height:74px; cursor:pointer; }
+    .player-frame.is-playing .player-play-overlay { opacity:0; }
+    .player-stage:hover .player-play-overlay,.player-frame.is-playing .player-stage:hover .player-play-overlay { opacity:1; }
+    .player-progress-row { height:15px; padding:0 12px; display:flex; align-items:center; background:#0b0d10; }
+    .player-progress { width:100%; height:4px; margin:0; appearance:none; -webkit-appearance:none; border-radius:2px; background:linear-gradient(to right,#168df2 var(--progress,30%),#8a8e93 var(--progress,30%)); cursor:pointer; }
+    .player-progress::-webkit-slider-thumb { width:14px; height:14px; appearance:none; -webkit-appearance:none; border:2px solid #187fd2; border-radius:50%; background:#d8e4f1; }
+    .player-progress::-moz-range-thumb { width:11px; height:11px; border:2px solid #187fd2; border-radius:50%; background:#d8e4f1; }
+    .player-controls { height:42px; padding:0 12px; display:flex; align-items:center; gap:16px; color:#e1e5eb; background:#080a0d; font-size:12px; }
+    .player-control-button { flex:0 0 auto; min-width:20px; height:30px; padding:0; border:0; color:#e1e5eb; background:transparent; cursor:pointer; }
+    .player-control-button:hover { color:#56aaff; }
+    .player-play-button { font-size:17px; }
+    .player-time { color:#45a1ef; font-size:11px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .player-control-spacer { flex:1 1 auto; }
+    .player-setting { min-width:48px; padding:4px 6px; color:#d8dce2; }
+    .player-quality { min-width:72px; }
+    .download-course-row { min-height:48px; margin-top:10px; padding:0 12px; display:flex; align-items:center; justify-content:space-between; gap:16px; border:1px solid #e5e9ef; background:#fff; }
+    .download-course-note { min-width:0; color:#8a8f98; font-size:12px; line-height:18px; }
+    .download-course-button { height:30px; padding:0 12px; display:inline-flex; align-items:center; gap:7px; border:0; border-radius:3px; color:#fff; background:var(--blue); font-size:12px; cursor:pointer; }
+    .download-course-button:hover { background:#1555d6; }
+    .download-course-button svg { width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:1.7; }
+    .course-description { width:calc(100% + 326px); margin-top:12px; padding:0 8px 12px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:start; gap:8px; color:#697584; font-size:12px; line-height:22px; }
+    .course-description strong { color:#4b5665; font-weight:500; }
+    .course-description-copy { min-width:0; max-height:22px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .course-description-copy p { display:inline; margin:0; }
+    .course-description-copy p + p::before { content:" "; }
+    .course-description.is-expanded .course-description-copy { max-height:none; overflow:visible; white-space:normal; }
+    .course-description.is-expanded .course-description-copy p { display:block; margin:0 0 22px; }
+    .course-description.is-expanded .course-description-copy p:last-child { margin-bottom:0; }
+    .course-description-toggle { padding:0; border:0; color:var(--blue); background:transparent; font:inherit; line-height:22px; white-space:nowrap; cursor:pointer; }
+    .resource-panel { min-width:0; min-height:0; align-self:start; border:1px solid #e2e6ed; background:#fff; }
+    .resource-panel-title { box-sizing:border-box; height:40px; margin:0; padding:0 12px; display:flex; align-items:center; border-bottom:1px solid #e4e8ee; color:#323b47; font-size:14px; font-weight:500; line-height:20px; }
+    .resource-list { margin:0; padding:16px 12px; display:flex; flex-direction:column; gap:16px; list-style:none; }
+    .recommend-course { width:100%; min-width:0; min-height:77px; padding:0; display:grid; grid-template-columns:136px minmax(0,1fr); align-items:stretch; gap:16px; border:0; color:#5d6672; background:#fff; font-family:inherit; text-align:left; cursor:pointer; }
+    .recommend-course:hover .recommend-title { color:var(--blue); }
+    .recommend-course.active .recommend-title { color:#f04a45; }
+    .recommend-cover { width:136px; height:77px; display:block; object-fit:cover; }
+    .recommend-info { min-width:0; display:flex; flex-direction:column; justify-content:space-between; padding:1px 0; }
+    .recommend-title { overflow:hidden; color:#303742; font-size:12px; line-height:18px; text-overflow:ellipsis; white-space:nowrap; }
+    .recommend-author,.recommend-stats,.recommend-stat { display:flex; align-items:center; }
+    .recommend-author { gap:5px; color:#8b929b; font-size:11px; line-height:14px; }
+    .recommend-stats { gap:18px; color:#8b929b; font-size:11px; line-height:14px; }
+    .recommend-stat { gap:5px; }
+    .recommend-stat svg,.recommend-author svg { width:12px; height:12px; display:block; fill:currentColor; }
+    .site-footer { min-width:1270px; padding:30px 0; color:#fff; background:#333; font-size:14px; }
+    .site-footer p { margin:0; line-height:25px; text-align:center; }
+    .site-footer a { color:#fff; }
+    .detail-toast { position:fixed; right:24px; bottom:24px; z-index:1000; padding:10px 16px; border-radius:4px; color:#fff; background:rgba(34,42,52,.88); font-size:13px; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .2s,transform .2s; }
+    .detail-toast.visible { opacity:1; transform:translateY(0); }
+    @media (max-width: 1100px) {
+      .lesson-workspace { grid-template-columns:minmax(0,1fr) 280px; }
+      .lesson-staff,.course-description { width:calc(100% + 286px); }
+      .lesson-staff { gap:16px; }
+      .staff-group { gap:10px; }
+      .course-actions { gap:16px; }
+    }
+  </style>
+</head>
+<body data-xt-active-nav="course">
+  <header class="portal-header"><div class="portal-header-inner"><a class="portal-brand" href="./index.html" aria-label="湖南智慧教育平台首页"><img src="./local-assets/hunan.smartedu.cn/_nuxt/img/image-login-new-h5.a21550b.png" alt="湖南智慧教育平台"></a><div class="portal-header-actions"><div class="city-switch"><button class="city-switch-trigger" type="button">市州平台</button><div class="city-switch-menu"><a href="#">常德</a><a href="./xiangtan-entry.html">湘潭</a><a href="#">湘西土家族苗族自治州</a></div></div><a class="portal-login" href="#">登录</a><a class="portal-register" href="#">注册</a><button class="portal-accessibility" type="button"><i aria-hidden="true"></i><span>无障碍浏览</span></button></div></div></header>
+  <nav class="portal-nav" aria-label="湖南智慧教育平台主导航"><div class="portal-nav-inner"><a class="portal-nav-brand" href="./index.html" aria-label="门户首页"><img src="./local-assets/hunan.smartedu.cn/_nuxt/img/header2.86f2a4e.png" alt="湖南智慧教育公共服务平台"></a><ul class="portal-nav-list"><li><a href="./index.html">首页</a></li><li><a class="active" href="./index.html" aria-current="page">中小学</a></li><li><a href="./index.html">职业教育</a></li><li><a href="./index.html">高等教育</a></li><li><a href="./index.html">服务大厅</a></li><li><a href="./index.html">人工智能中心</a></li><li><a href="./index.html">活动竞赛</a></li></ul><button class="portal-ai-search" type="button" aria-label="AI 搜索"><img src="./local-assets/hunan.smartedu.cn/_nuxt/img/ai-search-button.b0a1e04.svg" alt="AI 搜索"></button></div></nav>
+  <nav class="xt-breadcrumb detail-breadcrumb" aria-label="面包屑导航">
+    <a href="./xiangtan.html">首页</a><svg class="xt-breadcrumb-separator" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6-9.6-25.6-9.6-35.2 0 9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"/></svg>
+    <span>五育成长</span><svg class="xt-breadcrumb-separator" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6-9.6-25.6-9.6-35.2 0 9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"/></svg>
+    <a id="detail-parent-link" href="./moral.html">德育</a><svg class="xt-breadcrumb-separator" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6-9.6-25.6-9.6-35.2 0 9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"/></svg>
+    <span class="xt-breadcrumb-current">课程播放详情</span>
+  </nav>
+  <main class="detail-main">
+    <div class="detail-shell">
+      <section class="package-heading" aria-label="课程信息">
+        <div class="package-topline">
+          <div class="package-title-group"><h1 class="detail-title" id="detail-title">师说：与AI同行</h1></div>
+        </div>
+        <div class="package-metarow">
+          <div class="supplier-line"><span class="supplier-label">供给单位：</span><span class="supplier-name" id="detail-institution">湖南教育音像电子出版社</span></div>
+        </div>
+      </section>
+      <section class="package-summaryline" aria-label="课程操作" hidden>
+        <div class="course-actions">
+          <span class="course-metric" aria-label="浏览量"><svg class="course-action-icon" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false"><path d="M989.789091 482.466909a45.381818 45.381818 0 0 1 0 59.066182C924.904727 617.634909 735.511273 814.545455 512 814.545455S99.048727 617.634909 34.210909 541.533091a45.381818 45.381818 0 0 1 0-59.066182C99.048727 406.365091 288.465455 209.454545 512 209.454545s412.904727 196.910545 477.789091 273.012364zM512 744.727273c182.248727 0 347.415273-161.885091 410.856727-232.727273C859.415273 441.157818 694.248727 279.272727 512 279.272727c-182.248727 0-347.392 161.885091-410.856727 232.727273C164.584727 582.842182 329.728 744.727273 512 744.727273z m0-151.272728c-44.916364 0-81.454545-36.538182-81.454545-81.454545s36.538182-81.454545 81.454545-81.454545 81.454545 36.538182 81.454545 81.454545-36.538182 81.454545-81.454545 81.454545z m0-232.727272a151.458909 151.458909 0 0 0-151.272727 151.272727c0 83.409455 67.863273 151.272727 151.272727 151.272727s151.272727-67.863273 151.272727-151.272727-67.863273-151.272727-151.272727-151.272727"></path></svg><span>11.1万</span></span>
+          <button class="course-action js-toast" type="button" data-message="下载量：29"><svg class="course-action-icon" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false"><path d="M512 729.6V469.333333h42.666667v260.266667l98.133333-98.133333 29.866667 29.866666-106.666667 106.666667h170.666667c85.333333-8.533333 149.333333-81.066667 149.333333-170.666667 0-93.866667-76.8-170.666667-170.666667-170.666666h-4.266666c-21.333333-98.133333-106.666667-170.666667-209.066667-170.666667-119.466667 0-213.333333 93.866667-213.333333 213.333333-72.533333 8.533333-128 72.533333-128 149.333334C170.666667 699.733333 238.933333 768 320 768h170.666667L384 661.333333l29.866667-29.866666 98.133333 98.133333z m64 38.4l-42.666667 42.666667-42.666666-42.666667h-42.666667v42.666667h-128C213.333333 810.666667 128 725.333333 128 618.666667c0-85.333333 55.466667-157.866667 128-183.466667C273.066667 311.466667 379.733333 213.333333 512 213.333333c110.933333 0 209.066667 72.533333 243.2 170.666667 102.4 12.8 183.466667 102.4 183.466667 213.333333s-85.333333 200.533333-192 213.333334h-128v-42.666667h-42.666667z"></path></svg><span>29</span></button>
+          <span class="course-metric" aria-label="评分"><span class="rating-stars">★★★★☆</span><span>3.7分</span></span>
+          <button class="course-action js-toast" type="button" data-message="分享链接已复制"><svg class="course-action-icon" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false"><path d="M763.84 896c-47.128 0-85.333-38.205-85.333-85.333s38.205-85.333 85.333-85.333c47.128 0 85.333 38.205 85.333 85.333 0 47.128-38.205 85.333-85.333 85.333M329.92 558.848c-14.895 26.231-42.641 43.638-74.453 43.638-47.128 0-85.333-38.205-85.333-85.333 0-16.097 4.457-31.152 12.204-44 14.935-24.769 42.098-41.333 73.13-41.333 47.128 0 85.333 38.205 85.333 85.333 0 15.317-4.035 29.691-11.101 42.117M763.84 128c47.128 0 85.333 38.205 85.333 85.333s-38.205 85.333-85.333 85.333c-47.128 0-85.333-38.205-85.333-85.333 0-47.128 38.205-85.333 85.333-85.333M763.84 682.667c-0.021 0-0.047 0-0.072 0-39.16 0-74.203 17.626-97.628 45.378l-289.885-167.063c4.932-13.101 7.787-28.245 7.787-44.055 0-0.105 0-0.209 0-0.314 0-0.072 0-0.177 0-0.281 0-15.81-2.855-30.953-8.077-44.942l295.544-169.566c23.265 24.363 56.001 39.509 92.275 39.509 0.020 0 0.039 0 0.059 0 70.689 0 127.997-57.308 127.997-128 0-70.692-57.308-128-128-128-70.692 0-128 57.308-128 128 0 18.965 4.224 36.907 11.627 53.099l-292.288 168.747c-23.653-28.833-59.285-47.084-99.18-47.084-70.692 0-128 57.308-128 128 0 0.188 0 0.376 0.001 0.564-0.001 0.123-0.001 0.304-0.001 0.484 0 70.692 57.308 128 128 128 39.895 0 75.526-18.251 99.001-46.86l289.373 166.752c-5.397 13.568-8.529 29.29-8.533 45.743 0 70.582 57.308 127.889 128 127.889 70.692 0 128-57.308 128-128 0-70.692-57.308-128-128-128z"></path></svg><span>分享</span></button>
+          <button class="course-action js-toast" type="button" data-message="已点赞课程"><svg class="course-action-icon" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false"><path d="M933.248 335.104c-40-10.496-134.048-10.368-271.616-14.016 6.496-30.016 8-57.088 8-105.152C669.632 101.12 585.984 0 512 0c-52.256 0-95.328 42.72-96 95.264-0.704 64.448-20.64 175.744-128 232.192-7.872 4.16-30.4 15.264-33.696 16.704L256 345.6c-16.8-14.496-40.096-25.6-64-25.6H96c-52.928 0-96 43.072-96 96v512c0 52.928 43.072 96 96 96h96c38.08 0 69.952-23.008 85.376-55.264 0.384 0.128 1.056 0.32 1.504 0.384l7.648 1.984 1.472 0.384c18.432 4.576 53.92 13.056 129.76 30.496 16.256 3.712 102.144 22.016 191.104 22.016h174.944c53.312 0 91.744-20.512 114.624-61.696 0.32-0.64 7.68-15.008 13.696-34.432a106.56 106.56 0 0 0 0.736-56.32c34.368-23.616 45.44-59.328 52.64-82.56 12.064-38.112 8.448-66.752 0.064-87.264 19.328-18.24 35.808-46.048 42.752-88.512a120.224 120.224 0 0 0-12.448-75.904c18.112-20.352 26.368-45.952 27.328-69.632l0.384-6.688c0.224-4.192 0.416-6.784 0.416-16 0-40.416-28-91.968-90.752-109.888zM224 928a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V416a32 32 0 0 1 32-32h96a32 32 0 0 1 32 32v512z m735.264-462.88C958.624 480.928 952 512 896 512h-64a16 16 0 1 0 0 32h62.016c48 0 54.304 39.808 51.2 59.008-3.968 23.872-15.168 68.992-69.216 68.992H800a15.968 15.968 0 1 0 0 32h63.008c54.016 0 49.248 41.184 41.504 65.76-10.208 32.288-16.448 62.24-84.512 62.24h-52.192a15.968 15.968 0 1 0 0 32h50.176c35.008 0 36.64 33.12 32.992 44.992-4 12.992-8.736 22.624-8.928 23.072-9.664 17.44-25.248 27.936-58.24 27.936h-174.944c-87.872 0-175.04-19.936-177.28-20.448-132.928-30.624-139.936-32.992-148.288-35.36 0 0-27.072-4.576-27.072-28.192L256 434.016c0-15.008 9.568-28.576 25.408-33.344 1.984-0.768 4.672-1.6 6.592-2.4 146.176-60.544 190.688-193.28 192-302.272 0.192-15.328 12-32 32-32 33.824 0 93.632 67.904 93.632 151.936 0 75.872-3.072 88.992-29.632 168.064 320 0 317.76 4.608 345.984 12 35.008 10.016 38.016 39.008 38.016 48.992 0 10.976-0.32 9.376-0.736 20.128z"></path></svg><span>1234</span></button>
+          <button class="course-action js-toast" type="button" data-message="已收藏课程"><svg class="course-action-icon" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false"><path d="M707.584 93.184c-77.312 0-148.992 38.912-196.608 102.912-47.104-64-119.296-102.912-196.608-102.912-139.264 0-252.416 123.904-252.416 275.968 0 90.624 40.448 154.624 73.216 205.824C229.888 723.968 468.48 908.8 478.72 916.48c9.728 7.68 20.992 11.264 32.256 11.264s22.528-3.584 32.256-11.264c10.24-7.68 248.32-193.024 343.552-341.504 32.768-51.2 73.216-115.2 73.216-205.824 0-152.064-113.152-275.968-252.416-275.968zM821.76 573.44c-87.552 122.88-272.896 263.168-282.112 269.824-8.704 6.656-18.944 10.24-28.672 10.24-10.24 0-19.968-3.072-28.672-10.24-9.216-6.656-190.976-148.48-282.112-274.944-29.184-46.08-75.776-103.424-75.776-184.32 0-136.192 75.776-231.936 200.192-231.936 69.12 0 144.384 66.048 186.368 123.392 42.496-57.344 117.248-123.392 186.368-123.392 124.928 0 205.824 95.744 205.824 231.936 0 80.896-51.712 143.872-81.408 189.44z"></path></svg><span>收藏</span></button>
+          <button class="course-action js-toast" type="button" data-message="已记录学习建议"><svg class="course-action-icon" viewBox="0 0 1024 1024" aria-hidden="true" focusable="false"><path d="M834.92343108 757.1317136c0 82.80958192-1.44238002 84.25196194-77.04006185 84.25196192h-492.95458083c-85.60949605 0-85.43980429 2.20599296-85.43980429-75.08860656l-0.08484587-491.51220082c0-78.05821245 0-76.70067833 85.60949606-76.7006783h286.69423899V153.02902589H262.55310368C155.73213684 153.02902589 133.84189901 167.28313426 133.84189901 274.61317637v490.23951259c0 121.41445873 21.89023784 121.4993046 128.79605055 121.4993046h497.7059503c106.905812 0 120.48115402-22.48415902 120.481154-129.89904703V490.20656536h-45.81677688l-0.0848459 266.92514824z"></path><path d="M876.41306794 209.28184638l-65.50102176-65.50102175c-21.38116254-21.38116254-40.81086979-21.38116254-62.19203232 0l-377.56417981 376.71572097c-0.59392119 0.59392119-1.10299649 1.10299649-1.52722589 1.69691768-3.47868122 2.71506826-6.10890359 6.53313301-7.29674595 11.11481067l-16.62979308 105.20889506c-3.22414357 11.53904009 3.5635271 23.41746374 15.10256719 26.55676141 2.46053061 0.67876706 4.92106122 0.93330471 7.38159183 0.76361296 1.78176355 0.16969177 3.5635271 0.08484589 5.4301365-0.25453766L491.3824504 651.75312679c5.34529065-0.93330471 9.84212244-3.81806475 13.06626601-7.72097538 0.59392119-0.5090753 1.27268825-1.0181506 1.78176354-1.61207178l370.18258799-370.94620091c21.29631666-21.38116254 21.29631666-40.81086979-1e-8-62.19203234z m-407.59962244 406.41178009L398.30651665 627.0629748s-7.97551302 1.86660942-11.28450247-1.69691767c-2.46053061-2.79991416 0.67876708-9.75727655 0.67876708-9.75727655l17.56309779-62.02234056 63.54956645 62.10718645z m32.32628147-32.2414356L436.48716402 520.41169973l264.46461766-262.25862468 63.80410408 62.19203233-263.61615879 263.1070835z m337.09269357-336.49877237l-41.31994508 41.23509917-63.63441234-62.10718642 42.16840395-41.82902038c4.49683181-4.49683181 11.79357776-4.49683181 16.29040953 0l46.49554394 46.49554394c4.49683181 4.49683181 4.49683181 11.70873187 0 16.20556369z"></path></svg><span>建议</span></button>
+        </div>
+      </section>
+      <div class="lesson-workspace">
+        <section class="lesson-viewer" aria-label="课程播放区">
+          <div class="player-frame" id="player-frame">
+            <div class="player-stage">
+              <div class="video-poster" role="img" aria-label="课程视频封面">
+                <div class="poster-kicker">国家中小学课程资源</div>
+                <div class="poster-center"><h2 class="poster-title" id="poster-title">师说：与AI同行</h2></div>
+                <div class="poster-meta"><span>年级：一年级</span><span>学科：语文（统编版）</span></div>
+              </div>
+              <div class="player-shade"><button class="player-play-overlay" type="button" aria-label="播放课程">▶</button></div>
+            </div>
+            <div class="player-progress-row"><input class="player-progress" id="player-progress" type="range" min="0" max="1811" value="540" aria-label="播放进度"></div>
+            <div class="player-controls">
+              <button class="player-control-button player-play-button" id="player-play-button" type="button" aria-label="播放">▶</button>
+              <button class="player-control-button js-toast" type="button" aria-label="下一段" data-message="当前已是本课时">▸|</button>
+              <span class="player-time" id="player-time">09:00 / 30:11</span>
+              <span class="player-control-spacer"></span>
+              <button class="player-control-button player-setting js-toast" type="button" data-message="画面已适配播放器">视频大屏</button>
+              <button class="player-control-button" id="player-volume" type="button" aria-label="静音">◖</button>
+              <button class="player-control-button player-setting player-quality" id="player-quality" type="button">720P 高清</button>
+              <button class="player-control-button player-setting" id="player-speed" type="button">1.0x 倍速</button>
+              <button class="player-control-button" id="player-fullscreen" type="button" aria-label="全屏播放">⛶</button>
+            </div>
+          </div>
+          <div class="download-course-row"><span class="download-course-note">感谢所有为资源建设提供资料的单位和个人，未经允许不得转载或引用</span><button class="download-course-button js-toast" type="button" data-message="课程下载已加入任务"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"></path></svg>下载课程</button></div>
+          <div class="lesson-staff" aria-label="授课团队">
+            <div class="staff-group"><span class="staff-label">授课<br>老师</span><div class="staff-name-list"><span class="staff-member"><span class="staff-name" id="detail-author">黎丽娜</span><span class="staff-workplace">湖南第一师范学院</span></span><span class="staff-member"><span class="staff-name">单爽娥</span><span class="staff-workplace">湖南第一师范学院</span></span></div></div>
+            <div class="staff-group"><span class="staff-label">指导<br>老师</span><div class="staff-name-list"><span class="staff-member"><span class="staff-name">卞秀娟</span><span class="staff-workplace">湖南省人民政府直属机关第二幼儿院</span></span><span class="staff-member"><span class="staff-name">仪鸿远</span><span class="staff-workplace">湖南省人民政府直属机关第二幼儿院</span></span></div></div>
+            <div class="staff-group"><span class="staff-label">团队<br>成员</span><div class="staff-name-list"><span class="staff-member"><span class="staff-name">戚丹亦</span><span class="staff-workplace">湖南省人民政府直属机关第二幼儿院</span></span><span class="staff-member"><span class="staff-name">倪欣欣</span><span class="staff-workplace">湖南省人民政府直属机关第二幼儿院</span></span></div></div>
+          </div>
+          <div class="course-description" id="course-description">
+            <strong>教学内容：</strong>
+            <div class="course-description-copy" id="course-description-copy">
+              <p>“一花一世界，一树一景观”。植物作为园林景观中最独特最自然的一笔，能美化环境，陶冶情操，并以其特有的功能，改善了我们的生态环境，对人们的身心健康有一定的自然环保作用，具有增强人体免疫力、调节心理情绪、减轻视觉疲劳、辅助医疗等作用。</p>
+              <p>如果在公园、郊外漫步，你能随口说说路边看到的各种植物，一定非常惬意。其实想要做到这并不难。本课程将带领大家走进“花花世界”，一起探索神秘的植物，认识常见花草树木，领略身边植物之美。</p>
+              <p>《园林植物》课程是高等职业教育园林技术等相关专业开设的一门重要的专业基础课，是对应园林植物生产、养护、应用等岗位的主干课程。通过本课程的学习，使学生掌握识别、应用园林植物的基本知识与技能，如观察园林植物的整体特征，判断园林植物根、茎、叶、花、果实的形态类型等，掌握常见园林植物的识别要点、分布及习性、观赏特征及园林用途，能够认识常见的园林植物；并掌握一定园林植物应用的相关知识，能够完成花坛、花境的设计。这些知识和技能为后续专业课程的学习和职业岗位能力的培养奠定基础，同时引导学生树立和践行生态文明、绿水青山就是金山银山等理念，引导学生传承中华优秀传统文化；让学生养成细心观察、独立思考的习惯，具备吃苦耐劳的职业精神和企业精益求精的工匠精神，从而促进学生良好职业素养的形成。同时为花艺师等考取相关职业证书服务。</p>
+              <p>本课程设计的理念是与企业紧密结合，以岗位能力需求为导向、以实际工作任务构建教学内容、充分考虑学生的可持续发展。根据基于工作过程的课程开发思路，课程内容针对职业岗位能力要求，由浅入深，层层递进，进阶式学习，螺旋上升。</p>
+              <p>《园林植物》课程由许昌职业技术学院、三门峡职业技术学院、周口职业技术学院、濮阳职业技术学院、南阳农业职业学院、河南工业职业技术学院等6所院校联合打造。</p>
+            </div>
+            <button class="course-description-toggle" id="course-description-toggle" type="button" aria-expanded="false" aria-controls="course-description-copy">展开</button>
+          </div>
+        </section>
+        <aside class="resource-panel" aria-label="相关推荐">
+          <h2 class="resource-panel-title">相关推荐</h2>
+          <ul class="resource-list">
+            <li><button class="recommend-course" type="button" data-resource="美好生活 劳动创造"><img class="recommend-cover" src="./xiangtan-channel/_nuxt/img/xiangtan-moral-5.svg" alt=""><span class="recommend-info"><span class="recommend-title">美好生活 劳动创造</span><span class="recommend-author"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M509.44 1018.368c-141.312 0-277.504-59.904-372.736-164.352l-19.968-21.504 19.968-21.504c95.744-104.448 231.424-164.352 372.736-164.352 141.312 0 277.504 59.904 372.736 164.352l19.968 21.504-19.968 21.504c-95.232 104.448-231.424 164.352-372.736 164.352zM204.8 832.512c81.92 77.824 190.976 121.856 304.64 121.856 113.664 0 222.72-44.032 304.64-121.856-81.92-77.824-190.976-121.856-304.64-121.856-113.664 0-222.72 44.032-304.64 121.856zM509.952 600.576c-89.088 0-161.792-72.704-161.792-161.792 0-89.088 72.704-161.792 161.792-161.792s161.792 72.704 161.792 161.792c0 89.088-72.192 161.792-161.792 161.792zm0-259.584c-53.76 0-97.792 44.032-97.792 97.792s44.032 97.792 97.792 97.792 97.792-44.032 97.792-97.792-43.52-97.792-97.792-97.792zM119.296 719.36c-33.792-63.488-51.2-134.144-51.2-206.848 0-243.712 198.144-441.344 441.344-441.344s441.344 198.144 441.344 441.344c0 72.192-17.92 143.36-51.2 206.336 16.384 15.36 31.744 31.744 46.08 49.152 45.568-77.312 69.12-165.376 69.12-255.488 0-279.04-226.816-505.856-505.856-505.856C230.4 7.168 4.096 233.984 4.096 512.512c0 90.112 24.064 178.688 69.632 255.488 13.824-16.896 29.184-33.28 45.568-48.64z" fill="currentColor"></path></svg>郭老师</span><span class="recommend-stats"><span class="recommend-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 96C256 96 64 512 64 512s192 416 448 416 448-416 448-416S768 96 512 96zm0 704a288 288 0 1 1 0-576 288 288 0 0 1 0 576zm0-160a128 128 0 1 0 0-256 128 128 0 0 0 0 256z"></path></svg>10547</span><span class="recommend-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M128 896h160V448H128v448zm768-416c0-48-40-80-88-80H560l48-184v-24c0-24-8-40-24-56L536 48 296 336c-16 16-24 40-24 64v416c0 48 40 80 88 80h368c40 0 72-24 88-56l120-280c8-16 16-40 16-64z"></path></svg>67</span></span></span></button></li>
+            <li><button class="recommend-course" type="button" data-resource="一心向着共产党"><img class="recommend-cover" src="./xiangtan-channel/_nuxt/img/xiangtan-moral-2.svg" alt=""><span class="recommend-info"><span class="recommend-title">一心向着共产党</span><span class="recommend-author"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M509.44 1018.368c-141.312 0-277.504-59.904-372.736-164.352l-19.968-21.504 19.968-21.504c95.744-104.448 231.424-164.352 372.736-164.352 141.312 0 277.504 59.904 372.736 164.352l19.968 21.504-19.968 21.504c-95.232 104.448-231.424 164.352-372.736 164.352zM204.8 832.512c81.92 77.824 190.976 121.856 304.64 121.856 113.664 0 222.72-44.032 304.64-121.856-81.92-77.824-190.976-121.856-304.64-121.856-113.664 0-222.72 44.032-304.64 121.856zM509.952 600.576c-89.088 0-161.792-72.704-161.792-161.792 0-89.088 72.704-161.792 161.792-161.792s161.792 72.704 161.792 161.792c0 89.088-72.192 161.792-161.792 161.792zm0-259.584c-53.76 0-97.792 44.032-97.792 97.792s44.032 97.792 97.792 97.792 97.792-44.032 97.792-97.792-43.52-97.792-97.792-97.792zM119.296 719.36c-33.792-63.488-51.2-134.144-51.2-206.848 0-243.712 198.144-441.344 441.344-441.344s441.344 198.144 441.344 441.344c0 72.192-17.92 143.36-51.2 206.336 16.384 15.36 31.744 31.744 46.08 49.152 45.568-77.312 69.12-165.376 69.12-255.488 0-279.04-226.816-505.856-505.856-505.856C230.4 7.168 4.096 233.984 4.096 512.512c0 90.112 24.064 178.688 69.632 255.488 13.824-16.896 29.184-33.28 45.568-48.64z" fill="currentColor"></path></svg>郭老师</span><span class="recommend-stats"><span class="recommend-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 96C256 96 64 512 64 512s192 416 448 416 448-416 448-416S768 96 512 96zm0 704a288 288 0 1 1 0-576 288 288 0 0 1 0 576zm0-160a128 128 0 1 0 0-256 128 128 0 0 0 0 256z"></path></svg>272705</span><span class="recommend-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M128 896h160V448H128v448zm768-416c0-48-40-80-88-80H560l48-184v-24c0-24-8-40-24-56L536 48 296 336c-16 16-24 40-24 64v416c0 48 40 80 88 80h368c40 0 72-24 88-56l120-280c8-16 16-40 16-64z"></path></svg>160</span></span></span></button></li>
+            <li><button class="recommend-course active" type="button" data-resource="芳草地 红领巾"><img class="recommend-cover" src="./xiangtan-channel/_nuxt/img/xiangtan-moral-3.svg" alt=""><span class="recommend-info"><span class="recommend-title">芳草地 红领巾</span><span class="recommend-author"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M509.44 1018.368c-141.312 0-277.504-59.904-372.736-164.352l-19.968-21.504 19.968-21.504c95.744-104.448 231.424-164.352 372.736-164.352 141.312 0 277.504 59.904 372.736 164.352l19.968 21.504-19.968 21.504c-95.232 104.448-231.424 164.352-372.736 164.352zM204.8 832.512c81.92 77.824 190.976 121.856 304.64 121.856 113.664 0 222.72-44.032 304.64-121.856-81.92-77.824-190.976-121.856-304.64-121.856-113.664 0-222.72 44.032-304.64 121.856zM509.952 600.576c-89.088 0-161.792-72.704-161.792-161.792 0-89.088 72.704-161.792 161.792-161.792s161.792 72.704 161.792 161.792c0 89.088-72.192 161.792-161.792 161.792zm0-259.584c-53.76 0-97.792 44.032-97.792 97.792s44.032 97.792 97.792 97.792 97.792-44.032 97.792-97.792-43.52-97.792-97.792-97.792zM119.296 719.36c-33.792-63.488-51.2-134.144-51.2-206.848 0-243.712 198.144-441.344 441.344-441.344s441.344 198.144 441.344 441.344c0 72.192-17.92 143.36-51.2 206.336 16.384 15.36 31.744 31.744 46.08 49.152 45.568-77.312 69.12-165.376 69.12-255.488 0-279.04-226.816-505.856-505.856-505.856C230.4 7.168 4.096 233.984 4.096 512.512c0 90.112 24.064 178.688 69.632 255.488 13.824-16.896 29.184-33.28 45.568-48.64z" fill="currentColor"></path></svg>郭老师</span><span class="recommend-stats"><span class="recommend-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 96C256 96 64 512 64 512s192 416 448 416 448-416 448-416S768 96 512 96zm0 704a288 288 0 1 1 0-576 288 288 0 0 1 0 576zm0-160a128 128 0 1 0 0-256 128 128 0 0 0 0 256z"></path></svg>24126</span><span class="recommend-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M128 896h160V448H128v448zm768-416c0-48-40-80-88-80H560l48-184v-24c0-24-8-40-24-56L536 48 296 336c-16 16-24 40-24 64v416c0 48 40 80 88 80h368c40 0 72-24 88-56l120-280c8-16 16-40 16-64z"></path></svg>236</span></span></span></button></li>
+            <li><button class="recommend-course" type="button" data-resource="无毒青春 筑梦未来"><img class="recommend-cover" src="./xiangtan-channel/_nuxt/img/xiangtan-moral-4.svg" alt=""><span class="recommend-info"><span class="recommend-title">无毒青春 筑梦未来</span><span class="recommend-author"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M509.44 1018.368c-141.312 0-277.504-59.904-372.736-164.352l-19.968-21.504 19.968-21.504c95.744-104.448 231.424-164.352 372.736-164.352 141.312 0 277.504 59.904 372.736 164.352l19.968 21.504-19.968 21.504c-95.232 104.448-231.424 164.352-372.736 164.352zM204.8 832.512c81.92 77.824 190.976 121.856 304.64 121.856 113.664 0 222.72-44.032 304.64-121.856-81.92-77.824-190.976-121.856-304.64-121.856-113.664 0-222.72 44.032-304.64 121.856zM509.952 600.576c-89.088 0-161.792-72.704-161.792-161.792 0-89.088 72.704-161.792 161.792-161.792s161.792 72.704 161.792 161.792c0 89.088-72.192 161.792-161.792 161.792zm0-259.584c-53.76 0-97.792 44.032-97.792 97.792s44.032 97.792 97.792 97.792 97.792-44.032 97.792-97.792-43.52-97.792-97.792-97.792zM119.296 719.36c-33.792-63.488-51.2-134.144-51.2-206.848 0-243.712 198.144-441.344 441.344-441.344s441.344 198.144 441.344 441.344c0 72.192-17.92 143.36-51.2 206.336 16.384 15.36 31.744 31.744 46.08 49.152 45.568-77.312 69.12-165.376 69.12-255.488 0-279.04-226.816-505.856-505.856-505.856C230.4 7.168 4.096 233.984 4.096 512.512c0 90.112 24.064 178.688 69.632 255.488 13.824-16.896 29.184-33.28 45.568-48.64z" fill="currentColor"></path></svg>郭老师</span><span class="recommend-stats"><span class="recommend-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 96C256 96 64 512 64 512s192 416 448 416 448-416 448-416S768 96 512 96zm0 704a288 288 0 1 1 0-576 288 288 0 0 1 0 576zm0-160a128 128 0 1 0 0-256 128 128 0 0 0 0 256z"></path></svg>112774</span><span class="recommend-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M128 896h160V448H128v448zm768-416c0-48-40-80-88-80H560l48-184v-24c0-24-8-40-24-56L536 48 296 336c-16 16-24 40-24 64v416c0 48 40 80 88 80h368c40 0 72-24 88-56l120-280c8-16 16-40 16-64z"></path></svg>183</span></span></span></button></li>
+            <li><button class="recommend-course" type="button" data-resource="我是追光好少年"><img class="recommend-cover" src="./xiangtan-channel/_nuxt/img/xiangtan-moral-5.svg" alt=""><span class="recommend-info"><span class="recommend-title">我是追光好少年</span><span class="recommend-author"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M509.44 1018.368c-141.312 0-277.504-59.904-372.736-164.352l-19.968-21.504 19.968-21.504c95.744-104.448 231.424-164.352 372.736-164.352 141.312 0 277.504 59.904 372.736 164.352l19.968 21.504-19.968 21.504c-95.232 104.448-231.424 164.352-372.736 164.352zM204.8 832.512c81.92 77.824 190.976 121.856 304.64 121.856 113.664 0 222.72-44.032 304.64-121.856-81.92-77.824-190.976-121.856-304.64-121.856-113.664 0-222.72 44.032-304.64 121.856zM509.952 600.576c-89.088 0-161.792-72.704-161.792-161.792 0-89.088 72.704-161.792 161.792-161.792s161.792 72.704 161.792 161.792c0 89.088-72.192 161.792-161.792 161.792zm0-259.584c-53.76 0-97.792 44.032-97.792 97.792s44.032 97.792 97.792 97.792 97.792-44.032 97.792-97.792-43.52-97.792-97.792-97.792zM119.296 719.36c-33.792-63.488-51.2-134.144-51.2-206.848 0-243.712 198.144-441.344 441.344-441.344s441.344 198.144 441.344 441.344c0 72.192-17.92 143.36-51.2 206.336 16.384 15.36 31.744 31.744 46.08 49.152 45.568-77.312 69.12-165.376 69.12-255.488 0-279.04-226.816-505.856-505.856-505.856C230.4 7.168 4.096 233.984 4.096 512.512c0 90.112 24.064 178.688 69.632 255.488 13.824-16.896 29.184-33.28 45.568-48.64z" fill="currentColor"></path></svg>郭老师</span><span class="recommend-stats"><span class="recommend-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 96C256 96 64 512 64 512s192 416 448 416 448-416 448-416S768 96 512 96zm0 704a288 288 0 1 1 0-576 288 288 0 0 1 0 576zm0-160a128 128 0 1 0 0-256 128 128 0 0 0 0 256z"></path></svg>17368</span><span class="recommend-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M128 896h160V448H128v448zm768-416c0-48-40-80-88-80H560l48-184v-24c0-24-8-40-24-56L536 48 296 336c-16 16-24 40-24 64v416c0 48 40 80 88 80h368c40 0 72-24 88-56l120-280c8-16 16-40 16-64z"></path></svg>155</span></span></span></button></li>
+            <li><button class="recommend-course" type="button" data-resource="我们超少年"><img class="recommend-cover" src="./xiangtan-channel/_nuxt/img/xiangtan-moral-6.svg" alt=""><span class="recommend-info"><span class="recommend-title">我们超少年</span><span class="recommend-author"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M509.44 1018.368c-141.312 0-277.504-59.904-372.736-164.352l-19.968-21.504 19.968-21.504c95.744-104.448 231.424-164.352 372.736-164.352 141.312 0 277.504 59.904 372.736 164.352l19.968 21.504-19.968 21.504c-95.232 104.448-231.424 164.352-372.736 164.352zM204.8 832.512c81.92 77.824 190.976 121.856 304.64 121.856 113.664 0 222.72-44.032 304.64-121.856-81.92-77.824-190.976-121.856-304.64-121.856-113.664 0-222.72 44.032-304.64 121.856zM509.952 600.576c-89.088 0-161.792-72.704-161.792-161.792 0-89.088 72.704-161.792 161.792-161.792s161.792 72.704 161.792 161.792c0 89.088-72.192 161.792-161.792 161.792zm0-259.584c-53.76 0-97.792 44.032-97.792 97.792s44.032 97.792 97.792 97.792 97.792-44.032 97.792-97.792-43.52-97.792-97.792-97.792zM119.296 719.36c-33.792-63.488-51.2-134.144-51.2-206.848 0-243.712 198.144-441.344 441.344-441.344s441.344 198.144 441.344 441.344c0 72.192-17.92 143.36-51.2 206.336 16.384 15.36 31.744 31.744 46.08 49.152 45.568-77.312 69.12-165.376 69.12-255.488 0-279.04-226.816-505.856-505.856-505.856C230.4 7.168 4.096 233.984 4.096 512.512c0 90.112 24.064 178.688 69.632 255.488 13.824-16.896 29.184-33.28 45.568-48.64z" fill="currentColor"></path></svg>郭老师</span><span class="recommend-stats"><span class="recommend-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M512 96C256 96 64 512 64 512s192 416 448 416 448-416 448-416S768 96 512 96zm0 704a288 288 0 1 1 0-576 288 288 0 0 1 0 576zm0-160a128 128 0 1 0 0-256 128 128 0 0 0 0 256z"></path></svg>19548</span><span class="recommend-stat"><svg viewBox="0 0 1024 1024" aria-hidden="true"><path d="M128 896h160V448H128v448zm768-416c0-48-40-80-88-80H560l48-184v-24c0-24-8-40-24-56L536 48 296 336c-16 16-24 40-24 64v416c0 48 40 80 88 80h368c40 0 72-24 88-56l120-280c8-16 16-40 16-64z"></path></svg>107</span></span></span></button></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer"><p><a href="#">湘ICP备12010102号-4</a>&nbsp;&nbsp;&nbsp;&nbsp;指导单位：湖南省教育厅</p><p>本网站由湖南省教育厅信息中心承办 | 联系电话：0731-85357667</p><p>技术服务（湖南教育音像电子出版社）电话：0731-84390585、84390675、84390175 | 咨询时间：工作日8:30至17:30</p></footer>
+  <div class="detail-toast" id="detail-toast" role="status" aria-live="polite"></div>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var title = params.get('title');
+      var author = params.get('author');
+      var institution = params.get('institution');
+      var source = params.get('from');
+      var parentLink = document.getElementById('detail-parent-link');
+      if (source === 'learning' && parentLink) {
+        parentLink.textContent = '学生自主学习';
+        parentLink.href = './course-learning.html';
+      }
+      var metadataRow = document.querySelector('.package-metarow');
+      var courseActions = document.querySelector('.course-actions');
+      if (metadataRow && courseActions) metadataRow.appendChild(courseActions);
+      if (title) { document.getElementById('detail-title').textContent = title; document.title = title + ' - 课程播放详情'; }
+      if (title) document.getElementById('poster-title').textContent = title;
+      if (author) document.getElementById('detail-author').textContent = author;
+      if (institution) document.getElementById('detail-institution').textContent = institution.replace(/^[♜\s]+/, '');
+
+      var toast = document.getElementById('detail-toast');
+      var resourcePanel = document.querySelector('.resource-panel');
+      var downloadCourseRow = document.querySelector('.download-course-row');
+      function alignResourcePanel() {
+        if (!resourcePanel || !downloadCourseRow) return;
+        var panelTop = resourcePanel.getBoundingClientRect().top;
+        var downloadBottom = downloadCourseRow.getBoundingClientRect().bottom;
+        resourcePanel.style.height = Math.max(0, downloadBottom - panelTop) + 'px';
+      }
+      alignResourcePanel();
+      window.addEventListener('resize', alignResourcePanel);
+      if (window.ResizeObserver) {
+        var panelResizeObserver = new ResizeObserver(alignResourcePanel);
+        panelResizeObserver.observe(document.querySelector('.lesson-workspace'));
+        panelResizeObserver.observe(downloadCourseRow);
+      }
+      var toastTimer;
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add('visible');
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(function () { toast.classList.remove('visible'); }, 1800);
+      }
+      document.querySelectorAll('.js-toast').forEach(function (button) {
+        button.addEventListener('click', function () { showToast(button.getAttribute('data-message') || '操作完成'); });
+      });
+
+      var totalSeconds = 1811;
+      var currentSeconds = 540;
+      var playing = false;
+      var timer;
+      var progress = document.getElementById('player-progress');
+      var timeLabel = document.getElementById('player-time');
+      var playerFrame = document.getElementById('player-frame');
+      var playButton = document.getElementById('player-play-button');
+      function formatTime(seconds) {
+        var minutes = Math.floor(seconds / 60);
+        var remainder = seconds % 60;
+        return String(minutes).padStart(2, '0') + ':' + String(remainder).padStart(2, '0');
+      }
+      function renderProgress() {
+        progress.value = currentSeconds;
+        progress.style.setProperty('--progress', (currentSeconds / totalSeconds * 100) + '%');
+        timeLabel.textContent = formatTime(currentSeconds) + ' / ' + formatTime(totalSeconds);
+      }
+      function setPlaying(next) {
+        playing = next;
+        playerFrame.classList.toggle('is-playing', playing);
+        playButton.textContent = playing ? 'Ⅱ' : '▶';
+        playButton.setAttribute('aria-label', playing ? '暂停' : '播放');
+        if (playing) {
+          window.clearInterval(timer);
+          timer = window.setInterval(function () {
+            if (currentSeconds >= totalSeconds) { currentSeconds = 0; setPlaying(false); }
+            else { currentSeconds += 1; renderProgress(); }
+          }, 1000);
+        } else window.clearInterval(timer);
+      }
+      playButton.addEventListener('click', function () { setPlaying(!playing); });
+      document.querySelector('.player-play-overlay').addEventListener('click', function () { setPlaying(!playing); });
+      progress.addEventListener('input', function () { currentSeconds = Number(progress.value); renderProgress(); });
+      renderProgress();
+
+      var qualityOptions = ['720P 高清', '1080P 高清', '480P 流畅'];
+      var qualityIndex = 0;
+      document.getElementById('player-quality').addEventListener('click', function () {
+        qualityIndex = (qualityIndex + 1) % qualityOptions.length;
+        this.textContent = qualityOptions[qualityIndex];
+      });
+      var speedOptions = ['1.0x 倍速', '1.25x 倍速', '1.5x 倍速', '2.0x 倍速'];
+      var speedIndex = 0;
+      document.getElementById('player-speed').addEventListener('click', function () {
+        speedIndex = (speedIndex + 1) % speedOptions.length;
+        this.textContent = speedOptions[speedIndex];
+      });
+      document.getElementById('player-volume').addEventListener('click', function () {
+        var muted = this.getAttribute('aria-pressed') === 'true';
+        this.setAttribute('aria-pressed', String(!muted));
+        this.setAttribute('aria-label', muted ? '静音' : '取消静音');
+        this.textContent = muted ? '◖' : '◖×';
+      });
+      document.getElementById('player-fullscreen').addEventListener('click', function () {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else if (playerFrame.requestFullscreen) playerFrame.requestFullscreen();
+      });
+
+      document.querySelectorAll('.recommend-course[data-resource]').forEach(function (resource) {
+        resource.addEventListener('click', function () {
+          document.querySelectorAll('.recommend-course[data-resource]').forEach(function (item) { item.classList.remove('active'); });
+          resource.classList.add('active');
+          showToast('已选择' + resource.getAttribute('data-resource'));
+        });
+      });
+      document.getElementById('course-description-toggle').addEventListener('click', function () {
+        var expanded = this.getAttribute('aria-expanded') !== 'true';
+        this.setAttribute('aria-expanded', String(expanded));
+        document.getElementById('course-description').classList.toggle('is-expanded', expanded);
+        this.textContent = expanded ? '收起' : '展开';
+      });
+    }());
+  </script>
+</body>
+</html>

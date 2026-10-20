@@ -1,0 +1,90 @@
+/* 湘潭频道公共顶部栏、主导航与二级导航 */
+.xt-shared-navigation,
+.xt-shared-navigation * { box-sizing: border-box; }
+.xt-shared-navigation { position: relative; z-index: 7000; width: 100%; color: #333; font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif; }
+.xt-shared-navigation a { color: inherit; text-decoration: none; }
+.xt-shared-navigation button { font-family: inherit; }
+.xt-shared-navigation img { display: block; }
+.xt-nav-toast { position: fixed; top: 82px; left: 50%; z-index: 9000; min-height: 36px; padding: 0 16px; border: 1px solid rgba(255,255,255,.18); border-radius: 4px; color: #fff; background: rgba(0,0,0,.68); box-shadow: 0 4px 15px rgba(0,0,0,.18); font-size: 14px; line-height: 36px; opacity: 0; pointer-events: none; transform: translate(-50%, -10px); transition: opacity .2s ease, transform .2s ease; }
+.xt-nav-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+.xt-platform-header { position: relative; z-index: 20; width: 100%; height: 60px; padding: 0 20px; background: #1e62ec; }
+.xt-platform-header-inner { position: relative; display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1370px; height: 60px; margin: 0 auto; }
+.xt-platform-brand { position: relative; display: flex; align-items: center; height: 48px; }
+.xt-platform-logo-link { display: block; width: 205px; height: 48px; }
+.xt-platform-logo { width: 205px; height: 48px; object-fit: contain; }
+.xt-platform-switcher { position: relative; width: 50px; height: 48px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.xt-platform-switcher::after { content: ""; position: absolute; top: 50%; left: 11px; width: 10px; height: 6px; margin-top: -3px; background: #fff; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+ .xt-platform-switch-panel { position: absolute; top: 48px; left: 0; z-index: 3000; display: none; width: 252px; padding: 16px; border: 1px solid #e7ecf5; border-top: 3px solid #1e62ec; border-radius: 0 0 6px 6px; background: #fff; box-shadow: 0 8px 22px rgba(31,69,127,.14); }
+.xt-platform-brand:hover .xt-platform-switch-panel,
+.xt-platform-brand:focus-within .xt-platform-switch-panel { display: block; }
+.xt-platform-switch-list { display: grid; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.xt-platform-switch-list li { display: flex; align-items: center; min-height: 32px; padding: 0 8px; border-radius: 4px; color: #666; font-size: 16px; line-height: 22px; white-space: nowrap; }
+.xt-platform-switch-list a { display: flex; align-items: center; width: 100%; min-height: 32px; }
+.xt-platform-switch-list li:hover { color: #1e62ec; background: #eef4ff; }
+.xt-platform-switch-list li.active { color: #1e62ec; background: #eef4ff; font-weight: 700; }
+.xt-brand-divider { width: 1px; height: 20px; margin-left: 4px; background: #fff; }
+.xt-brand-name { display: flex; align-items: center; height: 24px; min-width: 180px; margin-left: 25px; color: #fff; font-size: 18px; font-weight: 700; line-height: 24px; white-space: nowrap; }
+.xt-header-links { display: flex; align-items: center; color: #fff; font-size: 14px; }
+.xt-header-links > a { display: inline-block; width: 58px; height: 28px; margin-right: 15px; border: 1px solid #f5f7fb; border-radius: 18px; color: #333; background: #f5f7fb; font-size: 14px; line-height: 26px; text-align: center; }
+.xt-header-links > a + a { margin-right: 0; border-color: #fff; color: #fff; background: transparent; }
+.xt-header-links > a:hover { opacity: .86; }
+.xt-accessibility-button { display: inline-flex; align-items: center; justify-content: center; width: 130px; height: 30px; margin-left: 20px; border: 1px solid #f3f7ff; border-radius: 15px; color: #fff; background: transparent; font: 14px "Microsoft YaHei", "微软雅黑", sans-serif; cursor: pointer; }
+.xt-accessibility-button i { flex: 0 0 18px; width: 18px; height: 18px; margin-right: 4px; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGRSURBVHgB7ZeBVYMwEIYPXwdgBDawTmA2sE4gI7gBuEE3EDfoBsUJihOAG9QJ4gUuvigJl0B9r+3L99490oT7uV6SIwBEIldGYv6QUgq8CA+/RlmSJJ1tEHUy0smAZ4c6jU0kl+EclJ+hIdD2MhyhNVZGTML49x/gJkNL0W7R1mivKHhP/cK475O0jhNaWuMJrf41gqIVRVuCB2paDB8TFeDaU6PUPrpvBTOh9aOmucarFnzE/h0s4AaWUxvtBhZyioBOyuUFhGuk5baqxWfj8Nlzz1uSoWxiLJ3h0+Ozy+5sD3BVaRqraPf9Zaom+QWE4kcfIYtfBzNgA5Lu99uWgrX5qIzmMM5sw9UpnylzLUQVzNYx9oxWOHwWB/QC4wxxwhXYs8pWcZ81VEIgtH4EzCBWao4YEMfZBWTuMl3kCixsxYSPuq+D4ezzRu0fqJBu0B5gKIwp8HyNeuhI2spwWqN9kOG0cvhK6UksgQngyYws2HiHoTh2ME2fbdcrKBhLVmvpecD/V+TwTZdDJBIZ8w3R3crq+Xji3QAAAABJRU5ErkJggg==) center / 18px 18px no-repeat; }
+.xt-accessibility-button span { height: 14px; line-height: 14px; }
+
+.xt-primary-nav { position: relative; z-index: 10; width: 100%; height: 66px; padding: 0 20px; border-bottom: 1px solid #f6f6f6; background: #fff; box-shadow: 0 6px 25px 1px rgba(0,0,0,.05); }
+.xt-primary-nav-inner { display: flex; align-items: flex-end; justify-content: space-between; width: 100%; max-width: 1370px; height: 66px; margin: 0 auto; }
+.xt-nav-list { display: flex; flex: 1 1 auto; align-items: stretch; height: 66px; min-width: 0; margin: 0; padding: 0; overflow: visible; list-style: none; }
+.xt-nav-item { position: relative; flex: 0 0 auto; margin-right: 24px; }
+.xt-nav-link { position: relative; display: inline-block; min-width: 40px; height: 66px; padding: 21px 0; color: #333; font-size: 16px; line-height: 24px; text-align: center; white-space: nowrap; }
+.xt-nav-link:hover,
+.xt-nav-link.active { color: #1e62ec; }
+.xt-nav-link.active { font-weight: 700; }
+.xt-nav-link.active::after { content: ""; position: absolute; right: 0; bottom: 0; left: 0; height: 3px; background: #1e62ec; }
+.xt-nav-link-static { cursor: default; }
+.xt-ai-search { flex: 0 0 128px; width: 128px; height: 37px; margin: 0 0 14px 20px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.xt-ai-search img { width: 128px; height: 37px; }
+
+.xt-breadcrumb,
+.breadcrumb { display: flex; align-items: center; gap: 9px; min-height: 20px; color: #8a96a8; font-size: 13px; line-height: 20px; }
+.xt-breadcrumb a,
+.breadcrumb a { color: #66758b; text-decoration: none; }
+.xt-breadcrumb a:hover,
+.breadcrumb a:hover { color: #1e62ec; }
+.xt-breadcrumb [aria-current="page"],
+.xt-breadcrumb-current,
+.breadcrumb [aria-current="page"] { color: #4b586b; }
+.xt-breadcrumb-separator,
+.breadcrumb-separator { display: block; flex: 0 0 16px; width: 16px; height: 16px; color: #9aa6b6; }
+.xt-breadcrumb-separator path,
+.breadcrumb-separator path { fill: currentColor; }
+
+.xt-subnav { position: absolute; top: calc(100% + 3px); left: 50%; z-index: 3000; display: grid; margin: 0; border: 1px solid #e7ecf5; border-top: 3px solid #1e62ec; border-radius: 0 0 6px 6px; background: #fff; box-shadow: 0 8px 22px rgba(31,69,127,.14); opacity: 0; pointer-events: none; transform: translate(-50%, -8px); transition: opacity .18s ease, transform .18s ease, visibility .18s ease; visibility: hidden; }
+.xt-subnav::before { content: ""; position: absolute; top: -8px; right: 0; left: 0; height: 8px; }
+.xt-nav-item:hover > .xt-subnav,
+.xt-nav-item:focus-within > .xt-subnav { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); visibility: visible; }
+.xt-subnav a { display: flex; align-items: center; justify-content: center; border-radius: 4px; color: #333; line-height: 22px; text-align: center; white-space: nowrap; }
+.xt-subnav a:hover,
+.xt-subnav a:focus-visible { color: #1e62ec; background: #eef4ff; outline: none; }
+
+.xt-course-subnav { grid-template-columns: 1fr; gap: 16px; width: 160px; min-width: 160px; padding: 16px; }
+.xt-course-subnav a { height: 32px; padding: 0 8px; font-size: 16px; }
+.xt-growth-subnav { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; width: 288px; min-width: 288px; padding: 13px 16px 16px; }
+.xt-growth-subnav a { height: 40px; padding: 0 12px; font-size: 15px; }
+.xt-topic-subnav { grid-template-columns: 1fr; gap: 12px; width: 190px; min-width: 190px; padding: 16px; }
+.xt-topic-subnav a { height: 34px; padding: 0 8px; font-size: 15px; }
+
+@media (max-width: 1300px) {
+  .xt-platform-header-inner,
+  .xt-primary-nav-inner { min-width: 0; }
+}
+@media (max-width: 880px) {
+  .xt-brand-divider,
+  .xt-header-links { display: none; }
+  .xt-platform-logo-link,
+  .xt-platform-logo { width: 180px; }
+  .xt-brand-name { font-size: 16px; }
+  .xt-nav-item { margin-right: 15px; }
+  .xt-nav-link { font-size: 14px; }
+}

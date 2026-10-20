@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>应用详情 - 湘潭市智慧教育平台</title>
+  <link rel="stylesheet" href="./channel-navigation.css">
+  <script src="./channel-navigation.js" defer></script>
+  <style>
+    :root { --blue:#1e62ec; --ink:#202833; --muted:#7c8794; --line:#e6eaf0; --page:#eef1f5; }
+    * { box-sizing:border-box; }
+    html, body { margin:0; min-width:1100px; color:var(--ink); background:var(--page); font-family:"Microsoft YaHei","微软雅黑",Arial,sans-serif; }
+    body { min-height:100vh; }
+    button { font:inherit; cursor:pointer; }
+    img { display:block; }
+    .application-detail-page { min-height:calc(100vh - 126px); padding:16px 20px 32px; }
+    .detail-breadcrumb { width:100%; max-width:1370px; margin:0 auto 16px; }
+    .application-shell { width:100%; max-width:1370px; margin:0 auto; overflow:hidden; border-radius:8px; background:#fff; box-shadow:0 3px 14px rgba(25,54,91,.06); }
+    .application-head { display:flex; align-items:flex-start; justify-content:space-between; gap:32px; padding:24px 28px 22px; background:#fff; }
+    .application-head-main { min-width:0; display:flex; align-items:flex-start; gap:20px; }
+    .application-logo-wrap { flex:0 0 96px; width:96px; height:96px; display:flex; align-items:center; justify-content:center; overflow:hidden; border:1px solid #e4eaf4; border-radius:10px; background:#f4f7ff; }
+    .application-logo { width:72px; height:72px; object-fit:contain; }
+    .application-title-wrap { min-width:0; padding-top:1px; }
+    .application-title { margin:0; color:#1d2733; font-size:18px; font-weight:700; line-height:26px; }
+    .application-summary { max-width:760px; margin:16px 0 0; color:#6f7c8b; font-size:14px; line-height:24px; }
+    .application-meta { display:flex; align-items:center; flex-wrap:wrap; gap:0 48px; margin-top:8px; color:#8c96a2; font-size:12px; line-height:20px; }
+    .application-meta strong { color:#34435a; font-size:14px; font-weight:400; }
+    .application-meta span { white-space:nowrap; }
+    .application-hot-meta { display:inline-flex; align-items:center; gap:8px; }
+    .application-hot-icon { flex:0 0 16px; width:16px; height:16px; fill:#f04444; }
+    .application-top-actions { display:flex; flex:0 0 auto; align-items:center; gap:12px; padding-top:1px; }
+    .detail-button { height:36px; padding:0 16px; border:1px solid transparent; border-radius:18px; font-size:13px; white-space:nowrap; }
+    .detail-button.primary { border-color:var(--blue); color:#fff; background:var(--blue); }
+    .detail-button.secondary { border-color:#d9e6ff; color:#4d81e8; background:#f5f8ff; }
+    .detail-button:hover { filter:brightness(.97); }
+    .application-content { border-top:1px solid #eff2f5; padding:26px 28px 30px; }
+    .application-content-layout { display:grid; grid-template-columns:minmax(0,1fr) 280px; column-gap:28px; row-gap:0; align-items:start; }
+    .application-main-content { display:contents; }
+    .application-main-content > .content-section:nth-child(1),
+    .application-main-content > .content-section:nth-child(2) { grid-column:1 / -1; }
+    .application-main-content > .content-section:nth-child(3),
+    .application-main-content > .content-section:nth-child(4) { grid-column:1; }
+    .recommend-panel { grid-column:2; grid-row:3 / span 2; }
+    .content-section + .content-section { margin-top:30px; }
+    .content-section h2 { margin:0; color:#273447; font-size:18px; font-weight:700; line-height:26px; }
+    .content-section h2::before { content:""; display:inline-block; width:3px; height:18px; margin:0 9px 1px 0; vertical-align:-2px; border-radius:2px; background:var(--blue); }
+    .content-section p { margin:14px 0 0; color:#68778b; font-size:14px; line-height:26px; }
+    .application-description-row { display:flex; align-items:flex-start; gap:16px; margin-top:14px; }
+    .application-description-row p { flex:1; min-width:0; margin:0; font-size:14px; line-height:22px; }
+    .application-description-row p.is-collapsed { overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:1; }
+    .description-toggle { flex:0 0 auto; padding:0; border:0; color:var(--blue); background:transparent; font-size:13px; line-height:22px; white-space:nowrap; }
+    .application-info-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-top:20px; }
+    .info-item { min-height:78px; padding:16px; border:1px solid #edf0f5; border-radius:6px; background:#f8faff; }
+    .info-label { color:#8c96a2; font-size:12px; line-height:18px; }
+    .info-value { overflow:hidden; margin-top:6px; color:#334158; font-size:14px; line-height:20px; text-overflow:ellipsis; white-space:nowrap; }
+    .feature-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:20px; }
+    .feature-item { min-height:116px; padding:16px; border:1px solid #edf0f5; border-radius:6px; background:#fff; }
+    .feature-item strong { display:block; color:#34435a; font-size:16px; line-height:22px; }
+    .feature-item span { display:block; margin-top:16px; color:#7d8795; font-size:14px; line-height:22px; }
+    .application-notice { margin-top:20px; padding:14px 16px; border-radius:4px; color:#69778a; background:#f5f8ff; font-size:14px; line-height:22px; }
+    .screenshot-grid { display:flex; justify-content:space-between; gap:24px; margin-top:20px; overflow-x:auto; padding-bottom:4px; }
+    .screenshot-item { position:relative; flex:0 0 270px; width:270px; height:152px; margin:0; overflow:hidden; border:1px solid #e8edf5; border-radius:6px; background:#f4f7fb; }
+    .screenshot-item img { width:100%; height:100%; object-fit:cover; transition:transform .2s ease; }
+    .screenshot-item:hover img { transform:scale(1.03); }
+    .screenshot-item span { position:absolute; right:8px; bottom:8px; padding:3px 8px; border-radius:10px; color:#fff; background:rgba(26,43,66,.68); font-size:12px; line-height:18px; }
+    .rating-panel { display:flex; align-items:center; gap:20px; margin-top:20px; padding:18px 20px; border:1px solid #edf0f5; border-radius:6px; background:#f8faff; }
+    .rating-score-large { color:#1e62ec; font-size:32px; font-weight:700; line-height:38px; }
+    .rating-score-meta { min-width:0; }
+    .rating-stars { color:#ffad28; font-size:18px; letter-spacing:2px; line-height:22px; }
+    .rating-score-meta p { margin:5px 0 0; color:#8c96a2; font-size:12px; line-height:18px; }
+    .review-list { display:grid; gap:0; margin-top:18px; border-top:1px solid #edf0f5; }
+    .review-item { padding:16px 0; border-bottom:1px solid #edf0f5; }
+    .review-head { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .review-user { color:#34435a; font-size:14px; font-weight:700; line-height:20px; }
+    .review-time { color:#a0a9b7; font-size:12px; line-height:18px; }
+    .review-item p { margin:8px 0 0; color:#68778b; font-size:14px; line-height:22px; }
+    .review-form { display:flex; gap:12px; margin-top:18px; }
+    .review-input { flex:1; min-width:0; height:36px; padding:0 12px; border:1px solid #dfe6f0; border-radius:4px; color:#34435a; background:#fff; font-size:13px; outline:0; }
+    .review-input:focus { border-color:#8eb2f6; }
+    .review-submit { flex:0 0 auto; height:36px; padding:0 16px; border:1px solid var(--blue); border-radius:4px; color:#fff; background:var(--blue); font-size:13px; }
+    .recommend-panel { align-self:stretch; margin-top:30px; padding:18px 16px; border:1px solid #e9edf4; border-radius:6px; background:#fff; }
+    .recommend-title { margin:0; color:#273447; font-size:18px; font-weight:700; line-height:26px; }
+    .recommend-title::before { content:""; display:inline-block; width:3px; height:16px; margin:0 8px 1px 0; vertical-align:-2px; border-radius:2px; background:var(--blue); }
+    .recommend-list { display:grid; gap:24px; margin-top:24px; }
+    .recommend-item { display:flex; align-items:center; gap:16px; min-width:0; text-decoration:none; }
+    .recommend-logo { flex:0 0 56px; width:56px; height:56px; object-fit:contain; border-radius:6px; background:#f3f6fc; }
+    .recommend-info { min-width:0; }
+    .recommend-info strong { display:block; overflow:hidden; color:#34435a; font-size:14px; font-weight:700; line-height:20px; text-overflow:ellipsis; white-space:nowrap; }
+    .recommend-info span { display:block; overflow:hidden; margin-top:8px; color:#8c96a2; font-size:12px; line-height:18px; text-overflow:ellipsis; white-space:nowrap; }
+    .recommend-item:hover .recommend-info strong { color:var(--blue); }
+    .authorization-dialog { position:fixed; inset:0; z-index:9000; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(25,38,58,.48); }
+    .authorization-dialog.show { display:flex; }
+    .authorization-panel { position:relative; display:grid; grid-template-columns:240px minmax(0,1fr); width:760px; max-width:calc(100vw - 48px); min-height:470px; overflow:hidden; border-radius:8px; background:#fff; box-shadow:0 20px 56px rgba(17,41,77,.24); }
+    .authorization-close { position:absolute; top:16px; right:16px; z-index:1; width:32px; height:32px; padding:0; border:0; border-radius:4px; color:#7d8795; background:#f3f6fa; font-size:22px; line-height:30px; }
+    .authorization-close:hover { color:#34435a; background:#eaf0f8; }
+    .authorization-app { display:flex; align-items:center; justify-content:center; flex-direction:column; padding:48px 24px; background:#f5f8ff; text-align:center; }
+    .authorization-logo-wrap { width:96px; height:96px; display:flex; align-items:center; justify-content:center; overflow:hidden; border:1px solid #e2e9f5; border-radius:8px; background:#fff; }
+    .authorization-logo { width:72px; height:72px; object-fit:contain; }
+    .authorization-app-name { margin:24px 0 0; color:#273447; font-size:18px; font-weight:700; line-height:26px; }
+    .authorization-app-note { margin:8px 0 0; color:#8a95a4; font-size:12px; line-height:20px; }
+    .authorization-content { display:flex; min-width:0; flex-direction:column; padding:42px 48px 32px; }
+    .authorization-title { margin:0; color:#273447; font-size:18px; font-weight:700; line-height:26px; }
+    .authorization-subtitle { margin:8px 0 0; color:#8a95a4; font-size:14px; line-height:22px; }
+    .permission-list { display:grid; gap:0; margin-top:16px; }
+    .permission-row { display:flex; min-height:48px; align-items:center; gap:10px; border-bottom:1px solid #edf1f6; color:#59677a; font-size:14px; line-height:22px; }
+    .permission-row:last-child { border-bottom:0; }
+    .permission-row.all { color:#34435a; font-weight:700; }
+    .permission-row input { flex:0 0 16px; width:16px; height:16px; margin:0; accent-color:var(--blue); cursor:pointer; }
+    .authorization-agreement { margin:24px 0 0; color:#7a8798; font-size:14px; line-height:22px; }
+    .authorization-agreement a { color:var(--blue); text-decoration:none; }
+    .authorization-actions { display:flex; justify-content:flex-end; gap:12px; margin-top:auto; padding-top:24px; }
+    .authorization-button { min-width:96px; height:36px; padding:0 18px; border-radius:4px; font-size:14px; }
+    .authorization-button.cancel { border:1px solid #dce4ef; color:#657287; background:#fff; }
+    .authorization-button.confirm { border:1px solid var(--blue); color:#fff; background:var(--blue); }
+    .authorization-button.confirm:hover { background:#1755d2; }
+    .authorization-button.confirm:disabled { border-color:#b9c9e8; background:#b9c9e8; cursor:not-allowed; }
+    .detail-toast { position:fixed; right:24px; bottom:24px; z-index:8000; padding:10px 16px; border-radius:4px; color:#fff; background:rgba(28,39,52,.9); font-size:13px; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .2s,transform .2s; }
+    .detail-toast.show { opacity:1; transform:translateY(0); }
+    .site-footer { min-width:1100px; padding:30px 0; color:#fff; background:#333; font-size:14px; }
+    .site-footer p { margin:0; line-height:25px; text-align:center; }
+    .site-footer a { color:#fff; }
+    @media (max-width:1250px) {
+      html, body { min-width:0; }
+      .application-detail-page { padding-right:14px; padding-left:14px; }
+      .application-head, .application-content { padding-right:20px; padding-left:20px; }
+    }
+    @media (max-width:760px) {
+      .application-head { display:block; }
+      .application-top-actions { margin-top:20px; }
+      .application-info-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .feature-grid { grid-template-columns:1fr; }
+      .application-content-layout { grid-template-columns:1fr; }
+      .application-main-content { display:block; }
+      .application-main-content > .content-section { grid-column:auto; grid-row:auto; }
+      .recommend-panel { order:-1; margin-top:0; }
+      .screenshot-grid { gap:24px; }
+      .authorization-panel { grid-template-columns:1fr; max-height:calc(100vh - 32px); overflow-y:auto; }
+      .authorization-app { padding:28px 24px; }
+      .authorization-content { padding:28px 24px 24px; }
+    }
+  </style>
+</head>
+<body data-xt-active-nav="application">
+  <main class="application-detail-page">
+    <nav class="xt-breadcrumb detail-breadcrumb" aria-label="面包屑导航">
+      <a href="./xiangtan.html">首页</a>
+      <svg class="xt-breadcrumb-separator" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"/></svg>
+      <a href="./application-services.html">应用服务</a>
+      <svg class="xt-breadcrumb-separator" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"/></svg>
+      <span class="xt-breadcrumb-current">应用详情</span>
+    </nav>
+    <div class="application-shell">
+      <section class="application-head" aria-label="应用信息">
+        <div class="application-head-main">
+          <div class="application-logo-wrap"><img class="application-logo" id="application-logo" src="./xiangtan-channel/_nuxt/img/application-logo-listen.png" alt="智慧课堂助手"></div>
+          <div class="application-title-wrap">
+            <h1 class="application-title" id="application-title">智慧课堂助手</h1>
+            <p class="application-summary" id="application-summary">汇聚备课、授课、教研、研修及资源应用等工具服务。</p>
+            <div class="application-meta"><span>应用类型：<strong id="application-type">教师教学</strong></span><span>服务单位：<strong id="application-provider">湘潭市智慧教育平台</strong></span><span class="application-hot-meta"><svg class="application-hot-icon" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M354.4 780.8c-37.4-21.8-59.5-49.9-76.2-96.9l-1.3-3.2c-3.1-6.2-9.5-10.1-16.7-10.1-2 0.1-3.8 0.4-5.5 1-8.2 2.9-13.2 11.4-11.8 20.6l1.2 4c19.2 54 46.3 88.3 90.4 114.4 0.1 0 6.5 4.3 10 4.3l2.5 0.1c1.8-0.1 3.5-0.4 5.3-1 9.4-3.4 14.3-13.8 11-23.3-1.6-4.4-5-8.2-8.9-9.9zM253.5 662.1c4.9-1.6 8.9-5 11.3-9.7 2.3-4.6 2.7-9.9 1.1-14.8-2.6-8-10-13.4-18.4-13.4-2 0-4 0.3-6 1-10.2 3.3-15.7 14.3-12.4 24.4 2.6 8 10 13.4 18.4 13.4 2.1 0 4.1-0.3 6-0.9z"/><path d="M745.1 187.9c-9.9-9.3-24.1-11.5-36.1-5.5s-19.4 18.9-18.8 32.8c2 40.3-5 51.2-13.1 80.7-29.2-80.7-93.7-189.2-206.2-229.8-10-3.6-21-1.8-29.5 4.9-8.9 7-14 18.2-13.5 29.9 4.1 99-62.9 215-101.3 272.6-10.9-34.4-31.3-80.9-67.8-116.4-10-9.9-25-12-37.1-5-12.5 6.9-19.4 21.4-17.4 36 11.1 76.5-8.2 114.3-30.4 158.1-19.1 37.6-40.8 80.2-40.8 148.9 0 211.1 159.6 364.2 379.6 364.2 219.9 0 379.6-153.1 379.6-364.2 0.1-232.4-92.1-354.9-147.2-407.2zM512.8 915.1c-195.5 0-337.4-134.6-337.4-320 0-57.6 17.4-91.9 35.8-128.1 21-41 42.6-83.3 38.1-155.4 37.4 50.9 46.9 115 47 115.7l7 49.4 30.2-38.6c5.6-7.2 134.6-173.9 136.7-324.8 128.9 59.3 184.4 252.3 185 254.6l13.8 65.5s55.8-99 63.6-196.5c49.8 54.5 117.5 164.3 117.5 358.2 0.1 185.4-141.8 320-337.3 320z"/><path d="M641.3 510.5l-30.9 61.9s-36.5-127.2-96.7-151.8c-7.9 46.7-33.1 78.3-55.3 111.6l-43 64.6-19.2-46c-3.9 10.8-8.7 20.3-13.3 29.3-8.9 17.6-16.6 32.7-16.6 58.6 0 87 64 147.8 155.6 147.8s155.6-60.8 155.6-147.8c0-65.5-15.7-110.9-33.2-141.1-0.8 4.3-1.8 8.6-3 12.9zM522 752.2c-73.9 0-123.5-46.3-123.5-115.3 0-2.3 0.1-4.5 0.2-6.6l12 28.6 73.6-110.2c2.7-4 5.4-7.9 8.1-11.9l0.6-0.9c12.3-18 26.2-38.2 36.6-62.2 21.8 28 41.3 73.7 50.7 106.3l21.4 73.9 38.3-76.6c3.6 18.4 5.4 38.3 5.4 59.6 0.1 69-49.6 115.3-123.4 115.3z"/><path d="M601.7 653.9L580.4 580c-9.4-32.6-28.9-78.3-50.7-106.3-10.4 24-24.3 44.2-36.6 62.2l-0.6 0.9c-2.7 4-5.4 7.9-8.1 11.9L410.7 659l-12-28.6c-0.2 2.1-0.2 4.3-0.2 6.6 0 68.9 49.6 115.3 123.5 115.3S645.5 706 645.5 637c0-21.2-1.8-41.2-5.4-59.6l-38.4 76.5z"/></svg><span>使用热度：<strong id="application-hot">98</strong></span></span></div>
+          </div>
+        </div>
+        <div class="application-top-actions"><button class="detail-button primary" id="enter-button" type="button">进入应用</button></div>
+      </section>
+      <section class="application-content" aria-label="应用详情内容">
+        <div class="application-content-layout">
+          <div class="application-main-content">
+            <section class="content-section"><h2>应用介绍</h2><div class="application-description-row"><p class="is-collapsed" id="application-description">AI听说课堂，依托智能语音评测技术，学生手持语音答题器，在普通教室内就可以整班同时开展人机互动练习，系统实时反馈学生听说水平并针对性指导纠错，帮助学生快速提升听说能力，创新英语听说教学。</p><button class="description-toggle" id="description-toggle" type="button" aria-expanded="false">展开</button></div><div class="application-info-grid"><div class="info-item"><div class="info-label">服务对象</div><div class="info-value" id="application-audience">教师、教研员</div></div><div class="info-item"><div class="info-label">应用类别</div><div class="info-value" id="application-category">教师教学</div></div><div class="info-item"><div class="info-label">服务方式</div><div class="info-value">统一入口访问</div></div><div class="info-item"><div class="info-label">更新状态</div><div class="info-value">持续更新</div></div></div></section>
+            <section class="content-section"><h2>应用截图</h2><div class="screenshot-grid"><figure class="screenshot-item"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-01.png" alt="应用课堂场景"><span>课堂场景</span></figure><figure class="screenshot-item"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-02.png" alt="应用教研场景"><span>教研协作</span></figure><figure class="screenshot-item"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-03.png" alt="应用资源场景"><span>资源应用</span></figure><figure class="screenshot-item"><img src="./xiangtan-channel/_nuxt/img/ai-cases/case-04.png" alt="应用互动场景"><span>互动教学</span></figure></div></section>
+            <section class="content-section"><h2>服务内容</h2><div class="feature-grid"><div class="feature-item"><strong>教学准备</strong><span>支持课程设计、资源整理和课前备课，提升教学准备效率。</span></div><div class="feature-item"><strong>课堂教学</strong><span>连接课堂工具和教学活动，帮助教师灵活组织课堂互动。</span></div><div class="feature-item"><strong>教研协作</strong><span>沉淀课例与研修成果，支持教师之间开展协同教研。</span></div></div><div class="application-notice">本应用由湘潭市智慧教育平台统一提供服务，具体功能和使用权限以实际开放情况为准。</div></section>
+            <section class="content-section" aria-label="应用评分与评论"><h2>评分与评论</h2><div class="rating-panel"><strong class="rating-score-large">4.8</strong><div class="rating-score-meta"><div class="rating-stars" aria-label="5星评分">★★★★★</div><p>来自 2,146 位用户的真实评价</p></div></div><div class="review-list" id="review-list"><article class="review-item"><div class="review-head"><span class="review-user">李老师</span><span class="review-time">教师教学 · 2天前</span></div><p>备课时查找资源很方便，课堂活动和教研协作功能也比较完整。</p></article><article class="review-item"><div class="review-head"><span class="review-user">王老师</span><span class="review-time">湘潭市 · 6天前</span></div><p>页面清晰，操作路径简单，适合在日常教学中持续使用。</p></article></div><form class="review-form" id="review-form"><input class="review-input" id="review-input" type="text" maxlength="120" placeholder="分享你对这个应用的使用感受" aria-label="评论内容"><button class="review-submit" type="submit">发表评论</button></form></section>
+          </div>
+          <aside class="recommend-panel" aria-label="热门推荐">
+            <h2 class="recommend-title">热门推荐</h2>
+            <div class="recommend-list">
+              <a class="recommend-item" href="./application-service-detail.html?name=数字教研工作室&summary=区域教研与课例共研&description=汇聚区域教研活动、课例共研和教师研修成果。&provider=湘潭市教科院&type=教师教学&hot=92&cover=./xiangtan-channel/_nuxt/img/application-logo-green.png"><img class="recommend-logo" src="./xiangtan-channel/_nuxt/img/application-logo-green.png" alt="数字教研工作室"><span class="recommend-info"><strong>数字教研工作室</strong><span>区域教研与课例共研</span></span></a>
+              <a class="recommend-item" href="./application-service-detail.html?name=AI学习空间&summary=课程学习与个性化成长&description=为学生提供课程学习、智能答疑和个性化成长记录。&provider=湘潭市智慧教育平台&type=学生学习&hot=96&cover=./xiangtan-channel/_nuxt/img/application-logo-teacher.png"><img class="recommend-logo" src="./xiangtan-channel/_nuxt/img/application-logo-teacher.png" alt="AI学习空间"><span class="recommend-info"><strong>AI学习空间</strong><span>课程学习与个性化成长</span></span></a>
+              <a class="recommend-item" href="./application-service-detail.html?name=教师研修中心&summary=教师研修与专业成长&description=聚合教师研修课程、名师工作室和优秀课例。&provider=湘潭市教科院&type=教师教学&hot=68&cover=./xiangtan-channel/_nuxt/img/teacher-training.c565aaa.png"><img class="recommend-logo" src="./xiangtan-channel/_nuxt/img/teacher-training.c565aaa.png" alt="教师研修中心"><span class="recommend-info"><strong>教师研修中心</strong><span>教师研修与专业成长</span></span></a>
+              <a class="recommend-item" href="./application-service-detail.html?name=AI科学实验&summary=科学探究与实验实践&description=提供实验演示、操作指引和安全提示，支持探究式学习。&provider=湘潭市教育局&type=学生学习&hot=89&cover=./xiangtan-channel/_nuxt/img/application-logo-ai.png"><img class="recommend-logo" src="./xiangtan-channel/_nuxt/img/application-logo-ai.png" alt="AI科学实验"><span class="recommend-info"><strong>AI科学实验</strong><span>科学探究与实验实践</span></span></a>
+              <a class="recommend-item" href="./application-service-detail.html?name=学校空间&summary=学校课程与资源统一管理&description=面向学校提供课程、教师、学生和资源的统一管理与协同服务。&provider=湘潭市智慧教育平台&type=学校服务&hot=87&cover=./xiangtan-channel/_nuxt/img/image_educationalgovernance.ddeda91.png"><img class="recommend-logo" src="./xiangtan-channel/_nuxt/img/image_educationalgovernance.ddeda91.png" alt="学校空间"><span class="recommend-info"><strong>学校空间</strong><span>学校课程与资源统一管理</span></span></a>
+              <a class="recommend-item" href="./application-service-detail.html?name=校园安全管理&summary=校园安全与应急管理&description=汇聚校园安全教育、应急演练、风险提示和安全工作记录。&provider=湘潭市教育局&type=学校服务&hot=83&cover=./xiangtan-channel/_nuxt/img/safety-education.9183a95.png"><img class="recommend-logo" src="./xiangtan-channel/_nuxt/img/safety-education.9183a95.png" alt="校园安全管理"><span class="recommend-info"><strong>校园安全管理</strong><span>校园安全与应急管理</span></span></a>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer"><p><a href="#">湘ICP备12010102号-4</a>&nbsp;&nbsp;&nbsp;&nbsp;指导单位：湖南省教育厅</p><p>本网站由湖南省教育厅信息中心承办 | 联系电话：0731-85357667</p><p>技术服务（湖南教育音像电子出版社）电话：0731-84390585、84390675、84390175 | 咨询时间：工作日8:30至17:30</p></footer>
+  <div class="authorization-dialog" id="authorization-dialog" role="dialog" aria-modal="true" aria-labelledby="authorization-title" aria-hidden="true">
+    <div class="authorization-panel">
+      <button class="authorization-close" id="authorization-close" type="button" aria-label="关闭授权窗口">×</button>
+      <section class="authorization-app" aria-label="授权应用信息">
+        <div class="authorization-logo-wrap"><img class="authorization-logo" id="authorization-logo" src="./xiangtan-channel/_nuxt/img/application-logo-listen.png" alt="智慧课堂助手"></div>
+        <h2 class="authorization-app-name" id="authorization-app-name">智慧课堂助手</h2>
+        <p class="authorization-app-note" id="authorization-app-note">由湘潭市智慧教育平台提供服务</p>
+      </section>
+      <section class="authorization-content">
+        <h2 class="authorization-title" id="authorization-title">应用授权</h2>
+        <p class="authorization-subtitle">该应用将获取以下信息，用于身份识别和服务使用。</p>
+        <div class="permission-list" aria-label="授权信息列表">
+          <label class="permission-row all"><input id="permission-all" type="checkbox" checked>全选</label>
+          <label class="permission-row"><input class="permission-item" type="checkbox" checked>姓名、性别</label>
+          <label class="permission-row"><input class="permission-item" type="checkbox" checked>所属学校</label>
+          <label class="permission-row"><input class="permission-item" type="checkbox" checked>省市区</label>
+          <label class="permission-row"><input class="permission-item" type="checkbox" checked>通行证 ID</label>
+        </div>
+        <p class="authorization-agreement">点击“同意并进入”即表示你同意<a href="#" id="authorization-agreement-link">《湘潭市智慧教育平台应用服务协议》</a>。</p>
+        <div class="authorization-actions">
+          <button class="authorization-button cancel" id="authorization-cancel" type="button">取消</button>
+          <button class="authorization-button confirm" id="authorization-confirm" type="button">同意并进入</button>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div class="detail-toast" id="detail-toast" role="status" aria-live="polite"></div>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var defaults = {
+        name:'智慧课堂助手',
+        summary:'汇聚备课、授课、教研、研修及资源应用等工具服务。',
+        description:'AI听说课堂，依托智能语音评测技术，学生手持语音答题器，在普通教室内就可以整班同时开展人机互动练习，系统实时反馈学生听说水平并针对性指导纠错，帮助学生快速提升听说能力，创新英语听说教学。',
+        type:'教师教学', provider:'湘潭市智慧教育平台', hot:'98',
+        cover:'./xiangtan-channel/_nuxt/img/application-logo-listen.png'
+      };
+      function value(key) { return params.get(key) || defaults[key]; }
+      var name = value('name');
+      var summary = value('summary');
+      var description = value('description');
+      if (name === '智慧课堂助手') description = defaults.description;
+      var type = value('type');
+      var provider = value('provider');
+      var hot = value('hot');
+      document.title = name + ' - 应用详情 - 湘潭市智慧教育平台';
+      document.getElementById('application-title').textContent = name;
+      document.getElementById('application-summary').textContent = summary;
+      document.getElementById('application-description').textContent = description;
+      document.getElementById('application-type').textContent = type;
+      document.getElementById('application-provider').textContent = provider;
+      document.getElementById('application-hot').textContent = hot;
+      document.getElementById('application-category').textContent = type;
+      document.getElementById('application-audience').textContent = type === '学生学习' ? '学生、家长' : type === '学校服务' ? '学校管理者' : '教师、教研员';
+      document.getElementById('authorization-app-name').textContent = name;
+      document.getElementById('authorization-app-note').textContent = '由' + provider + '提供服务';
+      var descriptionNode = document.getElementById('application-description');
+      var descriptionToggle = document.getElementById('description-toggle');
+      descriptionToggle.addEventListener('click', function () {
+        var expanded = descriptionNode.classList.toggle('is-collapsed') === false;
+        descriptionToggle.textContent = expanded ? '收起' : '展开';
+        descriptionToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      });
+      var cover = value('cover');
+      var logo = document.getElementById('application-logo');
+      if (/^\.\/xiangtan-channel\/\_nuxt\/img\/[\w.\-/]+$/.test(cover)) {
+        logo.src = cover;
+        logo.alt = name;
+      }
+      var authorizationLogo = document.getElementById('authorization-logo');
+      authorizationLogo.src = logo.getAttribute('src');
+      authorizationLogo.alt = name;
+      var toast = document.getElementById('detail-toast');
+      var toastTimer;
+      function showToast(message) {
+        toast.textContent = message;
+        toast.classList.add('show');
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(function () { toast.classList.remove('show'); }, 1800);
+      }
+      var authorizationDialog = document.getElementById('authorization-dialog');
+      var enterButton = document.getElementById('enter-button');
+      var closeButton = document.getElementById('authorization-close');
+      var cancelButton = document.getElementById('authorization-cancel');
+      var confirmButton = document.getElementById('authorization-confirm');
+      var permissionAll = document.getElementById('permission-all');
+      var permissionItems = [].slice.call(document.querySelectorAll('.permission-item'));
+      function openAuthorization() {
+        authorizationDialog.classList.add('show');
+        authorizationDialog.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        closeButton.focus();
+      }
+      function closeAuthorization() {
+        authorizationDialog.classList.remove('show');
+        authorizationDialog.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        enterButton.focus();
+      }
+      function syncPermissionState() {
+        var selectedCount = permissionItems.filter(function (item) { return item.checked; }).length;
+        permissionAll.checked = selectedCount === permissionItems.length;
+        permissionAll.indeterminate = selectedCount > 0 && selectedCount < permissionItems.length;
+        confirmButton.disabled = selectedCount === 0;
+      }
+      enterButton.addEventListener('click', openAuthorization);
+      closeButton.addEventListener('click', closeAuthorization);
+      cancelButton.addEventListener('click', closeAuthorization);
+      authorizationDialog.addEventListener('click', function (event) {
+        if (event.target === authorizationDialog) closeAuthorization();
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && authorizationDialog.classList.contains('show')) closeAuthorization();
+      });
+      permissionAll.addEventListener('change', function () {
+        permissionItems.forEach(function (item) { item.checked = permissionAll.checked; });
+        syncPermissionState();
+      });
+      permissionItems.forEach(function (item) { item.addEventListener('change', syncPermissionState); });
+      document.getElementById('authorization-agreement-link').addEventListener('click', function (event) { event.preventDefault(); });
+      confirmButton.addEventListener('click', function () {
+        if (confirmButton.disabled) return;
+        closeAuthorization();
+        showToast('授权成功，正在进入应用');
+      });
+      document.getElementById('review-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var input = document.getElementById('review-input');
+        var text = input.value.trim();
+        if (!text) { showToast('请先填写评论内容'); input.focus(); return; }
+        var item = document.createElement('article');
+        item.className = 'review-item';
+        item.innerHTML = '<div class="review-head"><span class="review-user">我</span><span class="review-time">刚刚</span></div><p></p>';
+        item.querySelector('p').textContent = text;
+        document.getElementById('review-list').prepend(item);
+        input.value = '';
+        showToast('评论已发布');
+      });
+    }());
+  </script>
+</body>
+</html>

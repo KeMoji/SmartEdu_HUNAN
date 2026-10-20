@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <title>德育 - 湘潭市智慧教育平台</title>
+  <style>
+    :root { --blue:#1e62ec; --ink:#333; --page:#f5f7fb; --content-width:1370px; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; min-width:1270px; overflow-x:hidden; }
+    body { background:var(--page); color:var(--ink); font-family:"Microsoft YaHei","微软雅黑",Arial,sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    img { display:block; }
+    .platform-header { position:relative; z-index:20; width:100vw; height:60px; padding:0 20px; background:#1e62ec; }
+    .platform-header-inner { width:100%; max-width:var(--content-width); height:60px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; position:relative; }
+    .platform-brand { position:relative; display:flex; align-items:center; height:48px; }
+    .platform-logo-link { display:block; width:205px; height:48px; }
+    .platform-logo { width:205px; height:48px; object-fit:contain; }
+    .platform-switcher { position:relative; width:50px; height:48px; padding:0; border:0; background:transparent; cursor:pointer; }
+    .platform-switcher::after { content:""; position:absolute; top:50%; left:11px; width:10px; height:6px; margin-top:-3px; border:0; background:#fff; clip-path:polygon(0 0,100% 0,50% 100%); }
+    .platform-switch-panel { position:absolute; top:48px; left:0; z-index:3000; display:none; width:220px; padding:16px; border:1px solid #ebeef5; border-radius:2px; background:#fff; box-shadow:0 2px 12px rgba(0,0,0,.1); }
+    .platform-brand:hover .platform-switch-panel, .platform-switcher:focus + .platform-switch-panel { display:block; }
+    .platform-switch-list { margin:0; padding:0; list-style:none; }
+    .platform-switch-list li { height:40px; color:#666; font-size:16px; line-height:40px; white-space:nowrap; cursor:pointer; }
+    .platform-switch-list li + li { border-top:1px solid #f0f0f0; }
+    .platform-switch-list li:hover, .platform-switch-list li.active { color:#1e62ec; font-weight:700; }
+    .brand-divider { width:1px; height:20px; margin-left:4px; background:#fff; }
+    .brand-name { display:flex; align-items:center; height:24px; min-width:180px; margin-left:25px; color:#fff; font-size:18px; font-weight:700; line-height:24px; white-space:nowrap; }
+    .header-links { display:flex; align-items:center; color:#fff; font-size:14px; }
+    .header-links a { display:inline-block; width:58px; height:28px; margin-right:15px; border:1px solid #f5f7fb; border-radius:18px; color:#333; background:#f5f7fb; font-size:14px; line-height:26px; text-align:center; }
+    .header-links a + a { margin-right:0; border-color:#fff; color:#fff; background:transparent; }
+    .header-links a:hover { opacity:.86; }
+    .accessibility-button { display:inline-flex; align-items:center; justify-content:center; width:130px; height:30px; margin-left:20px; border:1px solid #f3f7ff; border-radius:15px; color:#fff; background:transparent; font:14px "Microsoft YaHei","微软雅黑",sans-serif; cursor:pointer; }
+    .primary-nav { position:relative; top:0; left:0; z-index:11; width:100vw; height:66px; padding:0 20px; border-bottom:1px solid #f6f6f6; background:#fff; box-shadow:0 6px 25px 1px rgba(0,0,0,.05); }
+    .primary-nav-inner { width:100%; max-width:var(--content-width); height:66px; margin:0 auto; display:flex; align-items:flex-end; justify-content:space-between; }
+    .nav-list { display:flex; flex:1 1 auto; align-items:stretch; height:66px; min-width:0; margin:0; padding:0; list-style:none; overflow:hidden; }
+    .nav-list li { position:relative; flex:0 0 auto; margin-right:24px; }
+    .nav-list a { display:inline-block; min-width:40px; height:66px; padding:21px 0; color:#333; font-size:16px; line-height:24px; text-align:center; white-space:nowrap; }
+    .nav-list a:hover, .nav-list a.active { color:var(--blue); }
+    .nav-list a.active { font-weight:700; }
+    .nav-list a.active::after { content:""; position:absolute; right:0; bottom:0; left:0; height:3px; background:var(--blue); }
+    .ai-search { flex:0 0 128px; width:128px; height:37px; margin:0 0 14px 20px; padding:0; border:0; background:transparent; cursor:pointer; }
+    .ai-search img { display:block; width:128px; height:37px; }
+    .root { padding-top:0; }
+    .banner { width:100%; height:auto; margin-bottom:-14px; object-fit:cover; }
+    .main-container { width:calc(100% - 40px); max-width:var(--content-width); min-width:1230px; margin:0 auto 40px; background:var(--page); }
+    .main-content { position:relative; overflow:hidden; border-radius:10px; }
+    .moral-nav { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-around; width:100%; min-height:80px; border-radius:10px; background:#fff; margin-bottom:40px; }
+    .moral-nav-item { flex:1 1 16.666%; min-width:180px; height:80px; display:flex; align-items:center; justify-content:center; padding:20px 0; color:#333; cursor:pointer; transition:color .2s ease; }
+    .moral-nav-item:hover, .moral-nav-item.selected { color:var(--blue); font-weight:700; }
+    .moral-nav-item img { width:40px; height:40px; object-fit:contain; }
+    .moral-nav-item span { margin-left:5px; font-size:18px; }
+    .detail-section { margin:20px 0 40px; border-radius:10px; overflow:hidden; }
+    .section-title { width:100%; height:80px; display:flex; align-items:center; justify-content:space-between; background-repeat:no-repeat; background-position:right center; background-size:cover; }
+    .section-title-main { display:flex; align-items:center; }
+    .section-title-main img { width:60px; height:60px; margin-left:30px; object-fit:contain; }
+    .section-title-main h2 { margin:0 0 0 10px; color:#333; font-size:24px; font-weight:700; line-height:36px; }
+    .more-button { min-width:130px; height:40px; margin:0 30px 0 auto; padding:10px 16px 10px 24px; display:inline-flex; align-items:center; justify-content:center; gap:12px; border:1px solid #fff; border-radius:20px; color:#000; background:rgba(255,255,255,.5); font-size:14px; cursor:pointer; transition:background .2s ease,color .2s ease; }
+    .more-button::after { content:"›"; width:16px; height:16px; display:grid; place-items:center; border-radius:8px; color:#333; background:rgba(255,255,255,.5); font-size:17px; line-height:14px; }
+    .more-button:hover { color:var(--blue); background:#fff; }
+    .more-button:hover::after { color:#fff; background:var(--blue); }
+    .card-list { width:calc(100% - 60px); max-width:1310px; min-width:1170px; margin:30px auto 45px; padding:0; display:flex; align-items:stretch; justify-content:flex-start; gap:2.824%; list-style:none; }
+    .course-card { flex:1 1 0; max-width:300px; min-width:0; overflow:hidden; border:1px solid #f1f1f1; border-radius:8px; background:#fff; box-shadow:0 2px 8px rgba(26,62,153,.1); cursor:pointer; transition:transform .2s ease,box-shadow .2s ease; }
+    .course-card:hover { transform:translateY(-2px); box-shadow:0 7px 15px rgba(26,62,153,.14); }
+    .course-image { width:100%; height:158px; overflow:hidden; border-radius:4px; background:#eff4fb; }
+    .course-image img { width:100%; height:100%; object-fit:cover; }
+    .course-text { margin:10px 10px 13px; }
+    .course-title { height:24px; overflow:hidden; margin:0; color:#333; font-size:16px; font-weight:700; line-height:24px; white-space:nowrap; text-overflow:ellipsis; }
+    .course-desc { height:66px; overflow:hidden; margin:8px 0 0; color:#999; font-size:14px; line-height:22px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; }
+    .course-meta { height:46px; display:flex; align-items:center; gap:36px; border-top:1px solid #f0f0f0; color:#999; font-size:14px; }
+    .course-meta span { display:inline-flex; align-items:center; gap:6px; }
+    .course-meta svg { flex:0 0 16px; width:16px; height:16px; fill:#797979; }
+    .course-meta .likes svg { fill:#333; }
+    .site-footer { min-width:1270px; padding:30px 0; color:#fff; background:#333; font-size:14px; }
+    .site-footer p { margin:0; line-height:25px; text-align:center; }
+    .site-footer a { color:#fff; }
+    .moral-icons { position:absolute; width:0; height:0; overflow:hidden; }
+    .moral-list-page { display:block; padding-bottom:48px; background:#f3f6fc; }
+    .moral-list-banner { width:100%; height:198px; object-fit:cover; object-position:center; }
+    .moral-list-shell { width:calc(100% - 60px); max-width:1370px; margin:24px auto 0; }
+    .moral-category-nav { display:grid; grid-template-columns:repeat(10,minmax(0,1fr)); grid-template-rows:42px; align-items:center; min-height:58px; padding:8px 22px; border-radius:8px; background:#fff; box-shadow:0 2px 10px rgba(25,67,145,.06); }
+    .moral-category { display:inline-flex; align-items:center; justify-content:flex-start; width:100%; min-width:0; height:42px; margin:0; padding:0 12px; border:1px solid transparent; border-radius:4px; color:#555; background:transparent; font-size:16px; cursor:pointer; transition:color .2s ease; }
+    .moral-category:hover, .moral-category.active { color:var(--blue); background:transparent; }
+    .moral-category.active { border-color:transparent; font-weight:700; }
+    .moral-list-toolbar { display:flex; align-items:center; justify-content:space-between; min-height:72px; margin-top:18px; padding:0 26px 0 36px; border-radius:10px; background:#fff; }
+    .moral-sort { display:flex; align-items:center; gap:38px; color:#999; font-size:14px; }
+    .moral-sort button { padding:8px 0; border:0; color:#999; background:transparent; font:inherit; cursor:pointer; }
+    .moral-sort button:hover, .moral-sort button.active { color:var(--blue); font-weight:700; }
+    .moral-search { display:flex; align-items:center; width:370px; height:40px; overflow:hidden; border-radius:24px; background:#f3f6fb; }
+    .moral-search input { flex:1 1 auto; min-width:0; height:40px; padding:0 18px; border:0; outline:0; color:#555; background:transparent; font:14px "Microsoft YaHei","微软雅黑",sans-serif; }
+    .moral-search input::placeholder { color:#aaa; }
+    .moral-search button { flex:0 0 74px; width:74px; height:34px; margin-right:5px; border:0; border-radius:18px; color:#fff; background:var(--blue); font-size:14px; cursor:pointer; }
+    .moral-search button:hover { background:#1555d5; }
+    .moral-list-summary { display:inline-flex; align-items:center; height:32px; margin:18px 0 0 18px; padding:0 16px; border-radius:16px; color:#666; background:#fff; font-size:14px; line-height:32px; }
+    .moral-list-summary strong { margin:0 3px; color:var(--blue); font-weight:700; }
+    .moral-resource-list { display:grid; grid-template-columns:repeat(4,322px); justify-content:space-between; column-gap:0; row-gap:28px; margin:18px 0 36px; }
+    .moral-resource-card { display:flex; flex-direction:column; min-width:0; overflow:hidden; border:1px solid rgba(217,225,236,.9); border-radius:7px; background:#fff; box-shadow:0 3px 10px rgba(30,62,120,.08); cursor:pointer; transition:transform .2s ease,box-shadow .2s ease; }
+    .moral-resource-card:hover { transform:translateY(-3px); box-shadow:0 8px 18px rgba(26,62,153,.14); }
+    .moral-resource-card[data-playback-entry="true"]:focus-visible { outline:2px solid #1e62ec; outline-offset:3px; }
+    .moral-resource-cover { width:320px; max-width:100%; height:148px; overflow:hidden; background:#eff4fb; }
+    .moral-resource-cover img { width:100%; height:100%; object-fit:cover; }
+    .moral-resource-body { display:flex; flex:1; flex-direction:column; padding:16px 15px 0; }
+    .moral-resource-title { height:24px; overflow:hidden; margin:0; color:#222; font-size:16px; font-weight:700; line-height:24px; white-space:nowrap; text-overflow:ellipsis; }
+    .moral-resource-summary { display:-webkit-box; height:44px; overflow:hidden; margin:16px 0 0; color:#666; font-size:14px; line-height:22px; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+    .moral-resource-org { display:inline-flex; align-items:center; height:22px; min-width:0; gap:8px; margin:8px 0 0; overflow:hidden; color:#888; font-size:14px; line-height:22px; white-space:nowrap; text-overflow:ellipsis; }
+    .moral-resource-org svg { flex:0 0 auto; width:16px; height:16px; fill:#797979; }
+    .moral-resource-stats { display:flex; align-items:flex-start; min-height:42px; gap:28px; margin-top:8px; padding-top:8px; border-top:1px solid #edf0f4; color:#999; font-size:14px; line-height:20px; }
+    .moral-resource-stat { display:inline-flex; align-items:center; gap:8px; }
+    .moral-resource-stat svg { flex:0 0 16px; width:16px; height:16px; fill:#797979; }
+    .moral-resource-like svg { fill:#333; }
+    .moral-resource-collect { gap:8px; }
+    .moral-pagination { display:flex; justify-content:center; align-items:center; gap:8px; }
+    .moral-page-button { min-width:34px; height:34px; padding:0 10px; border:1px solid #e1e6ef; border-radius:3px; color:#666; background:#fff; font-size:14px; cursor:pointer; }
+    .moral-page-button:hover, .moral-page-button.active { border-color:var(--blue); color:#fff; background:var(--blue); }
+    .moral-page-button[disabled] { color:#c4cad4; background:#f7f8fa; cursor:default; }
+    .moral-legacy-hidden { display:none; }
+    @media (max-width:1300px) { .moral-resource-list { grid-template-columns:repeat(3,minmax(0,1fr)); column-gap:18px; } .moral-resource-cover { width:100%; } }
+    @media (max-width:760px) { .moral-list-shell { width:calc(100% - 28px); } .moral-list-banner { height:150px; } .moral-category-nav { display:flex; flex-wrap:wrap; min-height:76px; padding:8px 14px; } .moral-category { width:auto; min-width:0; height:42px; margin:0 8px 0 0; padding:0 10px; font-size:14px; } .moral-list-toolbar { align-items:stretch; flex-direction:column; padding:14px; gap:12px; } .moral-sort { gap:16px; flex-wrap:wrap; } .moral-search { width:100%; } .moral-list-summary { margin-left:0; } .moral-resource-list { grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; } }
+    @media (max-width:500px) { .moral-list-banner { height:120px; } .moral-resource-list { grid-template-columns:1fr; } .moral-category { flex:1 1 calc(50% - 8px); } }
+    @media (max-width:1300px) { html,body{min-width:0}.platform-header-inner,.primary-nav-inner{min-width:0}.main-container{min-width:0;width:calc(100% - 28px)}.card-list{min-width:0}.course-card{max-width:none} }
+    @media (max-width:880px) { .brand-divider,.header-links{display:none}.platform-logo{width:180px}.brand-name{font-size:16px}.nav-list li{margin-right:15px}.nav-list a,.nav-more-button{font-size:14px}.moral-nav-item{flex-basis:33.333%;min-width:0}.card-list{flex-wrap:wrap;gap:16px}.course-card{flex-basis:calc(50% - 8px)} }
+  </style>
+
+  <link rel="stylesheet" href="./channel-navigation.css">
+  <script src="./channel-navigation.js" defer></script>
+</head>
+<body>
+  <header class="platform-header"><div class="platform-header-inner"><div class="platform-brand"><a class="platform-logo-link" href="./index.html" target="_blank" rel="noopener" aria-label="湖南智慧教育平台"><img class="platform-logo" src="./xiangtan-channel/_nuxt/img/image-login-new.a21550b.png" alt="湖南智慧教育平台"></a><button class="platform-switcher" type="button" aria-label="切换子平台"></button><div class="platform-switch-panel"><ul class="platform-switch-list"><li>湖南智慧教育平台</li><li class="active">湘潭市智慧教育平台</li><li>湖南职业教育智慧教育平台</li><li>湖南高等教育智慧教育平台</li></ul></div><span class="brand-divider"></span><span class="brand-name">湘潭市智慧教育平台</span></div><div class="header-links"><a href="./index.html" target="_blank" rel="noopener">登录</a><a href="./index.html" target="_blank" rel="noopener">注册</a><button class="accessibility-button" type="button">无障碍浏览</button></div></div></header>
+  <nav class="primary-nav" aria-label="主导航"><div class="primary-nav-inner"><ul class="nav-list"><li><a href="./xiangtan.html">首页</a></li><li><a href="./course-learning.html">课程学习</a></li><li><a class="active" href="./five-education.html">五育成长</a></li><li><a href="./xiangtan.html#教师发展">教师发展</a></li><li><a href="./textbook-resources.html">教材资源</a></li><li><a href="./xiangtan.html#人工智能">人工智能</a></li><li><a href="./xiangtan.html#应用服务">应用服务</a></li><li><a href="./xiangtan.html#特色专题">特色专题</a></li><li><a href="./xiangtan.html#市域服务">市域服务</a></li></ul><button class="ai-search" type="button" aria-label="AI 搜索"><img src="./xiangtan-channel/_nuxt/img/ai-search-button.b0a1e04.svg" alt="AI 搜索"></button></div></nav>
+  <div class="root"><section class="moral-list-page" aria-label="德育课程列表">
+    <svg class="moral-icons" aria-hidden="true">
+      <symbol id="moral-icon-institution" viewBox="0 0 1059 1024"><path d="M900.464646 896v-64h-64V384h192L516.464646 0 4.464646 384H196.464646v448H132.464646v64c-70.625 0-128 57.25-128 128h1024c0-70.75-57.25-128-128-128zM772.464646 384v448h-64V384h64z m-192 0v448H452.464646V384h128z m-320 0H324.464646v448h-64V384z m0 0"/></symbol>
+      <symbol id="moral-icon-user" viewBox="0 0 1024 1024"><path d="M509.44 1018.368c-141.312 0-277.504-59.904-372.736-164.352l-19.968-21.504 19.968-21.504c95.744-104.448 231.424-164.352 372.736-164.352 141.312 0 277.504 59.904 372.736 164.352l19.968 21.504-19.968 21.504c-95.232 104.448-231.424 164.352-372.736 164.352zM204.8 832.512c81.92 77.824 190.976 121.856 304.64 121.856 113.664 0 222.72-44.032 304.64-121.856-81.92-77.824-190.976-121.856-304.64-121.856-113.664 0-222.72 44.032-304.64 121.856zM509.952 600.576c-89.088 0-161.792-72.704-161.792-161.792 0-89.088 72.704-161.792 161.792-161.792s161.792 72.704 161.792 161.792c0 89.088-72.192 161.792-161.792 161.792z m0-259.584c-53.76 0-97.792 44.032-97.792 97.792s44.032 97.792 97.792 97.792 97.792-44.032 97.792-97.792-43.52-97.792-97.792-97.792z"/><path d="M119.296 719.36c-33.792-63.488-51.2-134.144-51.2-206.848 0-243.712 198.144-441.344 441.344-441.344s441.344 198.144 441.344 441.344c0 72.192-17.92 143.36-51.2 206.336 16.384 15.36 31.744 31.744 46.08 49.152 45.568-77.312 69.12-165.376 69.12-255.488 0-279.04-226.816-505.856-505.856-505.856C230.4 7.168 4.096 233.984 4.096 512.512c0 90.112 24.064 178.688 69.632 255.488 13.824-16.896 29.184-33.28 45.568-48.64z"/></symbol>
+      <symbol id="moral-icon-like" viewBox="0 0 1024 1024"><path d="M933.248 335.104c-40-10.496-134.048-10.368-271.616-14.016 6.496-30.016 8-57.088 8-105.152C669.632 101.12 585.984 0 512 0c-52.256 0-95.328 42.72-96 95.264-0.704 64.448-20.64 175.744-128 232.192-7.872 4.16-30.4 15.264-33.696 16.704L256 345.6c-16.8-14.496-40.096-25.6-64-25.6H96c-52.928 0-96 43.072-96 96v512c0 52.928 43.072 96 96 96h96c38.08 0 69.952-23.008 85.376-55.264 0.384 0.128 1.056 0.32 1.504 0.384l7.648 1.984 1.472 0.384c18.432 4.576 53.92 13.056 129.76 30.496 16.256 3.712 102.144 22.016 191.104 22.016h174.944c53.312 0 91.744-20.512 114.624-61.696 0.32-0.64 7.68-15.008 13.696-34.432a106.56 106.56 0 0 0 0.736-56.32c34.368-23.616 45.44-59.328 52.64-82.56 12.064-38.112 8.448-66.752 0.064-87.264 19.328-18.24 35.808-46.048 42.752-88.512a120.224 120.224 0 0 0-12.448-75.904c18.112-20.352 26.368-45.952 27.328-69.632l0.384-6.688c0.224-4.192 0.416-6.784 0.416-16 0-40.416-28-91.968-90.752-109.888zM224 928a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V416a32 32 0 0 1 32-32h96a32 32 0 0 1 32 32v512z m735.264-462.88C958.624 480.928 952 512 896 512h-64a16 16 0 1 0 0 32h62.016c48 0 54.304 39.808 51.2 59.008-3.968 23.872-15.168 68.992-69.216 68.992H800a15.968 15.968 0 1 0 0 32h63.008c54.016 0 49.248 41.184 41.504 65.76-10.208 32.288-16.448 62.24-84.512 62.24h-52.192a15.968 15.968 0 1 0 0 32h50.176c35.008 0 36.64 33.12 32.992 44.992-4 12.992-8.736 22.624-8.928 23.072-9.664 17.44-25.248 27.936-58.24 27.936h-174.944c-87.872 0-175.04-19.936-177.28-20.448-132.928-30.624-139.936-32.992-148.288-35.36 0 0-27.072-4.576-27.072-28.192L256 434.016c0-15.008 9.568-28.576 25.408-33.344 1.984-0.768 4.672-1.6 6.592-2.4 146.176-60.544 190.688-193.28 192-302.272 0.192-15.328 12-32 32-32 33.824 0 93.632 67.904 93.632 151.936 0 75.872-3.072 88.992-29.632 168.064 320 0 317.76 4.608 345.984 12 35.008 10.016 38.016 39.008 38.016 48.992 0 10.976-0.32 9.376-0.736 20.128z"/><path d="M144 832a48 48 0 1 0 0.032 96.032A48 48 0 0 0 144 832z m0 64c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16z"/></symbol>
+      <symbol id="moral-icon-view" viewBox="0 0 1024 1024"><path d="M989.789091 482.466909a45.381818 45.381818 0 0 1 0 59.066182C924.904727 617.634909 735.511273 814.545455 512 814.545455S99.048727 617.634909 34.210909 541.533091a45.381818 45.381818 0 0 1 0-59.066182C99.048727 406.365091 288.465455 209.454545 512 209.454545s412.904727 196.910545 477.789091 273.012364zM512 744.727273c182.248727 0 347.415273-161.885091 410.856727-232.727273C859.415273 441.157818 694.248727 279.272727 512 279.272727c-182.248727 0-347.392 161.885091-410.856727 232.727273C164.584727 582.842182 329.728 744.727273 512 744.727273z m0-151.272728c-44.916364 0-81.454545-36.538182-81.454545-81.454545s36.538182-81.454545 81.454545-81.454545 81.454545 36.538182 81.454545 81.454545-36.538182 81.454545-81.454545 81.454545z m0-232.727272a151.458909 151.458909 0 0 0-151.272727 151.272727c0 83.409455 67.863273 151.272727 151.272727 151.272727s151.272727-67.863273 151.272727-151.272727-67.863273-151.272727-151.272727-151.272727"/></symbol>
+      <symbol id="moral-icon-collect" viewBox="0 0 1024 1024"><path d="M803.626667 106.666667H220.373333a64 64 0 0 0-64 65.493333v697.386667A47.146667 47.146667 0 0 0 203.733333 917.333333a44.8 44.8 0 0 0 22.613334-5.973333L512 750.08l285.44 160.426667a46.933333 46.933333 0 0 0 69.76-40.96V173.013333A64 64 0 0 0 803.626667 106.666667zM832 869.546667a10.453333 10.453333 0 0 1-5.333333 9.173333 10.026667 10.026667 0 0 1-10.666667 0L512 708.693333l-303.36 170.666667a10.026667 10.026667 0 0 1-10.666667 0 10.453333 10.453333 0 0 1-5.973333-9.813333V173.013333a28.373333 28.373333 0 0 1 27.52-29.226666h584.106667A28.586667 28.586667 0 0 1 832 173.013333z"/><path d="M746.666667 395.093333a26.666667 26.666667 0 0 0-21.333334-17.92l-130.986666-18.986666-58.88-118.4a26.24 26.24 0 0 0-46.933334 0l-58.453333 118.4-131.413333 18.986666a26.453333 26.453333 0 0 0-21.333334 17.92 27.093333 27.093333 0 0 0 6.4 26.88l94.933334 92.373334-22.4 130.133333a26.24 26.24 0 0 0 38.186666 27.733333L512 610.773333l116.906667 61.44a24.746667 24.746667 0 0 0 12.16 3.2 26.24 26.24 0 0 0 15.573333-5.12 26.666667 26.666667 0 0 0 10.453333-25.6l-22.4-130.346666 94.72-92.373334a27.093333 27.093333 0 0 0 7.253334-26.88z m-130.56 96.853334a26.24 26.24 0 0 0-7.253334 23.253333l19.84 115.626667-104.533333-54.826667a25.813333 25.813333 0 0 0-24.32 0l-103.893333 54.4 19.84-115.413333a26.666667 26.666667 0 0 0-7.466667-23.466667l-84.053333-81.28 116.266666-16.853333a26.453333 26.453333 0 0 0 19.626667-14.506667L512 273.706667l51.84 105.173333a26.24 26.24 0 0 0 19.626667 14.506667l116.266666 16.853333z"/></symbol>
+    </svg>
+    <img class="moral-list-banner" src="./xiangtan-channel/_nuxt/img/banner_moraleducation.73076b1.png" alt="德育">
+    <div class="moral-list-shell">
+      <nav class="moral-category-nav" aria-label="德育栏目">
+        <button class="moral-category active" type="button" data-category="successor">我是接班人</button>
+        <button class="moral-category" type="button" data-category="new-ideas">学习新思想</button>
+        <button class="moral-category" type="button" data-category="future">未来建设者</button>
+        <button class="moral-category" type="button" data-category="health">心理与健康</button>
+        <button class="moral-category" type="button" data-category="party-history">党史学习</button>
+        <button class="moral-category" type="button" data-category="patriotism">爱国主义</button>
+        <button class="moral-category" type="button" data-category="constitution">宪法法制</button>
+        <button class="moral-category" type="button" data-category="morality">品德教育</button>
+        <button class="moral-category" type="button" data-category="culture">优秀传统文化</button>
+        <button class="moral-category" type="button" data-category="ecology">生态文明</button>
+      </nav>
+      <div class="moral-list-toolbar"><div class="moral-sort" aria-label="课程排序"><button class="active" type="button" data-sort="default">默认排序</button><button type="button" data-sort="updated">最新更新</button><button type="button" data-sort="views-asc">浏览量升序</button><button type="button" data-sort="views-desc">浏览量降序</button></div><form class="moral-search" id="moral-search-form" role="search"><input id="moral-search-input" type="search" placeholder="请输入关键词" aria-label="请输入关键词"><button type="submit">搜索</button></form></div>
+      <div class="moral-list-summary">共有 <strong id="moral-list-count">12</strong> 个资源</div>
+      <div class="moral-resource-list" id="moral-resource-list"></div>
+      <div class="moral-pagination" aria-label="课程分页"><button class="moral-page-button" type="button" disabled aria-label="上一页">‹</button><button class="moral-page-button active" type="button">1</button><button class="moral-page-button" type="button">2</button><button class="moral-page-button" type="button">3</button><button class="moral-page-button" type="button">4</button><button class="moral-page-button" type="button" aria-label="下一页">›</button></div>
+    </div>
+  </section><div class="moral-legacy-hidden"><img class="banner" src="./xiangtan-channel/_nuxt/img/banner_moraleducation.73076b1.png" alt="德育"><main class="main-container"><div class="main-content">
+    <div class="moral-nav" aria-label="德育专题入口">
+      <a class="moral-nav-item selected" href="#successor"><img src="./xiangtan-channel/_nuxt/img/icon_successor.558e5e8.png" alt=""><span>我是接班人</span></a><a class="moral-nav-item" href="#new-ideas"><img src="./xiangtan-channel/_nuxt/img/icon_Learnnewideas.d3547ef.png" alt=""><span>学习新思想</span></a><a class="moral-nav-item" href="#future"><img src="./xiangtan-channel/_nuxt/img/icon_futurebuilders.ba8dc85.png" alt=""><span>未来建设者</span></a><a class="moral-nav-item" href="#health"><img src="./xiangtan-channel/_nuxt/img/icon_mentalhealth.fa8c0bd.png" alt=""><span>心理与健康</span></a><a class="moral-nav-item" href="#party-history"><img src="./xiangtan-channel/_nuxt/img/icon_partyhistory.2c5f9be.png" alt=""><span>党史学习</span></a><a class="moral-nav-item" href="#patriotism"><img src="./xiangtan-channel/_nuxt/img/ic_aiguozhuyi.2113b8e.png" alt=""><span>爱国主义</span></a><a class="moral-nav-item" href="#constitution"><img src="./xiangtan-channel/_nuxt/img/icon_constitution.2e0047a.png" alt=""><span>宪法法制</span></a><a class="moral-nav-item" href="#morality"><img src="./xiangtan-channel/_nuxt/img/icon_moraleducation.cd3fa51.png" alt=""><span>品德教育</span></a><a class="moral-nav-item" href="#culture"><img src="./xiangtan-channel/_nuxt/img/icon_traditionalculture.e506504.png" alt=""><span>优秀传统文化</span></a><a class="moral-nav-item" href="#ecology"><img src="./xiangtan-channel/_nuxt/img/icon_ecocivilization.fb716f7.png" alt=""><span>生态文明</span></a>
+    </div>
+
+    <section class="detail-section" id="successor" style="background:#ffeded"><div class="section-title" style="background-image:url('./xiangtan-channel/_nuxt/img/bg_moraleducation_01.3ec5544.png')"><div class="section-title-main"><img src="./xiangtan-channel/_nuxt/img/icon_successor.558e5e8.png" alt=""><h2>我是接班人</h2></div><a class="more-button" href="#successor">查看更多</a></div><ul class="card-list">
+      <li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-1.svg" alt="师说：与AI同行"></div><div class="course-text"><p class="course-title">师说：与AI同行</p><p class="course-desc">在数字时代的学习与成长中，理解人工智能，拥抱新的未来。</p><div class="course-meta"><span class="views">626</span><span class="likes">62</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-2.svg" alt="一心向着共产党"></div><div class="course-text"><p class="course-title">一心向着共产党</p><p class="course-desc">从红色故事中感受信仰的力量，传承爱党爱国的家国情怀。</p><div class="course-meta"><span class="views">267718</span><span class="likes">70</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-3.svg" alt="芳草地 红领巾"></div><div class="course-text"><p class="course-title">芳草地 红领巾</p><p class="course-desc">少先队主题教育课程，记录成长中的每一份热爱与担当。</p><div class="course-meta"><span class="views">23351</span><span class="likes">164</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-4.svg" alt="无毒青春 筑梦未来"></div><div class="course-text"><p class="course-title">无毒青春 筑梦未来</p><p class="course-desc">珍爱生命、远离毒品，用正确的选择守护明亮青春。</p><div class="course-meta"><span class="views">111992</span><span class="likes">133</span></div></div></li>
+    </ul></section>
+
+    <section class="detail-section" id="new-ideas" style="background:#ffeded"><div class="section-title" style="background-image:url('./xiangtan-channel/_nuxt/img/bg_moraleducation_02.3661dea.png')"><div class="section-title-main"><img src="./xiangtan-channel/_nuxt/img/icon_Learnnewideas.d3547ef.png" alt=""><h2>学习新思想</h2></div><a class="more-button" href="#new-ideas">查看更多</a></div><ul class="card-list">
+      <li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-5.svg" alt="第1集 美丽中国是我家"></div><div class="course-text"><p class="course-title">第1集 美丽中国是我家</p><p class="course-desc">从身边的变化认识美丽中国，感受生态文明建设的时代答卷。</p><div class="course-meta"><span class="views">2137</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-6.svg" alt="第2集 美丽中国是我家"></div><div class="course-text"><p class="course-title">第2集 美丽中国是我家</p><p class="course-desc">以儿童视角讲述人与自然和谐相处的美好故事。</p><div class="course-meta"><span class="views">470</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-safety-1.svg" alt="第3集 我自豪 我是中国人"></div><div class="course-text"><p class="course-title">第3集 我自豪 我是中国人</p><p class="course-desc">在生动的课堂中认识祖国、了解历史，厚植爱国情感。</p><div class="course-meta"><span class="views">181</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-safety-2.svg" alt="第4集 没有共产党就没有新中国"></div><div class="course-text"><p class="course-title">第4集 没有共产党就没有新中国</p><p class="course-desc">回望奋斗历程，理解今天幸福生活的来之不易。</p><div class="course-meta"><span class="views">100</span><span class="likes">0</span></div></div></li>
+    </ul></section>
+
+    <section class="detail-section" id="future" style="background:#ffeded"><div class="section-title" style="background-image:url('./xiangtan-channel/_nuxt/img/bg_moraleducation_03.a0a337f.png')"><div class="section-title-main"><img src="./xiangtan-channel/_nuxt/img/icon_futurebuilders.ba8dc85.png" alt=""><h2>未来建设者</h2></div><a class="more-button" href="#future">查看更多</a></div><ul class="card-list">
+      <li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-topic-1.svg" alt="职业生涯规划师"></div><div class="course-text"><p class="course-title">职业生涯规划师</p><p class="course-desc">了解职业世界，探索兴趣方向，为未来成长做好准备。</p><div class="course-meta"><span class="views">7</span><span class="likes">1</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-topic-2.svg" alt="老年人能力评估师"></div><div class="course-text"><p class="course-title">老年人能力评估师</p><p class="course-desc">认识新职业，理解服务社会与关爱他人的责任。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-topic-3.svg" alt="兽医"></div><div class="course-text"><p class="course-title">兽医</p><p class="course-desc">从职业体验出发，发现科学、生命与责任的连接。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-topic-4.svg" alt="文字编辑"></div><div class="course-text"><p class="course-title">文字编辑</p><p class="course-desc">用文字记录时代，在阅读与表达中培养专业素养。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li>
+    </ul></section>
+
+    <section class="detail-section" id="health" style="background:#ffeded"><div class="section-title" style="background-image:url('./xiangtan-channel/_nuxt/img/bg_moraleducation_04.fd8e970.png')"><div class="section-title-main"><img src="./xiangtan-channel/_nuxt/img/icon_mentalhealth.fa8c0bd.png" alt=""><h2>心理与健康</h2></div><a class="more-button" href="#health">查看更多</a></div><ul class="card-list">
+      <li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-safety-3.svg" alt="学校篇：学校也有超能力"></div><div class="course-text"><p class="course-title">学校篇：学校也有超能力</p><p class="course-desc">认识校园中的情绪与关系，让每一个孩子都能被看见。</p><div class="course-meta"><span class="views">4944</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-safety-4.svg" alt="家长篇：挡住熊孩子的拳头"></div><div class="course-text"><p class="course-title">家长篇：挡住“熊”孩子的拳头</p><p class="course-desc">学习温和而坚定的家庭沟通方式，守护亲子关系。</p><div class="course-meta"><span class="views">7165</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-4.svg" alt="学生篇：不做沉默的受害者"></div><div class="course-text"><p class="course-title">学生篇：不做沉默的受害者</p><p class="course-desc">识别校园风险，学会表达诉求并寻求可信赖的帮助。</p><div class="course-meta"><span class="views">4903</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-5.svg" alt="总科普篇：不让一个孩子受伤"></div><div class="course-text"><p class="course-title">总科普篇：不让一个孩子受伤</p><p class="course-desc">学校、家庭与社会共同参与，为儿童成长提供支持。</p><div class="course-meta"><span class="views">3636</span><span class="likes">0</span></div></div></li>
+    </ul></section>
+
+    <section class="detail-section" id="party-history" style="background:#ffeded"><div class="section-title" style="background-image:url('./xiangtan-channel/_nuxt/img/bg_moraleducation_05.18b851a.png')"><div class="section-title-main"><img src="./xiangtan-channel/_nuxt/img/icon_partyhistory.2c5f9be.png" alt=""><h2>党史学习</h2></div><a class="more-button" href="#party-history">查看更多</a></div><ul class="card-list">
+      <li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-3.svg" alt="八一建军节的由来"></div><div class="course-text"><p class="course-title">“八一建军节”的由来</p><p class="course-desc">为什么将8月1日定为建军节？一起了解这段重要的历史。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-2.svg" alt="1949年：新中国成立"></div><div class="course-text"><p class="course-title">1949年：新中国成立</p><p class="course-desc">开国大典开启历史新篇章，铭记新中国成立的伟大时刻。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-1.svg" alt="两弹一星先进群体"></div><div class="course-text"><p class="course-title">“两弹一星”先进群体</p><p class="course-desc">勇攀高峰、功勋卓著，学习科学家精神与报国情怀。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li>
+    </ul></section>
+
+    <section class="detail-section" id="patriotism" style="background:#ffeded"><div class="section-title" style="background-image:url('./xiangtan-channel/_nuxt/img/bg_moraleducation_06.d09720f.png')"><div class="section-title-main"><img src="./xiangtan-channel/_nuxt/img/ic_aiguozhuyi.2113b8e.png" alt=""><h2>爱国主义</h2></div><a class="more-button" href="#patriotism">查看更多</a></div><ul class="card-list">
+      <li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-6.svg" alt="初心与使命系列"></div><div class="course-text"><p class="course-title">第一集 初心与使命系列：建党伟业</p><p class="course-desc">从五四运动到建党伟业，理解初心与使命的时代意义。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-5.svg" alt="中国特色社会主义新时代"></div><div class="course-text"><p class="course-title">如何理解中国特色社会主义进入新时代？</p><p class="course-desc">认识新时代的历史方位，思考青少年的责任与担当。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-4.svg" alt="时代楷模"></div><div class="course-text"><p class="course-title">2021时代楷模 第一期 漳州110</p><p class="course-desc">学习新时代公安队伍忠诚履职、守护人民的先进事迹。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li>
+    </ul></section>
+
+    <section class="detail-section" id="constitution" style="background:#ffeded"><div class="section-title" style="background-image:url('./xiangtan-channel/_nuxt/img/bg_moraleducation_07.3489c8a.png')"><div class="section-title-main"><img src="./xiangtan-channel/_nuxt/img/icon_constitution.2e0047a.png" alt=""><h2>宪法法制</h2></div><a class="more-button" href="#constitution">查看更多</a></div><ul class="card-list">
+      <li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-safety-1.svg" alt="宪法"></div><div class="course-text"><p class="course-title">宪法</p><p class="course-desc">了解宪法基本知识，树立尊崇宪法、学习宪法的法治意识。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-safety-2.svg" alt="民法典"></div><div class="course-text"><p class="course-title">民法典</p><p class="course-desc">从生活中的真实场景出发，认识民法典与我们的关系。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-safety-3.svg" alt="法的类别"></div><div class="course-text"><p class="course-title">法的类别</p><p class="course-desc">认识法律体系，建立规则意识与依法办事的习惯。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-safety-4.svg" alt="法制新时代"></div><div class="course-text"><p class="course-title">法制新时代</p><p class="course-desc">在校园生活中践行法治，让规则成为成长的保护线。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li>
+    </ul></section>
+
+    <section class="detail-section" id="morality" style="background:#ffeded"><div class="section-title" style="background-image:url('./xiangtan-channel/_nuxt/img/bg_moraleducation_10.c37aa39.png')"><div class="section-title-main"><img src="./xiangtan-channel/_nuxt/img/icon_moraleducation.cd3fa51.png" alt=""><h2>品德教育</h2></div><a class="more-button" href="#morality">查看更多</a></div><ul class="card-list">
+      <li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-2.svg" alt="开学第一课"></div><div class="course-text"><p class="course-title">2021开学第一课</p><p class="course-desc">以理想照亮未来，讲好党史、新中国史与奋斗故事。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-3.svg" alt="礼赞最美奋斗者"></div><div class="course-text"><p class="course-title">礼赞最美奋斗者</p><p class="course-desc">在平凡岗位创造不凡业绩，认识新时代的奋斗者。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-moral-1.svg" alt="诚信的理念与实践"></div><div class="course-text"><p class="course-title">走出诚信的危机——诚信的理念与实践</p><p class="course-desc">无论在什么岗位，都应该有责任和担当。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li>
+    </ul></section>
+
+    <section class="detail-section" id="culture" style="background:#ffeded"><div class="section-title" style="background-image:url('./xiangtan-channel/_nuxt/img/bg_moraleducation_08.05a53bf.png')"><div class="section-title-main"><img src="./xiangtan-channel/_nuxt/img/icon_traditionalculture.e506504.png" alt=""><h2>优秀传统文化</h2></div><a class="more-button" href="#culture">查看更多</a></div><ul class="card-list">
+      <li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-topic-1.svg" alt="其作始也简"></div><div class="course-text"><p class="course-title">其作始也简，其将毕也必巨</p><p class="course-desc">从经典用典中理解事物由简到繁、由易到难的发展规律。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-topic-2.svg" alt="论语的永恒启示"></div><div class="course-text"><p class="course-title">《论语》的永恒启示</p><p class="course-desc">在经典阅读中感受中华优秀传统文化的智慧与温度。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-topic-3.svg" alt="诗经及其六义"></div><div class="course-text"><p class="course-title">《诗经》及其六义</p><p class="course-desc">从诗歌与礼乐出发，走进中国古典文化的源头。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li>
+    </ul></section>
+
+    <section class="detail-section" id="ecology" style="background:#ffeded"><div class="section-title" style="background-image:url('./xiangtan-channel/_nuxt/img/bg_moraleducation_09.2f69a97.png')"><div class="section-title-main"><img src="./xiangtan-channel/_nuxt/img/icon_ecocivilization.fb716f7.png" alt=""><h2>生态文明</h2></div><a class="more-button" href="#ecology">查看更多</a></div><ul class="card-list">
+      <li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-topic-4.svg" alt="毛主席还是修补修补吧"></div><div class="course-text"><p class="course-title">毛主席：“还是修补修补吧”</p><p class="course-desc">从老一辈革命家的节俭故事，理解勤俭节约的传统美德。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-safety-1.svg" alt="绿色节俭看冬奥"></div><div class="course-text"><p class="course-title">绿色节俭看冬奥（一）</p><p class="course-desc">从冬奥场馆建设看绿色理念，学习低碳生活方式。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-safety-2.svg" alt="我有一个海洋梦"></div><div class="course-text"><p class="course-title">我有一个海洋梦</p><p class="course-desc">海洋教育专题课程，认识蓝色家园与生态保护。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li><li class="course-card"><div class="course-image"><img src="./xiangtan-channel/_nuxt/img/xiangtan-safety-3.svg" alt="环保法律法规小知识"></div><div class="course-text"><p class="course-title">环保法律法规小知识（一）</p><p class="course-desc">了解生态环境保护相关法律法规，做绿色生活的实践者。</p><div class="course-meta"><span class="views">0</span><span class="likes">0</span></div></div></li>
+    </ul></section>
+  </div></main></div>
+  <footer class="site-footer"><p><a href="#">湘ICP备12010102号-4</a>&nbsp;&nbsp;&nbsp;&nbsp;指导单位：湖南省教育厅</p><p>本网站由湖南省教育厅信息中心承办 | 联系电话：0731-85357667</p><p>技术服务（湖南教育音像电子出版社）电话：0731-84390585、84390675、84390175 | 咨询时间：工作日8:30至17:30</p></footer>
+<script>
+  document.querySelectorAll('.nav-list a').forEach(function (link) {
+    if (link.textContent.trim() === '应用服务') link.href = './application-services.html';
+  });
+</script>
+<script>
+  (function () {
+    var imageRoot = './xiangtan-channel/_nuxt/img/';
+    var courseCovers = [
+      'resource-course-cover-01.png',
+      'resource-course-cover-02.png',
+      'resource-course-cover-03.png',
+      'resource-course-cover-04.png',
+      'resource-course-cover-05.png'
+    ];
+    document.querySelectorAll('.course-card .course-image img').forEach(function (image,index) {
+      image.src = imageRoot + courseCovers[index % courseCovers.length];
+    });
+    var categories = {
+      successor: {
+        title: '我是接班人',
+        items: [
+          ['师说：与AI同行', 'xiangtan-moral-1.svg', '湖南省教育厅', 642, 64, 12, 4.9],
+          ['一心向着共产党', 'xiangtan-moral-2.svg', '湖南省教育厅', 267862, 72, 11, 4.9],
+          ['芳草地 红领巾', 'xiangtan-moral-3.svg', '湖南省少工委', 23367, 165, 10, 4.8],
+          ['无毒青春 筑梦未来', 'xiangtan-moral-4.svg', '湖南省教育厅', 112008, 135, 9, 4.8],
+          ['我是追光好少年', 'xiangtan-moral-5.svg', '湖南省教育厅', 16725, 99, 8, 4.7],
+          ['我们超少年', 'xiangtan-moral-6.svg', '湖南省教育厅', 19548, 107, 7, 4.7],
+          ['种下一颗金种子', 'xiangtan-moral-1.svg', '湖南省教育厅', 87555, 92, 6, 4.6],
+          ['“1”起动起来', 'xiangtan-moral-2.svg', '湖南省教育厅', 6374, 86, 5, 4.6],
+          ['AI新年味', 'xiangtan-moral-3.svg', '湘潭市教育局', 13223, 77, 4, 4.5],
+          ['守护我们的数字足迹', 'xiangtan-moral-4.svg', '湘潭市教育局', 70028, 101, 3, 4.5],
+          ['当“燃”是哪吒', 'xiangtan-moral-5.svg', '湘潭市教育局', 2151, 0, 2, 4.4],
+          ['长成参天大树', 'xiangtan-moral-6.svg', '湘潭市教育局', 34844, 66, 1, 4.4]
+        ]
+      },
+      'new-ideas': {
+        title: '学习新思想',
+        items: [
+          ['美丽中国是我家', 'xiangtan-moral-5.svg', '湖南省教育厅', 2137, 0, 12, 4.8],
+          ['我自豪 我是中国人', 'xiangtan-moral-6.svg', '湖南省教育厅', 181, 0, 11, 4.6],
+          ['没有共产党就没有新中国', 'xiangtan-safety-1.svg', '湖南省教育厅', 100, 0, 10, 4.6],
+          ['把青春华章写在祖国大地上', 'xiangtan-safety-2.svg', '湘潭市教育局', 5260, 18, 9, 4.7],
+          ['新时代的中国少年', 'xiangtan-safety-3.svg', '湘潭市教育局', 3905, 12, 8, 4.5],
+          ['一起向未来', 'xiangtan-safety-4.svg', '湖南省教育厅', 7812, 31, 7, 4.8]
+        ]
+      },
+      future: {
+        title: '未来建设者',
+        items: [
+          ['职业生涯规划师', 'xiangtan-topic-1.svg', '湘潭市教育局', 7, 1, 12, 4.3],
+          ['老年人能力评估师', 'xiangtan-topic-2.svg', '湘潭市教育局', 0, 0, 11, 4.2],
+          ['兽医', 'xiangtan-topic-3.svg', '湘潭市教育局', 0, 0, 10, 4.2],
+          ['文字编辑', 'xiangtan-topic-4.svg', '湘潭市教育局', 0, 0, 9, 4.1],
+          ['人工智能训练师', 'xiangtan-topic-5.svg', '湘潭市教育局', 218, 5, 8, 4.6],
+          ['无人机驾驶员', 'xiangtan-topic-6.svg', '湘潭市教育局', 156, 3, 7, 4.5]
+        ]
+      },
+      health: {
+        title: '心理与健康',
+        items: [
+          ['学校篇：学校也有超能力', 'xiangtan-safety-3.svg', '湖南省教育厅', 4944, 0, 12, 4.7],
+          ['家长篇：挡住“熊”孩子的拳头', 'xiangtan-safety-4.svg', '湖南省教育厅', 7165, 0, 11, 4.7],
+          ['学生篇：不做沉默的受害者', 'xiangtan-moral-4.svg', '湖南省教育厅', 4903, 0, 10, 4.6],
+          ['总科普篇：不让一个孩子受伤', 'xiangtan-moral-5.svg', '湖南省教育厅', 3636, 0, 9, 4.6],
+          ['给心灵放个假', 'xiangtan-moral-6.svg', '湘潭市教育局', 1442, 6, 8, 4.5],
+          ['做自己的情绪小主人', 'xiangtan-safety-1.svg', '湘潭市教育局', 1325, 4, 7, 4.5]
+        ]
+      },
+      'party-history': {
+        title: '党史学习',
+        items: [
+          ['“八一建军节”的由来', 'xiangtan-moral-3.svg', '湘潭市教育局', 1022, 12, 12, 4.8],
+          ['1949年：新中国成立', 'xiangtan-moral-2.svg', '湘潭市教育局', 2037, 20, 11, 4.8],
+          ['“两弹一星”先进群体', 'xiangtan-moral-1.svg', '湘潭市教育局', 1650, 16, 10, 4.7],
+          ['红船精神永放光芒', 'xiangtan-moral-4.svg', '湖南省教育厅', 3190, 25, 9, 4.7]
+        ]
+      },
+      patriotism: {
+        title: '爱国主义',
+        items: [
+          ['初心与使命：建党伟业', 'xiangtan-moral-6.svg', '湖南省教育厅', 2437, 17, 12, 4.8],
+          ['中国特色社会主义新时代', 'xiangtan-moral-5.svg', '湖南省教育厅', 1902, 13, 11, 4.7],
+          ['时代楷模：漳州110', 'xiangtan-moral-4.svg', '湖南省教育厅', 801, 6, 10, 4.6],
+          ['我和我的祖国', 'xiangtan-moral-3.svg', '湘潭市教育局', 4320, 30, 9, 4.8]
+        ]
+      },
+      constitution: {
+        title: '宪法法制',
+        items: [
+          ['宪法', 'xiangtan-safety-1.svg', '湘潭市教育局', 1680, 9, 12, 4.7],
+          ['民法典', 'xiangtan-safety-2.svg', '湘潭市教育局', 1420, 8, 11, 4.6],
+          ['法的类别', 'xiangtan-safety-3.svg', '湘潭市教育局', 968, 4, 10, 4.5],
+          ['法治新时代', 'xiangtan-safety-4.svg', '湘潭市教育局', 1210, 5, 9, 4.6]
+        ]
+      },
+      morality: {
+        title: '品德教育',
+        items: [
+          ['2021开学第一课', 'xiangtan-moral-2.svg', '湖南省教育厅', 3280, 22, 12, 4.8],
+          ['礼赞最美奋斗者', 'xiangtan-moral-3.svg', '湖南省教育厅', 2105, 14, 11, 4.7],
+          ['诚信的理念与实践', 'xiangtan-moral-1.svg', '湘潭市教育局', 886, 7, 10, 4.5],
+          ['劳动创造幸福生活', 'xiangtan-moral-4.svg', '湘潭市教育局', 1540, 10, 9, 4.6]
+        ]
+      },
+      culture: {
+        title: '优秀传统文化',
+        items: [
+          ['其作始也简，其将毕也必巨', 'xiangtan-topic-1.svg', '湖南省教育厅', 812, 4, 12, 4.6],
+          ['《论语》的永恒启示', 'xiangtan-topic-2.svg', '湖南省教育厅', 1260, 8, 11, 4.7],
+          ['《诗经》及其六义', 'xiangtan-topic-3.svg', '湖南省教育厅', 945, 5, 10, 4.5],
+          ['我们的节日与习俗', 'xiangtan-topic-4.svg', '湘潭市教育局', 1740, 11, 9, 4.7]
+        ]
+      },
+      ecology: {
+        title: '生态文明',
+        items: [
+          ['毛主席：“还是修补修补吧”', 'xiangtan-topic-4.svg', '湖南省教育厅', 741, 3, 12, 4.5],
+          ['绿色节俭看冬奥', 'xiangtan-safety-1.svg', '湖南省教育厅', 1168, 6, 11, 4.6],
+          ['我有一个海洋梦', 'xiangtan-safety-2.svg', '湘潭市教育局', 930, 5, 10, 4.6],
+          ['环保法律法规小知识', 'xiangtan-safety-3.svg', '湘潭市教育局', 660, 2, 9, 4.4]
+        ]
+      }
+    };
+
+    Object.keys(categories).forEach(function (key) {
+      categories[key].items = categories[key].items.map(function (item) {
+        return { title: item[0], image: item[1], org: item[2], views: item[3], likes: item[4], updated: item[5], rating: item[6] };
+      });
+    });
+
+    var list = document.getElementById('moral-resource-list');
+    var count = document.getElementById('moral-list-count');
+    var searchForm = document.getElementById('moral-search-form');
+    var searchInput = document.getElementById('moral-search-input');
+    var activeCategory = 'successor';
+    var activeSort = 'default';
+    var searchQuery = '';
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, function (character) {
+        return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[character];
+      });
+    }
+
+    function icon(name) {
+      var viewBox = name === 'institution' ? '0 0 1059 1024' : '0 0 1024 1024';
+      return '<svg viewBox="' + viewBox + '" aria-hidden="true" focusable="false"><use href="#moral-icon-' + name + '"></use></svg>';
+    }
+
+    function renderCards() {
+      var data = categories[activeCategory];
+      var items = data.items.slice();
+      if (searchQuery) {
+        items = items.filter(function (item) {
+          var keyword = searchQuery.toLowerCase();
+          return item.title.toLowerCase().indexOf(keyword) !== -1 || item.org.toLowerCase().indexOf(keyword) !== -1;
+        });
+      }
+      if (activeSort === 'updated') items.sort(function (a, b) { return b.updated - a.updated; });
+      if (activeSort === 'views-asc') items.sort(function (a, b) { return a.views - b.views; });
+      if (activeSort === 'views-desc') items.sort(function (a, b) { return b.views - a.views; });
+      list.innerHTML = items.map(function (item,index) {
+        var summary = '围绕“' + item.title + '”开展专题学习，在课程学习与实践体验中提升综合素养。';
+        var playbackEntry = activeCategory === 'successor' && activeSort === 'default' && !searchQuery && index === 0;
+        return '<article class="moral-resource-card" tabindex="0"' + (playbackEntry ? ' data-playback-entry="true" role="link" aria-label="播放课程：' + escapeHtml(item.title) + '"' : '') + '><div class="moral-resource-cover"><img src="' + imageRoot + courseCovers[index % courseCovers.length] + '" alt="' + escapeHtml(item.title) + '"></div><div class="moral-resource-body"><h2 class="moral-resource-title">' + escapeHtml(item.title) + '</h2><p class="moral-resource-summary">' + escapeHtml(summary) + '</p><p class="moral-resource-org">' + icon('institution') + '<span>' + escapeHtml(item.org) + '</span></p><div class="moral-resource-stats"><span class="moral-resource-stat moral-resource-view">' + icon('view') + item.views + '</span><span class="moral-resource-stat moral-resource-like">' + icon('like') + item.likes + '</span></div></div></article>';
+      }).join('');
+      count.textContent = items.length;
+    }
+
+    document.querySelectorAll('.moral-category').forEach(function (button) {
+      button.addEventListener('click', function () {
+        activeCategory = button.getAttribute('data-category');
+        document.querySelectorAll('.moral-category').forEach(function (item) { item.classList.toggle('active', item === button); });
+        activeSort = 'default';
+        searchQuery = '';
+        searchInput.value = '';
+        document.querySelectorAll('.moral-sort button').forEach(function (item) { item.classList.toggle('active', item.getAttribute('data-sort') === activeSort); });
+        renderCards();
+      });
+    });
+
+    document.querySelectorAll('.moral-sort button').forEach(function (button) {
+      button.addEventListener('click', function () {
+        activeSort = button.getAttribute('data-sort');
+        document.querySelectorAll('.moral-sort button').forEach(function (item) { item.classList.toggle('active', item === button); });
+        renderCards();
+      });
+    });
+
+    searchForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      searchQuery = searchInput.value.trim();
+      renderCards();
+    });
+
+    document.querySelectorAll('.moral-page-button:not([disabled])').forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (!/^\d+$/.test(button.textContent)) return;
+        document.querySelectorAll('.moral-page-button').forEach(function (item) { item.classList.toggle('active', item === button); });
+      });
+    });
+
+    document.querySelectorAll('.course-meta .views, .course-meta .likes').forEach(function (item) {
+      item.insertAdjacentHTML('afterbegin', icon(item.classList.contains('views') ? 'view' : 'like'));
+    });
+
+    list.addEventListener('click', function (event) {
+      var card = event.target.closest('[data-playback-entry="true"]');
+      if (!card) return;
+      var title = card.querySelector('.moral-resource-title').textContent.trim();
+      var institution = card.querySelector('.moral-resource-org span').textContent.trim();
+      window.location.href = './course-playback.html?title=' + encodeURIComponent(title) + '&institution=' + encodeURIComponent(institution);
+    });
+    list.addEventListener('keydown', function (event) {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      var card = event.target.closest('[data-playback-entry="true"]');
+      if (!card) return;
+      event.preventDefault();
+      card.click();
+    });
+
+    renderCards();
+  }());
+</script>
+<script>
+  document.querySelectorAll('.nav-list a').forEach(function (link) {
+    if (link.textContent.trim() === '人工智能') link.href = './ai-education.html';
+  });
+</script>
+  <script>document.querySelectorAll('.nav-list a').forEach(function(link){if(link.textContent.trim()==='市域服务')link.href='./city-services.html'});</script>
+</body>
+</html>
