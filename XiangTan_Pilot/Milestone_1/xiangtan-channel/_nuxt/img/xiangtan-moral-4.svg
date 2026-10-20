@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="316" viewBox="0 0 560 316">
+  <defs><linearGradient id="g" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#19a995"/><stop offset="1" stop-color="#8de1cf"/></linearGradient></defs>
+  <rect width="560" height="316" rx="18" fill="url(#g)"/><path d="M394 157c0-39 32-71 71-71s71 32 71 71-32 71-71 71-71-32-71-71z" fill="#fff" opacity=".16"/><path d="M465 111v91M419 157h92" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M410 225c20 21 46 32 77 32s57-11 77-32" fill="none" stroke="#fff" stroke-width="7" opacity=".9"/>
+  <text x="36" y="88" fill="#fff" font-size="34" font-weight="700" font-family="Microsoft YaHei, sans-serif">心理健康</text><text x="38" y="126" fill="#fff" font-size="18" font-family="Microsoft YaHei, sans-serif" opacity=".92">照见内心 · 温暖成长</text>
+  <path d="M77 192c0-28 22-50 50-50s50 22 50 50v42H77z" fill="#fff" opacity=".9"/><circle cx="127" cy="136" r="20" fill="#fff" opacity=".9"/>
+</svg>

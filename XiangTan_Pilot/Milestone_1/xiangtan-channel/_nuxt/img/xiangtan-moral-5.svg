@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="316" viewBox="0 0 560 316">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7251c9"/><stop offset="1" stop-color="#c8a6f4"/></linearGradient></defs>
+  <rect width="560" height="316" rx="18" fill="url(#g)"/><path d="M398 90h132l-18 25 18 25H398zM398 139h132l-18 25 18 25H398z" fill="#fff" opacity=".28"/><path d="M417 96h92M417 145h92" stroke="#fff" stroke-width="6" opacity=".9"/>
+  <text x="36" y="88" fill="#fff" font-size="34" font-weight="700" font-family="Microsoft YaHei, sans-serif">传统文化</text><text x="38" y="126" fill="#fff" font-size="18" font-family="Microsoft YaHei, sans-serif" opacity=".92">在经典中感受文化的力量</text>
+  <circle cx="112" cy="204" r="48" fill="#fff" opacity=".9"/><path d="M83 205h58M112 176v58" stroke="#7251c9" stroke-width="7"/><circle cx="112" cy="204" r="17" fill="none" stroke="#7251c9" stroke-width="5"/>
+</svg>

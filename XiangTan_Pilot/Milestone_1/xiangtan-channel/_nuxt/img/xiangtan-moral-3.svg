@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="316" viewBox="0 0 560 316">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f58d35"/><stop offset="1" stop-color="#ffd56a"/></linearGradient></defs>
+  <rect width="560" height="316" rx="18" fill="url(#g)"/><path d="M385 202c0-54 44-98 98-98s77 44 77 98" fill="none" stroke="#fff" stroke-width="9" opacity=".5"/><path d="M411 210c20-54 81-73 127-38" fill="none" stroke="#fff" stroke-width="8"/>
+  <path d="M438 90v108M428 102h20" stroke="#fff" stroke-width="8"/><path d="M438 89c24 0 44 10 61 24" fill="none" stroke="#fff" stroke-width="7"/>
+  <text x="36" y="88" fill="#fff" font-size="34" font-weight="700" font-family="Microsoft YaHei, sans-serif">家国情怀</text><text x="38" y="126" fill="#fff" font-size="18" font-family="Microsoft YaHei, sans-serif" opacity=".92">把家国故事讲给孩子听</text>
+  <path d="M78 215c0-30 24-54 54-54s54 24 54 54" fill="none" stroke="#fff" stroke-width="9"/><circle cx="132" cy="150" r="22" fill="#fff" opacity=".9"/>
+</svg>

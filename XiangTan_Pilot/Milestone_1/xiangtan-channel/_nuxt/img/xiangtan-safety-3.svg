@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="316" viewBox="0 0 560 316">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ee7435"/><stop offset="1" stop-color="#ffc665"/></linearGradient></defs>
+  <rect width="560" height="316" rx="18" fill="url(#g)"/><path d="M458 75l68 118H390z" fill="#fff" opacity=".23"/><path d="M458 108v43M458 170v8" stroke="#fff" stroke-width="10" stroke-linecap="round"/><circle cx="458" cy="239" r="51" fill="none" stroke="#fff" stroke-width="8" opacity=".55"/><path d="M458 208v62M427 239h62" stroke="#fff" stroke-width="7" opacity=".9"/>
+  <text x="36" y="88" fill="#fff" font-size="34" font-weight="700" font-family="Microsoft YaHei, sans-serif">应急演练</text><text x="38" y="126" fill="#fff" font-size="18" font-family="Microsoft YaHei, sans-serif" opacity=".92">关键时刻 · 正确应对</text><path d="M80 200h74M80 226h52" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".9"/>
+</svg>

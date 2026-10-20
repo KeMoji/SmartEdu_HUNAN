@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="316" viewBox="0 0 560 316">
+  <defs><linearGradient id="g" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#5c42ba"/><stop offset="1" stop-color="#a995f0"/></linearGradient></defs>
+  <rect width="560" height="316" rx="18" fill="url(#g)"/><rect x="393" y="78" width="126" height="122" rx="17" fill="#fff" opacity=".22"/><rect x="416" y="119" width="80" height="66" rx="10" fill="none" stroke="#fff" stroke-width="8"/><path d="M433 119v-18c0-22 17-39 39-39s39 17 39 39v18" fill="none" stroke="#fff" stroke-width="8"/><circle cx="456" cy="151" r="8" fill="#fff"/><path d="M456 151v17" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+  <text x="36" y="88" fill="#fff" font-size="34" font-weight="700" font-family="Microsoft YaHei, sans-serif">网络安全</text><text x="38" y="126" fill="#fff" font-size="18" font-family="Microsoft YaHei, sans-serif" opacity=".92">识别风险 · 保护隐私</text><path d="M78 212h90M78 235h65" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".9"/>
+</svg>

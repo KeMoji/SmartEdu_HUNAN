@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8f0ff"/><stop offset="1" stop-color="#78c5e7"/></linearGradient>
+    <linearGradient id="badge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#67d0bf"/><stop offset="1" stop-color="#238eaf"/></linearGradient>
+  </defs>
+  <ellipse cx="48" cy="83" rx="31" ry="5" fill="#76a9df" opacity=".2"/>
+  <rect x="18" y="17" width="58" height="58" rx="16" fill="url(#tile)" opacity=".76"/>
+  <rect x="24" y="12" width="55" height="58" rx="16" fill="#f7fcff" opacity=".9"/>
+  <circle cx="49" cy="45" r="21" fill="url(#badge)" stroke="#2e8daa" stroke-width="1.5"/>
+  <path d="m37 45 8 8 16-18" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M49 21v8M25 45h8M65 45h8" stroke="#f3a24e" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="49" cy="45" r="27" fill="none" stroke="#bde8f1" stroke-width="1.5" stroke-dasharray="3 5"/>
+</svg>

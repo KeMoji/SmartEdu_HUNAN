@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 112">
+  <defs><linearGradient id="e" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0f0"/><stop offset="1" stop-color="#ffc2c2"/></linearGradient></defs>
+  <rect width="320" height="112" rx="12" fill="url(#e)"/>
+  <circle cx="56" cy="56" r="30" fill="#d85b6b"/><path d="M42 46h28v22H42zM48 41v10M64 41v10M47 58h18" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+  <text x="104" y="63" fill="#ac3d50" font-size="25" font-weight="700" font-family="Microsoft YaHei, sans-serif">县市区服务</text>
+</svg>
