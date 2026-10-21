@@ -164,6 +164,28 @@
     .lesson-resource:hover { background:#f4f8fc; }
     .lesson-resource.active { color:#243547; background:#dcefff; }
     .resource-file-icon { flex:0 0 16px; width:16px; height:16px; display:flex; align-items:center; justify-content:center; color:#8c97a4; }
+    .resource-list > li > .lesson-resource > .resource-file-icon { display:none; }
+    .resource-catalog { margin:0; padding:0; list-style:none; }
+    .resource-catalog-section { margin:0; padding:0; }
+    .resource-type-heading { min-height:40px; margin:0; padding:0 12px; display:flex; align-items:center; color:#111; background:#f7f7f7; font-size:14px; font-weight:400; line-height:20px; }
+    .resource-catalog-entry { flex:none; width:100%; height:auto; min-height:42px; padding:0 20px; display:flex; align-items:center; gap:8px; border:0; color:#8a8a8a; background:#fff; font-family:inherit; font-size:12px; line-height:18px; text-align:left; cursor:pointer; }
+    .resource-catalog-icon { flex:0 0 16px; width:16px; height:16px; color:#89939e; }
+    .resource-catalog-icon svg { display:block; width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+    .resource-catalog-entry.active .resource-catalog-icon { color:#2868e8; }
+    .resource-catalog-entry:hover { background:#f4f8fc; }
+    .resource-catalog-entry.active { color:#2868e8; background:#e8f0ff; }
+    .resource-catalog-empty { min-height:42px; padding:0 20px; display:flex; align-items:center; color:#a0a0a0; background:#fff; font-size:12px; }
+    .resource-type-toggle { width:100%; justify-content:space-between; border:0; font-family:inherit; text-align:left; cursor:pointer; }
+    .resource-type-chevron { flex:0 0 16px; width:16px; height:16px; color:#9aa6b6; fill:currentColor; transform:rotate(90deg); transition:transform .15s; }
+    .resource-type-chevron path { fill:currentColor; }
+    .resource-type-toggle[aria-expanded="true"] .resource-type-chevron { transform:rotate(270deg); }
+    .resource-catalog-sublist { display:none; padding:0 0 4px; }
+    .resource-catalog-sublist.open { display:flex; flex-direction:column; }
+    .resource-catalog-subentry { min-height:40px; padding:0 12px 0 24px; display:flex; align-items:center; gap:8px; border:0; color:#617080; background:#fff; font-family:inherit; font-size:12px; text-align:left; cursor:pointer; }
+    .resource-catalog-subentry:hover { background:#f4f8fc; }
+    .resource-catalog-subentry.active { color:#2868e8; background:#e8f0ff; }
+    .resource-catalog-subentry .resource-catalog-icon { color:#89939e; }
+    .resource-list { display:none; }
     .resource-file-icon svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.35; }
     .resource-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .resource-format { margin-left:4px; color:#7d8996; }
@@ -277,13 +299,11 @@
         <aside class="resource-panel" aria-label="课时资源">
           <h2 class="resource-panel-title">课时资源</h2>
           <ul class="resource-list">
-            <li><button class="lesson-resource active" type="button" data-resource="视频课程"><span class="resource-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span><span class="resource-name">视频课程</span><span class="resource-status" aria-label="播放中"></span></button></li>
-            <li><button class="lesson-resource" type="button" data-resource="课件"><span class="resource-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h6"></path></svg></span><span class="resource-name">课件 <span class="resource-format">（ppt展示形式）</span></span><span class="resource-status complete" aria-label="已完成"></span></button></li>
-            <li><button class="lesson-resource" type="button" data-resource="说课"><span class="resource-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 13h2l2-2v6l-2-2H8zM15 12a4 4 0 0 1 0 4"></path></svg></span><span class="resource-name">说课 <span class="resource-format">（音频展现形式）</span></span><span class="resource-status progress" aria-label="学习中"></span></button></li>
-            <li><button class="lesson-resource" type="button" data-resource="学习任务单"><span class="resource-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h8"></path></svg></span><span class="resource-name">学习任务单 <span class="resource-format">（文档展现形式）</span></span></button></li>
-            <li><button class="lesson-resource" type="button" data-resource="教学设计"><span class="resource-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h8"></path></svg></span><span class="resource-name">教学设计</span></button></li>
+            <li><button class="lesson-resource active" type="button" data-resource="教学视频"><span class="resource-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span><span class="resource-name">教学视频</span><span class="resource-status" aria-label="播放中"></span></button></li>
+            <li><button class="lesson-resource" type="button" data-resource="教学课件"><span class="resource-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h6"></path></svg></span><span class="resource-name">教学课件</span><span class="resource-status complete" aria-label="已完成"></span></button></li>
+            <li><button class="lesson-resource" type="button" data-resource="学习任务"><span class="resource-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h8"></path></svg></span><span class="resource-name">学习任务</span></button></li>
             <li><button class="lesson-resource" type="button" data-resource="作业练习"><span class="resource-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h8"></path><text x="7" y="20" font-size="5" fill="currentColor" stroke="none">XLS</text></svg></span><span class="resource-name">作业练习 <span class="resource-format">（excel展现形式）</span></span></button></li>
-            <li><button class="lesson-resource resource-group-toggle" id="resource-group-toggle" type="button" aria-expanded="false"><span class="resource-file-icon"><svg class="icon" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M768 256v384c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V256c0-17.7 14.3-32 32-32h576c17.7 0 32 14.3 32 32z m0-96H128c-35.3 0-64 28.7-64 64v448c0 35.3 28.7 64 64 64h640c35.3 0 64-28.7 64-64V224c0-35.3-28.7-64-64-64z" fill="#8a8a8a"/><path d="M896 384v384c0 17.7-14.3 32-32 32H287.5c-17.4 0-31.5-14.1-31.5-31.5h-64V800c0 35.3 28.7 64 64 64h640c35.3 0 64-28.7 64-64V352c0-35.3-28.7-64-64-64h-32.2v64h0.2c17.7 0 32 14.3 32 32zM704 384H416c-17.7 0-32-14.3-32-32s14.3-32 32-32h288c17.7 0 32 14.3 32 32s-14.3 32-32 32zM320 384H192c-17.7 0-32-14.3-32-32s14.3-32 32-32h128c17.7 0 32 14.3 32 32s-14.3 32-32 32zM320 576H192c-17.7 0-32-14.3-32-32s14.3-32 32-32h128c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="#8a8a8a"/><path d="M704 577H416c-17.7 0-32-14.3-32-32s14.3-32 32-32h288c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="#8a8a8a"/></svg></span><span class="resource-name">拓展资料</span><svg class="resource-chevron" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"/></svg></button>
+            <li><button class="lesson-resource resource-group-toggle" id="resource-group-toggle" type="button" aria-expanded="false"><span class="resource-file-icon"><svg class="icon" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M768 256v384c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V256c0-17.7 14.3-32 32-32h576c17.7 0 32 14.3 32 32z m0-96H128c-35.3 0-64 28.7-64 64v448c0 35.3 28.7 64 64 64h640c35.3 0 64-28.7 64-64V224c0-35.3-28.7-64-64-64z" fill="#8a8a8a"/><path d="M896 384v384c0 17.7-14.3 32-32 32H287.5c-17.4 0-31.5-14.1-31.5-31.5h-64V800c0 35.3 28.7 64 64 64h640c35.3 0 64-28.7 64-64V352c0-35.3-28.7-64-64-64h-32.2v64h0.2c17.7 0 32 14.3 32 32zM704 384H416c-17.7 0-32-14.3-32-32s14.3-32 32-32h288c17.7 0 32 14.3 32 32s-14.3 32-32 32zM320 384H192c-17.7 0-32-14.3-32-32s14.3-32 32-32h128c17.7 0 32 14.3 32 32s-14.3 32-32 32zM320 576H192c-17.7 0-32-14.3-32-32s14.3-32 32-32h128c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="#8a8a8a"/><path d="M704 577H416c-17.7 0-32-14.3-32-32s14.3-32 32-32h288c17.7 0 32 14.3 32 32s-14.3 32-32 32z" fill="#8a8a8a"/></svg></span><span class="resource-name">拓展视频</span><svg class="resource-chevron" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M352 192l320 320-320 320" style="fill:none;stroke:#89939e;stroke-width:96;stroke-linecap:round;stroke-linejoin:round"/></svg></button>
               <div class="resource-sublist" id="resource-sublist">
                 <button class="lesson-resource" type="button" data-resource="压缩包文件"><span class="resource-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M12 8v2m0 2v2m0 2v2"></path></svg></span><span class="resource-name">压缩包文件</span></button>
                 <button class="lesson-resource" type="button" data-resource="拓展资源2"><span class="resource-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h8"></path></svg></span><span class="resource-name">拓展资源2 <span class="resource-format">（h5呈现形式）</span></span></button>
@@ -291,6 +311,22 @@
                 <button class="lesson-resource" type="button" data-resource="拓展资源4"><span class="resource-file-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 4h7v7M20 4l-9 9"></path><path d="M17 13v6H4V6h6"></path></svg></span><span class="resource-name">拓展资源4 <span class="resource-format">（外链展现形式）</span></span></button>
               </div>
             </li>
+            <li><button class="lesson-resource" type="button" data-resource="教学试卷"><span class="resource-name">教学试卷</span></button></li>
+            <li><button class="lesson-resource" type="button" data-resource="教学资源"><span class="resource-name">教学资源</span></button></li>
+          </ul>
+          <ul class="resource-catalog" aria-label="课程资源列表">
+            <li class="resource-catalog-section"><h3 class="resource-type-heading">教学视频</h3><button class="lesson-resource resource-catalog-entry active" type="button" data-resource="教学视频"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span><span>1 《我是中国人》</span></button></li>
+            <li class="resource-catalog-section"><h3 class="resource-type-heading">教学课件</h3><button class="lesson-resource resource-catalog-entry" type="button" data-resource="教学课件"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h6"></path></svg></span><span>1 《我是中国人》-课件-pptx</span></button></li>
+            <li class="resource-catalog-section"><h3 class="resource-type-heading">学习任务</h3><button class="lesson-resource resource-catalog-entry" type="button" data-resource="学习任务"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h8"></path></svg></span><span>1 《我是中国人》-学习任务-docx</span></button></li>
+            <li class="resource-catalog-section"><h3 class="resource-type-heading">作业练习</h3><button class="lesson-resource resource-catalog-entry" type="button" data-resource="作业练习"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h8"></path></svg></span><span>1 《我是中国人》-作业练习-docx</span></button></li>
+            <li class="resource-catalog-section"><button class="resource-type-heading resource-type-toggle" id="resource-catalog-toggle" type="button" aria-expanded="false"><span>拓展视频</span><svg class="resource-type-chevron" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6-9.6-25.6-9.6-35.2 0 9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"/></svg></button><div class="resource-catalog-sublist" id="resource-catalog-sublist">
+              <button class="lesson-resource resource-catalog-subentry" type="button" data-resource="压缩包文件"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M12 8v2m0 2v2m0 2v2"></path></svg></span><span>压缩包文件</span></button>
+              <button class="lesson-resource resource-catalog-subentry" type="button" data-resource="拓展资源2"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h8"></path></svg></span><span>拓展资源2 <span class="resource-format">（h5呈现形式）</span></span></button>
+              <button class="lesson-resource resource-catalog-subentry" type="button" data-resource="拓展资源3"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 17l3-3 2 2 2-3 2 4z"></path></svg></span><span>拓展资源3 <span class="resource-format">（图片展现形式）</span></span></button>
+              <button class="lesson-resource resource-catalog-subentry" type="button" data-resource="拓展资源4"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 4h7v7M20 4l-9 9"></path><path d="M17 13v6H4V6h6"></path></svg></span><span>拓展资源4 <span class="resource-format">（外链展现形式）</span></span></button>
+            </div></li>
+            <li class="resource-catalog-section"><h3 class="resource-type-heading">教学试卷</h3><div class="resource-catalog-empty">暂无数据</div></li>
+            <li class="resource-catalog-section"><h3 class="resource-type-heading">教学资源</h3><div class="resource-catalog-empty">暂无数据</div></li>
           </ul>
         </aside>
       </div>
@@ -421,13 +457,18 @@
         resource.addEventListener('click', function () {
           document.querySelectorAll('.lesson-resource[data-resource]').forEach(function (item) { item.classList.remove('active'); });
           resource.classList.add('active');
-          if (resource.getAttribute('data-resource') !== '视频课程') showToast('已选择' + resource.getAttribute('data-resource'));
+          if (resource.getAttribute('data-resource') !== '教学视频') showToast('已选择' + resource.getAttribute('data-resource'));
         });
       });
       document.getElementById('resource-group-toggle').addEventListener('click', function () {
         var expanded = this.getAttribute('aria-expanded') !== 'true';
         this.setAttribute('aria-expanded', String(expanded));
         document.getElementById('resource-sublist').classList.toggle('open', expanded);
+      });
+      document.getElementById('resource-catalog-toggle').addEventListener('click', function () {
+        var expanded = this.getAttribute('aria-expanded') !== 'true';
+        this.setAttribute('aria-expanded', String(expanded));
+        document.getElementById('resource-catalog-sublist').classList.toggle('open', expanded);
       });
       document.getElementById('course-description-toggle').addEventListener('click', function () {
         var expanded = this.getAttribute('aria-expanded') !== 'true';
