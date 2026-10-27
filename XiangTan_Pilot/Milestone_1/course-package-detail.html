@@ -168,7 +168,7 @@
     .resource-catalog { margin:0; padding:0; list-style:none; }
     .resource-catalog-section { margin:0; padding:0; }
     .resource-type-heading { min-height:40px; margin:0; padding:0 12px; display:flex; align-items:center; color:#111; background:#f7f7f7; font-size:14px; font-weight:400; line-height:20px; }
-    .resource-catalog-entry { flex:none; width:100%; height:auto; min-height:42px; padding:0 20px; display:flex; align-items:center; gap:8px; border:0; color:#8a8a8a; background:#fff; font-family:inherit; font-size:12px; line-height:18px; text-align:left; cursor:pointer; }
+    .resource-catalog-entry { flex:none; width:100%; height:auto; min-height:42px; padding:0 16px 0 20px; display:flex; align-items:center; gap:8px; border:0; color:#8a8a8a; background:#fff; font-family:inherit; font-size:12px; line-height:18px; text-align:left; cursor:pointer; }
     .resource-catalog-icon { flex:0 0 16px; width:16px; height:16px; color:#89939e; }
     .resource-catalog-icon svg { display:block; width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
     .resource-catalog-entry.active .resource-catalog-icon { color:#2868e8; }
@@ -189,7 +189,7 @@
     .resource-file-icon svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.35; }
     .resource-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .resource-format { margin-left:4px; color:#7d8996; }
-    .resource-status { flex:0 0 13px; width:13px; height:13px; margin-left:auto; border-radius:50%; background:#e8ecef; }
+    .resource-status { flex:0 0 16px; width:16px; height:16px; margin-left:auto; border-radius:50%; background:#e8ecef; }
     .resource-status.complete { position:relative; background:#63bd55; }
     .resource-status.complete::after { position:absolute; top:2px; left:4px; width:4px; height:6px; border-right:1.5px solid #fff; border-bottom:1.5px solid #fff; transform:rotate(45deg); content:""; }
     .resource-status.progress { position:relative; background:conic-gradient(#60bd54 0 48%,#dbe0e5 48% 100%); }
@@ -315,9 +315,9 @@
             <li><button class="lesson-resource" type="button" data-resource="教学资源"><span class="resource-name">教学资源</span></button></li>
           </ul>
           <ul class="resource-catalog" aria-label="课程资源列表">
-            <li class="resource-catalog-section"><h3 class="resource-type-heading">教学视频</h3><button class="lesson-resource resource-catalog-entry active" type="button" data-resource="教学视频"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span><span>1 《我是中国人》</span></button></li>
-            <li class="resource-catalog-section"><h3 class="resource-type-heading">教学课件</h3><button class="lesson-resource resource-catalog-entry" type="button" data-resource="教学课件"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h6"></path></svg></span><span>1 《我是中国人》-课件-pptx</span></button></li>
-            <li class="resource-catalog-section"><h3 class="resource-type-heading">学习任务</h3><button class="lesson-resource resource-catalog-entry" type="button" data-resource="学习任务"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h8"></path></svg></span><span>1 《我是中国人》-学习任务-docx</span></button></li>
+            <li class="resource-catalog-section"><h3 class="resource-type-heading">教学视频</h3><button class="lesson-resource resource-catalog-entry active" type="button" data-resource="教学视频"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m10 8 6 4-6 4z"></path></svg></span><span>1 《我是中国人》</span><span class="resource-status" aria-label="播放中" title="播放中"></span></button></li>
+            <li class="resource-catalog-section"><h3 class="resource-type-heading">教学课件</h3><button class="lesson-resource resource-catalog-entry" type="button" data-resource="教学课件"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h6"></path></svg></span><span>1 《我是中国人》-课件-pptx</span><span class="resource-status complete" aria-label="已完成" title="已完成"></span></button></li>
+            <li class="resource-catalog-section"><h3 class="resource-type-heading">学习任务</h3><button class="lesson-resource resource-catalog-entry" type="button" data-resource="学习任务"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h8"></path></svg></span><span>1 《我是中国人》-学习任务-docx</span><span class="resource-status progress" aria-label="进行中" title="进行中"></span></button></li>
             <li class="resource-catalog-section"><h3 class="resource-type-heading">作业练习</h3><button class="lesson-resource resource-catalog-entry" type="button" data-resource="作业练习"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M8 12h8M8 16h8"></path></svg></span><span>1 《我是中国人》-作业练习-docx</span></button></li>
             <li class="resource-catalog-section"><button class="resource-type-heading resource-type-toggle" id="resource-catalog-toggle" type="button" aria-expanded="false"><span>拓展视频</span><svg class="resource-type-chevron" viewBox="0 0 1024 1024" aria-hidden="true"><path d="M761.6 489.6l-432-435.2c-9.6-9.6-25.6-9.6-35.2 0-9.6 9.6-9.6 25.6 0 35.2l416 416-416 425.6c-9.6-9.6-25.6-9.6-35.2 0 9.6 9.6-9.6 25.6 0 35.2s25.6 9.6 35.2 0l432-441.6C771.2 515.2 771.2 499.2 761.6 489.6z"/></svg></button><div class="resource-catalog-sublist" id="resource-catalog-sublist">
               <button class="lesson-resource resource-catalog-subentry" type="button" data-resource="压缩包文件"><span class="resource-catalog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 2.5h9l5 5v14H5z"></path><path d="M14 2.5v5h5M12 8v2m0 2v2m0 2v2"></path></svg></span><span>压缩包文件</span></button>
@@ -332,7 +332,7 @@
       </div>
     </div>
   </main>
-  <footer class="site-footer"><p><a href="#">湘ICP备12010102号-4</a>&nbsp;&nbsp;&nbsp;&nbsp;指导单位：湖南省教育厅</p><p>本网站由湖南省教育厅信息中心承办 | 联系电话：0731-85357667</p><p>技术服务（湖南教育音像电子出版社）电话：0731-84390585、84390675、84390175 | 咨询时间：工作日8:30至17:30</p></footer>
+  <footer class="site-footer"><p><a href="#">湘ICP备12008311号-4</a></p><p>版权所有：湘潭市电化教育馆&nbsp;&nbsp; 技术服务：湖南教育音像电子出版社</p><p>友情链接：<a href="#">湖南智慧教育平台</a></p></footer>
   <div class="detail-toast" id="detail-toast" role="status" aria-live="polite"></div>
   <script>
     (function () {

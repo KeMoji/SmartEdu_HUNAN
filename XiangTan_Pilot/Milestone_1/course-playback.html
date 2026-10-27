@@ -94,15 +94,6 @@
     .rating-stars { display:inline-flex; align-items:center; color:#ffc400; font-size:16px; letter-spacing:0; line-height:16px; }
     .lesson-info-group { min-width:0; display:flex; flex-direction:column; align-items:flex-end; justify-content:center; align-self:center; }
     .supplier-line { flex:0 0 auto; text-align:left; }
-    .lesson-staff { width:calc(100% + 326px); display:flex; align-items:stretch; gap:24px; min-width:0; margin-top:16px; padding:16px; border:1px solid #edf0f4; border-radius:8px; background:#fff; }
-    .staff-group { flex:1 1 0; min-width:0; display:flex; align-items:center; gap:16px; }
-    .staff-label { flex:0 0 48px; width:48px; min-height:48px; display:flex; align-items:center; justify-content:center; padding:4px 8px; border-radius:4px; color:#fa8c16; background:#fff7e8; font-size:14px; line-height:18px; text-align:center; }
-    .staff-group:nth-child(2) .staff-label { color:#1e62ec; background:#f0f5ff; }
-    .staff-group:nth-child(3) .staff-label { color:#8c8c8c; background:#f5f5f5; }
-    .staff-name-list { min-width:0; display:flex; flex-wrap:wrap; align-items:flex-start; gap:8px 20px; }
-    .staff-member { flex:0 0 160px; min-width:0; display:flex; flex-direction:column; gap:8px; }
-    .staff-name { color:#303742; font-size:14px; line-height:20px; white-space:nowrap; }
-    .staff-workplace { width:160px; max-width:100%; overflow:hidden; color:#8a94a3; font-size:12px; line-height:18px; text-overflow:ellipsis; white-space:nowrap; }
     .lesson-workspace { display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:6px; padding-top:8px; align-items:stretch; }
     .lesson-viewer { min-width:0; }
     .player-frame { overflow:hidden; border:1px solid #dce1e8; background:#080a0d; }
@@ -167,9 +158,7 @@
     .detail-toast.visible { opacity:1; transform:translateY(0); }
     @media (max-width: 1100px) {
       .lesson-workspace { grid-template-columns:minmax(0,1fr) 280px; }
-      .lesson-staff,.course-description { width:calc(100% + 286px); }
-      .lesson-staff { gap:16px; }
-      .staff-group { gap:10px; }
+      .course-description { width:calc(100% + 286px); }
       .course-actions { gap:16px; }
     }
   </style>
@@ -229,11 +218,6 @@
             </div>
           </div>
           <div class="download-course-row"><span class="download-course-note">感谢所有为资源建设提供资料的单位和个人，未经允许不得转载或引用</span><button class="download-course-button js-toast" type="button" data-message="课程下载已加入任务"> <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"></path></svg>下载课程</button></div>
-          <div class="lesson-staff" aria-label="授课团队">
-            <div class="staff-group"><span class="staff-label">授课<br>老师</span><div class="staff-name-list"><span class="staff-member"><span class="staff-name" id="detail-author">黎丽娜</span><span class="staff-workplace">湖南第一师范学院</span></span><span class="staff-member"><span class="staff-name">单爽娥</span><span class="staff-workplace">湖南第一师范学院</span></span></div></div>
-            <div class="staff-group"><span class="staff-label">指导<br>老师</span><div class="staff-name-list"><span class="staff-member"><span class="staff-name">卞秀娟</span><span class="staff-workplace">湖南省人民政府直属机关第二幼儿院</span></span><span class="staff-member"><span class="staff-name">仪鸿远</span><span class="staff-workplace">湖南省人民政府直属机关第二幼儿院</span></span></div></div>
-            <div class="staff-group"><span class="staff-label">团队<br>成员</span><div class="staff-name-list"><span class="staff-member"><span class="staff-name">戚丹亦</span><span class="staff-workplace">湖南省人民政府直属机关第二幼儿院</span></span><span class="staff-member"><span class="staff-name">倪欣欣</span><span class="staff-workplace">湖南省人民政府直属机关第二幼儿院</span></span></div></div>
-          </div>
           <div class="course-description" id="course-description">
             <strong>教学内容：</strong>
             <div class="course-description-copy" id="course-description-copy">
@@ -260,13 +244,12 @@
       </div>
     </div>
   </main>
-  <footer class="site-footer"><p><a href="#">湘ICP备12010102号-4</a>&nbsp;&nbsp;&nbsp;&nbsp;指导单位：湖南省教育厅</p><p>本网站由湖南省教育厅信息中心承办 | 联系电话：0731-85357667</p><p>技术服务（湖南教育音像电子出版社）电话：0731-84390585、84390675、84390175 | 咨询时间：工作日8:30至17:30</p></footer>
+  <footer class="site-footer"><p><a href="#">湘ICP备12008311号-4</a></p><p>版权所有：湘潭市电化教育馆&nbsp;&nbsp; 技术服务：湖南教育音像电子出版社</p><p>友情链接：<a href="#">湖南智慧教育平台</a></p></footer>
   <div class="detail-toast" id="detail-toast" role="status" aria-live="polite"></div>
   <script>
     (function () {
       var params = new URLSearchParams(window.location.search);
       var title = params.get('title');
-      var author = params.get('author');
       var institution = params.get('institution');
       var source = params.get('from');
       var parentLink = document.getElementById('detail-parent-link');
@@ -279,7 +262,6 @@
       if (metadataRow && courseActions) metadataRow.appendChild(courseActions);
       if (title) { document.getElementById('detail-title').textContent = title; document.title = title + ' - 课程播放详情'; }
       if (title) document.getElementById('poster-title').textContent = title;
-      if (author) document.getElementById('detail-author').textContent = author;
       if (institution) document.getElementById('detail-institution').textContent = institution.replace(/^[♜\s]+/, '');
 
       var toast = document.getElementById('detail-toast');
